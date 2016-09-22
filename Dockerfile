@@ -18,4 +18,3 @@ ADD . .
 RUN pip install -r requirements.txt
 RUN pip install -e .
 
-RUN py.test --pep8
