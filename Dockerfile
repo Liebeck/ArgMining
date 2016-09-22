@@ -1,4 +1,4 @@
-FROM pasmod/miniconder2
+FROM pasmod/miniconder3
 
 RUN apt-get update && \
 	apt-get install -y build-essential libxml2-dev libxslt-dev python-matplotlib libsm6 libxrender1 libfontconfig1 libicu-dev python-dev  && \
