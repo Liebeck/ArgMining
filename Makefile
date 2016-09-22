@@ -1,4 +1,4 @@
-name = ArgMining
+name = argmining
 registry = hub.docker.com
 
 build:
