@@ -12,8 +12,6 @@ RUN conda install -y \
   scikit-learn \
   matplotlib
 
-RUN pip install beautifulsoup4
-
 WORKDIR /var/www
 ADD . .
 RUN pip install -r requirements.txt
