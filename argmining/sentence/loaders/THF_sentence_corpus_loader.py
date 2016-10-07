@@ -6,10 +6,8 @@ import xml.etree.ElementTree as ET
 logger = logging.getLogger()
 
 
-# def parse_tree_tagger_lemma(node):
-
-
-# Todo: Write unit tests for both cases
+def parse_tree_tagger_lemma(node):
+    return None
 
 
 def load(file_path='data/THF/sentence/subtask_A_training.xml'):
