@@ -12,7 +12,7 @@ def parse_tree_tagger_lemma(node):
 
 def load(file_path='data/THF/sentence/subtask_A_training.xml'):
     """
-    Loads the THF corpus from an XML file
+    Loads the THF corpus from an XML filegit
     :param file_path: relative path to the XML file
     :return:
     """
@@ -57,8 +57,6 @@ def load(file_path='data/THF/sentence/subtask_A_training.xml'):
         # xml = '\n'.join(fp.readlines())
         # soup = BeautifulSoup(xml, 'xml')
         # print(soup)
-
-
         sentence_model = THFSentenceExport(unique_ID, label, text, tokens)
         sentences.append(sentence_model)
 
