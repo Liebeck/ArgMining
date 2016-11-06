@@ -17,7 +17,6 @@ def load(file_path='data/THF/sentence/subtaskA_train.json'):
     :return:
     """
     logger.debug(u'Parsing JSON File: {}'.format(file_path))
-
     sentences = []
     with open(file_path, encoding='utf-8') as data_file:
         data = json.load(data_file)
@@ -44,6 +43,7 @@ def load(file_path='data/THF/sentence/subtaskA_train.json'):
                                                dependencies)
             sentences.append(sentence_model)
     logger.info('Parsed {} sentences'.format(len(sentences)))
+    return sentences
 
 
 def parse_IWNLP_lemma(text):
