@@ -12,7 +12,10 @@ def parse_IWNLP_lemma(text):
 
 
 def parse_tree_tagger_lemma(text):
-    return None
+    if not text:
+        return None
+    else:
+        return text[0]
 
 
 def load(file_path='data/THF/sentence/subtaskA_train.json'):
