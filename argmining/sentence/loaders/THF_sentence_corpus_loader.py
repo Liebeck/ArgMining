@@ -15,7 +15,10 @@ def parse_tree_tagger_lemma(text):
     if not text:
         return None
     else:
-        return text[0]
+        if len(text) == 1:
+            return text[0]
+        else:
+            raise ValueError("More than one lemma is not expected")
 
 
 def load(file_path='data/THF/sentence/subtaskA_train.json'):
