@@ -2,6 +2,7 @@
 # -*- coding: UTF-8 -*-
 from argmining.models.thf_sentence_export import THFSentenceExport
 from argmining.models.token import Token
+from argmining.models.dependency import Dependency
 import logging
 import xml.etree.ElementTree as ET
 import json
@@ -23,6 +24,7 @@ def load(file_path='data/THF/sentence/subtaskA_train.json'):
         for sentence in data:
             sentence_tokens = sentence["NLP"]["Sentences"][0]["Tokens"]
             tokens = []
+            dependencies = []
             for token in sentence_tokens:
                 token_model = Token(token["TokenIndexInSentence"],
                                     token["Text"],
@@ -33,11 +35,15 @@ def load(file_path='data/THF/sentence/subtaskA_train.json'):
                                     parse_IWNLP_lemma(token["IWNLPLemma"]),
                                     parse_polarity((token.get("Polarity", None))))
                 tokens.append(token_model)
-                sentence_model = THFSentenceExport(sentence["UniqueID"], sentence["Label"], sentence["Text"], tokens)
-
-                sentences.append(sentence_model)
-                # print(json.dumps(token, indent=4, sort_keys=True))
-                logger.info('Parsed {} sentences'.format(len(sentences)))
+            dependency_tokens = sentence["NLP"]["Sentences"][0]["Dependencies"]
+            for dependency in dependency_tokens:
+                dependency_model = Dependency(dependency["TokenID"], dependency["DependencyRelation"],
+                                              dependency["DependencyHeadTokenID"])
+                dependencies.append(dependency_model)
+            sentence_model = THFSentenceExport(sentence["UniqueID"], sentence["Label"], sentence["Text"], tokens,
+                                               dependencies)
+            sentences.append(sentence_model)
+    logger.info('Parsed {} sentences'.format(len(sentences)))
 
 
 def parse_IWNLP_lemma(text):
@@ -55,5 +61,4 @@ def parse_tree_tagger_lemma(text):
 
 
 def parse_polarity(polarity):
-    print(polarity)
     return polarity
