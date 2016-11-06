@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+# -*- coding: UTF-8 -*-
 from argmining.models.thf_sentence_export import THFSentenceExport
 from argmining.models.token import Token
 import logging
@@ -5,20 +7,6 @@ import xml.etree.ElementTree as ET
 import json
 
 logger = logging.getLogger()
-
-
-def parse_IWNLP_lemma(text):
-    return None
-
-
-def parse_tree_tagger_lemma(text):
-    if not text:
-        return None
-    else:
-        if len(text) == 1:
-            return text[0]
-        else:
-            raise ValueError("More than one lemma is not expected")
 
 
 def load(file_path='data/THF/sentence/subtaskA_train.json'):
@@ -43,10 +31,29 @@ def load(file_path='data/THF/sentence/subtaskA_train.json'):
                                     token["MateToolsPLemma"],
                                     parse_tree_tagger_lemma(token["TreeTaggerLemma"]),
                                     parse_IWNLP_lemma(token["IWNLPLemma"]),
-                                    token.get("Polarity", None))
+                                    parse_polarity((token.get("Polarity", None))))
                 tokens.append(token_model)
-            sentence_model = THFSentenceExport(sentence["UniqueID"], sentence["Label"], sentence["Text"], tokens)
+                sentence_model = THFSentenceExport(sentence["UniqueID"], sentence["Label"], sentence["Text"], tokens)
 
-            sentences.append(sentence_model)
-            # print(json.dumps(token, indent=4, sort_keys=True))
-            logger.info('Parsed {} sentences'.format(len(sentences)))
+                sentences.append(sentence_model)
+                # print(json.dumps(token, indent=4, sort_keys=True))
+                logger.info('Parsed {} sentences'.format(len(sentences)))
+
+
+def parse_IWNLP_lemma(text):
+    if not text:
+        return None
+    else:
+        return text
+
+
+def parse_tree_tagger_lemma(text):
+    if not text:
+        return None
+    else:
+        return text
+
+
+def parse_polarity(polarity):
+    print(polarity)
+    return polarity
