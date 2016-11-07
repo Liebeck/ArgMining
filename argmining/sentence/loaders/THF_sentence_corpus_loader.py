@@ -4,7 +4,6 @@ from argmining.models.thf_sentence_export import THFSentenceExport
 from argmining.models.token import Token
 from argmining.models.dependency import Dependency
 import logging
-import xml.etree.ElementTree as ET
 import json
 
 logger = logging.getLogger()
