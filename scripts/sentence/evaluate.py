@@ -6,7 +6,7 @@ from sklearn.svm import SVC
 import logging
 from argmining.pipelines.pipeline import pipeline
 from argmining.strategies.strategies import STRATEGIES
-
+from argmining.evaluation.gridsearch_report import report
 NJOBS = 1
 
 
@@ -47,6 +47,6 @@ if __name__ == '__main__':
     logger.info("Start grid search")
     gridsearch = GridSearchCV(pipe, param_grid, scoring='f1_macro', cv=arguments.nfold, n_jobs=NJOBS, verbose=2)
     gridsearch.fit(X_train, y_train)
-    report(gridsearch.grid_scores_)
+    gridsearch_report.report(gridsearch.grid_scores_)
     logger.info("Total execution time in %0.3fs" % (time() - t0))
     logger.info("*****************************************")
