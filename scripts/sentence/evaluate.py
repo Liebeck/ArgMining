@@ -4,8 +4,6 @@ from time import time
 from sklearn.grid_search import GridSearchCV
 from sklearn.svm import SVC
 import logging
-from operator import itemgetter
-import numpy as np
 from argmining.pipelines.pipeline import pipeline
 from argmining.strategies.strategies import STRATEGIES
 
@@ -22,15 +20,7 @@ def config_argparser():
     return argparser.parse_args()
 
 
-def report(grid_scores, n_top=3):
-    top_scores = sorted(grid_scores, key=itemgetter(1), reverse=True)[:n_top]
-    for i, score in enumerate(top_scores):
-        logger.info("Model with rank: {0}".format(i + 1))
-        logger.info("Mean validation score: {0:.3f} (std: {1:.3f})".format(
-            score.mean_validation_score,
-            np.std(score.cv_validation_scores)))
-        logger.info("Parameters: {0}".format(score.parameters))
-        logger.info("")
+
 
 
 if __name__ == '__main__':
@@ -48,7 +38,6 @@ if __name__ == '__main__':
     # 'classifier__gamma': [0.0001, 0.0005, 0.001, 0.005, 0.01, 0.1]}
     param_grid = {'classifier__C': [1e3],
                   'classifier__gamma': [0.005, 0.01]}
-
     classifier = SVC(kernel='rbf', class_weight='balanced', random_state=0)
     logger.info("Using strategy: {}".format(arguments.strategy))
     strategy = STRATEGIES[arguments.strategy]
