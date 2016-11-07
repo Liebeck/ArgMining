@@ -2,7 +2,7 @@ from sklearn.base import BaseEstimator
 from sklearn.pipeline import Pipeline
 
 
-def build(ngram='1'):
+def build(ngram=1):
     pipeline = Pipeline([('transformer',
                           BagOfWords(ngram=ngram)),
                          ])
