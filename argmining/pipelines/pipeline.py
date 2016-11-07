@@ -1,6 +1,7 @@
 from sklearn.pipeline import Pipeline, FeatureUnion
 
 
-def pipeline(transformers, classifier):
-    return Pipeline(steps=[('union', FeatureUnion(transformers)),
+def pipeline(strategy, classifier):
+    print(type(strategy))
+    return Pipeline(steps=[('union', FeatureUnion(strategy)),
                            classifier])
