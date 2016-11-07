@@ -12,7 +12,7 @@ NJOBS = 1
 
 def config_argparser():
     argparser = argparse.ArgumentParser(description='ArgMining')
-    argparser.add_argument('-nfold', type=int, help='n-fold crossvalidation', default=10)
+    argparser.add_argument('-nfold', type=int, help='n-fold crossvalidation', default=2)
     argparser.add_argument('-subtask', type=str, required=True, help='Name of the subtask')
     argparser.add_argument('-strategy', type=str, required=True, help='Name of the strategy')
     argparser.add_argument('-c', '--classifier', type=str, required=True, help='Name of the classifier')
@@ -29,7 +29,6 @@ if __name__ == '__main__':
     arguments = config_argparser()
     # 1) Load data sets
     dataset = load(file_path='data/THF/sentence/subtask{}_train.json'.format(arguments.subtask))
-
     X_train = dataset
     y_train = [item.label for item in dataset]
     # 2) Shuffle if desired
