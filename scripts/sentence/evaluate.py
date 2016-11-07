@@ -47,6 +47,6 @@ if __name__ == '__main__':
     logger.info("Start grid search")
     gridsearch = GridSearchCV(pipe, param_grid, scoring='f1_macro', cv=arguments.nfold, n_jobs=NJOBS, verbose=2)
     gridsearch.fit(X_train, y_train)
-    gridsearch_report.report(gridsearch.grid_scores_)
+    report(gridsearch.grid_scores_)
     logger.info("Total execution time in %0.3fs" % (time() - t0))
     logger.info("*****************************************")
