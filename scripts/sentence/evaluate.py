@@ -3,6 +3,9 @@ from argmining.sentence.loaders.THF_sentence_corpus_loader import load
 from time import time
 from sklearn.grid_search import GridSearchCV
 from sklearn.svm import SVC
+import logging
+from operator import itemgetter
+import numpy as np
 from argmining.pipelines.pipeline import pipeline
 from argmining.strategies.strategies import STRATEGIES
 
@@ -19,8 +22,20 @@ def config_argparser():
     return argparser.parse_args()
 
 
+def report(grid_scores, n_top=3):
+    top_scores = sorted(grid_scores, key=itemgetter(1), reverse=True)[:n_top]
+    for i, score in enumerate(top_scores):
+        logger.info("Model with rank: {0}".format(i + 1))
+        logger.info("Mean validation score: {0:.3f} (std: {1:.3f})".format(
+            score.mean_validation_score,
+            np.std(score.cv_validation_scores)))
+        logger.info("Parameters: {0}".format(score.parameters))
+        logger.info("")
+
+
 if __name__ == '__main__':
     t0 = time()
+    logger = logging.getLogger()
     arguments = config_argparser()
     # 1) Load data sets
     dataset = load(file_path='data/THF/sentence/subtask{}_train.json'.format(arguments.subtask))
@@ -29,18 +44,20 @@ if __name__ == '__main__':
     y_train = [item.label for item in dataset]
     # 2) Shuffle if desired
     # 3)
-    param_grid = {'C': [1e3, 5e3, 1e4, 5e4, 1e5],
-                  'gamma': [0.0001, 0.0005, 0.001, 0.005, 0.01, 0.1]}
+    # param_grid = {'classifier__C': [1e3, 5e3, 1e4, 5e4, 1e5],
+    # 'classifier__gamma': [0.0001, 0.0005, 0.001, 0.005, 0.01, 0.1]}
+    param_grid = {'classifier__C': [1e3],
+                  'classifier__gamma': [0.005, 0.01]}
+
     classifier = SVC(kernel='rbf', class_weight='balanced', random_state=0)
-    # strategy = STRATEGIES[arguments.strategy]
-
-    import argmining.features.bag_of_words as bag_of_words
-
-    strategy = [bag_of_words.build(ngram=1)]
-    # print(type(strategy))
-    # print(type(strategy[0][1]))
+    logger.info("Using strategy: {}".format(arguments.strategy))
+    strategy = STRATEGIES[arguments.strategy]
     pipe = pipeline(strategy=strategy, classifier=classifier)
-    gridsearch = GridSearchCV(pipe, param_grid, scoring='f1_macro', cv=arguments.nfold, n_jobs=NJOBS)
+    logger.info("Start pipeline fit")
+    pipe.fit(X_train, y_train)
+    logger.info("Start grid search")
+    gridsearch = GridSearchCV(pipe, param_grid, scoring='f1_macro', cv=arguments.nfold, n_jobs=NJOBS, verbose=2)
     gridsearch.fit(X_train, y_train)
-    print("Total execution time in %0.3fs" % (time() - t0))
-    print("*****************************************")
+    report(gridsearch.grid_scores_)
+    logger.info("Total execution time in %0.3fs" % (time() - t0))
+    logger.info("*****************************************")
