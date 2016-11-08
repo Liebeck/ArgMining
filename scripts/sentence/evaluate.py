@@ -7,6 +7,7 @@ import logging
 from argmining.pipelines.pipeline import pipeline
 from argmining.strategies.strategies import STRATEGIES
 from argmining.evaluation.gridsearch_report import report
+from sklearn.pipeline import Pipeline, FeatureUnion
 NJOBS = 1
 
 
@@ -32,20 +33,21 @@ if __name__ == '__main__':
     X_train = dataset
     y_train = [item.label for item in dataset]
     # 2) Shuffle if desired
-    # 3)
+    # 3) Select feature combination
+    logger.info("Using strategy: {}".format(arguments.strategy))
+    strategy = STRATEGIES[arguments.strategy]
+
+    # 4)
     # param_grid = {'classifier__C': [1e3, 5e3, 1e4, 5e4, 1e5],
     # 'classifier__gamma': [0.0001, 0.0005, 0.001, 0.005, 0.01, 0.1]}
     param_grid = {'classifier__C': [1e3],
                   'classifier__gamma': [0.005, 0.01]}
     classifier = SVC(kernel='rbf', class_weight='balanced', random_state=0)
-    logger.info("Using strategy: {}".format(arguments.strategy))
-    strategy = STRATEGIES[arguments.strategy]
     pipe = pipeline(strategy=strategy, classifier=classifier)
-    logger.info("Start pipeline fit")
-    pipe.fit(X_train, y_train)
     logger.info("Start grid search")
     gridsearch = GridSearchCV(pipe, param_grid, scoring='f1_macro', cv=arguments.nfold, n_jobs=NJOBS, verbose=2)
     gridsearch.fit(X_train, y_train)
+    # 5) Report results
     report(gridsearch.grid_scores_)
     logger.info("Total execution time in %0.3fs" % (time() - t0))
     logger.info("*****************************************")
