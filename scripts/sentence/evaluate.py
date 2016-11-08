@@ -1,7 +1,7 @@
 import argparse
 from argmining.sentence.loaders.THF_sentence_corpus_loader import load
 from time import time
-from sklearn.grid_search import GridSearchCV
+from sklearn.model_selection import GridSearchCV
 
 import logging
 from argmining.pipelines.pipeline import pipeline
