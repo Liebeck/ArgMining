@@ -15,8 +15,15 @@ def build(ngram=1, feature_name='bag_of_words', lowercase=False):
 def tokenizer_THF_words(thf_sentence):
     return list(map(lambda token: token.text, thf_sentence.tokens))
 
+
 def tokenizer_THF_words_lowercase(thf_sentence):
     return list(map(lambda token: token.text.lower(), thf_sentence.tokens))
+
+
+def tokenizer_THF_lemma(thf_sentence):
+    #return list(map(lambda token: token.text.lower(), thf_sentence.tokens))
+    return None
+
 
 class BagOfWords(BaseEstimator):
     def __init__(self, ngram=1, token_form='text', lowercase=False):
@@ -25,11 +32,18 @@ class BagOfWords(BaseEstimator):
         self.logger = logging.getLogger()
         self.lowercase = lowercase
 
+    def get_tokenizer(self):
+        if self.token_form == 'text' and not self.lowercase:
+            return tokenizer_THF_words
+        elif self.token_form == 'text' and self.lowercase:
+            return tokenizer_THF_words_lowercase
+        elif self.token_form == 'IWNLP_lemma' and not self.lowercase:
+            return tokenizer_THF_lemma
+
+
     def fit(self, X, y):
-        if self.token_form == 'text':
-            tokenizer = tokenizer_THF_words
-            if self.lowercase:
-                tokenizer = tokenizer_THF_words_lowercase
+        if self.token_form == 'text' or self.token_form == 'lemma':
+            tokenizer = self.get_tokenizer()
             self.vectorizer = CountVectorizer(tokenizer=tokenizer,
                                               ngram_range=(self.ngram, self.ngram),
                                               lowercase=False)  # the lowercase is workaround for passing a custom class
