@@ -2,6 +2,7 @@ from sklearn.base import BaseEstimator
 from sklearn.pipeline import Pipeline
 from sklearn.feature_extraction.text import CountVectorizer
 import logging
+import numpy as np
 
 
 def build(ngram=1, feature_name='bag_of_words'):
@@ -35,9 +36,10 @@ class BagOfWords(BaseEstimator):
     def transform(self, X):
         self.logger.debug("transform called")
         transformed = list(map(lambda x: self.transform_sentence(x), X))
+        transformed = np.concatenate(transformed, axis=0)
         self.logger.debug("transform returning")
         return transformed
 
     def transform_sentence(self, thf_sentence):
-        vectorized = self.vectorizer.transform([thf_sentence])
+        vectorized = self.vectorizer.transform([thf_sentence]).toarray()
         return vectorized
