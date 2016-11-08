@@ -2,12 +2,12 @@ import argparse
 from argmining.sentence.loaders.THF_sentence_corpus_loader import load
 from time import time
 from sklearn.grid_search import GridSearchCV
-from sklearn.svm import SVC
+
 import logging
 from argmining.pipelines.pipeline import pipeline
 from argmining.strategies.strategies import STRATEGIES
 from argmining.evaluation.gridsearch_report import report
-from sklearn.pipeline import Pipeline, FeatureUnion
+from argmining.classifiers.classifier import get_classifier
 NJOBS = 1
 
 
@@ -37,12 +37,10 @@ if __name__ == '__main__':
     logger.info("Using strategy: {}".format(arguments.strategy))
     strategy = STRATEGIES[arguments.strategy]
 
-    # 4)
-    # param_grid = {'classifier__C': [1e3, 5e3, 1e4, 5e4, 1e5],
-    # 'classifier__gamma': [0.0001, 0.0005, 0.001, 0.005, 0.01, 0.1]}
-    param_grid = {'classifier__C': [1e3],
-                  'classifier__gamma': [0.005, 0.01]}
-    classifier = SVC(kernel='rbf', class_weight='balanced', random_state=0)
+    # 4) Select classifier
+    logger.info("Using classifier: {}".format(arguments.classifier))
+    classifier, param_grid = get_classifier(arguments.classifier)
+    # 5) Start grid search
     pipe = pipeline(strategy=strategy, classifier=classifier)
     logger.info("Start grid search")
     gridsearch = GridSearchCV(pipe, param_grid, scoring='f1_macro', cv=arguments.nfold, n_jobs=NJOBS, verbose=2)
