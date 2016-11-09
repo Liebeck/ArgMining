@@ -5,9 +5,9 @@ import logging
 import numpy as np
 
 
-def build(ngram=1, feature_name='bag_of_words', lowercase=False):
+def build(ngram=1, feature_name='bag_of_words', lowercase=False, token_form='text'):
     pipeline = Pipeline([('transformer',
-                          BagOfWords(ngram=ngram, lowercase=lowercase)),
+                          BagOfWords(ngram=ngram, lowercase=lowercase, token_form=token_form)),
                          ])
     return (feature_name, pipeline)
 
@@ -21,8 +21,13 @@ def tokenizer_THF_words_lowercase(thf_sentence):
 
 
 def tokenizer_THF_lemma(thf_sentence):
-    #return list(map(lambda token: token.text.lower(), thf_sentence.tokens))
-    return None
+    words = []
+    for token in thf_sentence.tokens:
+        if token.iwnlp_lemma is not None and len(token.iwnlp_lemma) == 1:
+            words.append(token.iwnlp_lemma[0])
+        else:
+            words.append(token.text)
+    return words
 
 
 class BagOfWords(BaseEstimator):
@@ -42,16 +47,14 @@ class BagOfWords(BaseEstimator):
 
 
     def fit(self, X, y):
-        if self.token_form == 'text' or self.token_form == 'lemma':
-            tokenizer = self.get_tokenizer()
-            self.vectorizer = CountVectorizer(tokenizer=tokenizer,
-                                              ngram_range=(self.ngram, self.ngram),
-                                              lowercase=False)  # the lowercase is workaround for passing a custom class
-            self.vectorizer.fit(X)
-            self.logger.info("Created a vocabulary with length {}".format(len(self.vectorizer.get_feature_names())))
-            return self
-        else:
-            raise ValueError("token_form not implemented")
+        tokenizer = self.get_tokenizer()
+        self.vectorizer = CountVectorizer(tokenizer=tokenizer,
+                                          ngram_range=(self.ngram, self.ngram),
+                                          lowercase=False)  # the lowercase is workaround for passing a custom class
+        self.vectorizer.fit(X)
+        self.logger.info("Created a vocabulary with length {}".format(len(self.vectorizer.get_feature_names())))
+        return self
+
 
     def transform(self, X):
         self.logger.debug("transform called")
