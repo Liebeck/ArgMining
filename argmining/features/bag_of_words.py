@@ -82,4 +82,5 @@ class BagOfWords(BaseEstimator):
 
     def transform_sentence(self, thf_sentence):
         vectorized = self.vectorizer.transform([thf_sentence]).toarray()
+        vectorized = vectorized.astype(np.float64)
         return vectorized
