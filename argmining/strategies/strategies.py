@@ -7,6 +7,7 @@ STRATEGIES = {'unigram': [bag_of_words.build(ngram=1)],
               'bigram': [bag_of_words.build(ngram=2)],
               'bigram_lowercase': [bag_of_words.build(ngram=2, lowercase=True)],
               'bigram_iwnlp': [bag_of_words.build(ngram=2, token_form='IWNLP_lemma')],
+              'bigram_iwnlp_lowercase': [bag_of_words.build(ngram=2, token_form='IWNLP_lemma', lowercase=True)],
               'unigram_bigram': [bag_of_words.build(ngram=1, feature_name='unigram'),
                                  bag_of_words.build(ngram=2, feature_name='bigram')]
               }
