@@ -30,6 +30,16 @@ def tokenizer_THF_lemma(thf_sentence):
     return words
 
 
+def tokenizer_THF_lemma_lowercase(thf_sentence):
+    words = []
+    for token in thf_sentence.tokens:
+        if token.iwnlp_lemma is not None and len(token.iwnlp_lemma) == 1:
+            words.append(token.iwnlp_lemma[0].lower())
+        else:
+            words.append(token.text.lower())
+    return words
+
+
 class BagOfWords(BaseEstimator):
     def __init__(self, ngram=1, token_form='text', lowercase=False):
         self.ngram = ngram
@@ -44,7 +54,8 @@ class BagOfWords(BaseEstimator):
             return tokenizer_THF_words_lowercase
         elif self.token_form == 'IWNLP_lemma' and not self.lowercase:
             return tokenizer_THF_lemma
-
+        elif self.token_form == 'IWNLP_lemma' and self.lowercase:
+            return tokenizer_THF_lemma_lowercase
 
     def fit(self, X, y):
         tokenizer = self.get_tokenizer()
@@ -54,7 +65,6 @@ class BagOfWords(BaseEstimator):
         self.vectorizer.fit(X)
         self.logger.info("Created a vocabulary with length {}".format(len(self.vectorizer.get_feature_names())))
         return self
-
 
     def transform(self, X):
         self.logger.debug("transform called")
