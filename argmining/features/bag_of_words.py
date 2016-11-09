@@ -3,12 +3,19 @@ from sklearn.pipeline import Pipeline
 from sklearn.feature_extraction.text import CountVectorizer
 import logging
 import numpy as np
+from sklearn.preprocessing import Normalizer
 
 
-def build(ngram=1, feature_name='bag_of_words', lowercase=False, token_form='text'):
-    pipeline = Pipeline([('transformer',
-                          BagOfWords(ngram=ngram, lowercase=lowercase, token_form=token_form)),
-                         ])
+def build(ngram=1, feature_name='bag_of_words', lowercase=False, token_form='text', normalize=False):
+    if normalize:
+        pipeline = Pipeline([('transformer',
+                              BagOfWords(ngram=ngram, lowercase=lowercase, token_form=token_form)),
+                             ('normalizer', Normalizer())
+                             ])
+    else:
+        pipeline = Pipeline([('transformer',
+                              BagOfWords(ngram=ngram, lowercase=lowercase, token_form=token_form)),
+                             ])
     return (feature_name, pipeline)
 
 
