@@ -1,4 +1,5 @@
 import argmining.features.bag_of_words as bag_of_words
+import argmining.features.pos_distribution as pos_distribution
 
 STRATEGIES = {'unigram': [bag_of_words.build(ngram=1)],
               'unigram_lowercase': [bag_of_words.build(ngram=1, lowercase=True)],
@@ -19,5 +20,6 @@ STRATEGIES = {'unigram': [bag_of_words.build(ngram=1)],
               'n_bigram_iwnlp_lowercase': [
                   bag_of_words.build(ngram=2, token_form='IWNLP_lemma', lowercase=True, normalize=True)],
               'unigram_bigram': [bag_of_words.build(ngram=1, feature_name='unigram'),
-                                 bag_of_words.build(ngram=2, feature_name='bigram')]
+                                 bag_of_words.build(ngram=2, feature_name='bigram')],
+              'pos_distribution': [pos_distribution.build()]
               }
