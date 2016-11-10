@@ -22,5 +22,6 @@ STRATEGIES = {'unigram': [bag_of_words.build(ngram=1)],
               'unigram_bigram': [bag_of_words.build(ngram=1, feature_name='unigram'),
                                  bag_of_words.build(ngram=2, feature_name='bigram')],
               'pos_distribution': [pos_distribution.build()],
-              'pos_distribution_uts': [pos_distribution.build(use_STTS=False)]
+              'pos_distribution_uts': [pos_distribution.build(use_STTS=False)],
+              'n_unigram+pos_distribution': [bag_of_words.build(ngram=1, normalize=True), pos_distribution.build()],
               }
