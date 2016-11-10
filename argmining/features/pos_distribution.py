@@ -25,11 +25,10 @@ def get_STTS_histogram(pos_list):
     histogram = OrderedDict.fromkeys(STTS_TAGSET, 0)
     for entry in pos_list:
         histogram[entry] += 1
-    histogram = np.array(histogram.values(), dtype=np.float64)
-
-    list(d.items())
-
-    print(histogram)
+    values = []
+    for key, value in histogram.items():
+        values.append(value)
+    histogram = np.array(values, dtype=np.float64)
     return histogram
 
 
@@ -46,7 +45,7 @@ class POSDistribution(BaseEstimator):
         transformed = list(map(lambda x: self.transform_sentence(x), X))
         # transformed = np.concatenate(transformed, axis=0)
         self.logger.debug("transform returning")
-        return None
+        return transformed
 
     def transform_sentence(self, thf_sentence):
         pos_list = list(map(lambda x: x.pos_tag, thf_sentence.tokens))
