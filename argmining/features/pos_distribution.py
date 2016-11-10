@@ -24,7 +24,7 @@ def build(use_STTS=True):
 
 
 
-def get_STTS_histogram(pos_list, tag_set):
+def get_pos_histogram(pos_list, tag_set):
     histogram = OrderedDict.fromkeys(tag_set, 0)
     for entry in pos_list:
         histogram[entry] += 1
@@ -53,8 +53,8 @@ class POSDistribution(BaseEstimator):
     def transform_sentence(self, thf_sentence):
         if self.use_STTS:
             pos_list = list(map(lambda x: x.pos_tag, thf_sentence.tokens))
-            distribution = get_STTS_histogram(pos_list, STTS_TAGSET)
+            distribution = get_pos_histogram(pos_list, STTS_TAGSET)
         else:
             pos_list = list(map(lambda x: get_UTS_tag(x.pos_tag), thf_sentence.tokens))
-            distribution = get_STTS_histogram(pos_list, UTS_TAGSET)
+            distribution = get_pos_histogram(pos_list, UTS_TAGSET)
         return distribution
