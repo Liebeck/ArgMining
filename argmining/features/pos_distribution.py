@@ -3,6 +3,7 @@ from sklearn.pipeline import Pipeline
 import logging
 from sklearn.preprocessing import Normalizer
 from argmining.models.stts import STTS_TAGSET
+from argmining.models.uts import UTS_TAGSET, get_UTS_tag
 from collections import OrderedDict
 import numpy as np
 
@@ -21,8 +22,10 @@ def build(use_STTS=True):
     return ('pos_distribution', pipeline)
 
 
-def get_STTS_histogram(pos_list):
-    histogram = OrderedDict.fromkeys(STTS_TAGSET, 0)
+
+
+def get_STTS_histogram(pos_list, tag_set):
+    histogram = OrderedDict.fromkeys(tag_set, 0)
     for entry in pos_list:
         histogram[entry] += 1
     values = []
@@ -48,9 +51,10 @@ class POSDistribution(BaseEstimator):
         return transformed
 
     def transform_sentence(self, thf_sentence):
-        pos_list = list(map(lambda x: x.pos_tag, thf_sentence.tokens))
         if self.use_STTS:
-            distribution = get_STTS_histogram(pos_list)
-            return distribution
+            pos_list = list(map(lambda x: x.pos_tag, thf_sentence.tokens))
+            distribution = get_STTS_histogram(pos_list, STTS_TAGSET)
         else:
-            return None
+            pos_list = list(map(lambda x: get_UTS_tag(x.pos_tag), thf_sentence.tokens))
+            distribution = get_STTS_histogram(pos_list, UTS_TAGSET)
+        return distribution
