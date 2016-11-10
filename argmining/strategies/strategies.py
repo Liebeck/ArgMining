@@ -21,5 +21,6 @@ STRATEGIES = {'unigram': [bag_of_words.build(ngram=1)],
                   bag_of_words.build(ngram=2, token_form='IWNLP_lemma', lowercase=True, normalize=True)],
               'unigram_bigram': [bag_of_words.build(ngram=1, feature_name='unigram'),
                                  bag_of_words.build(ngram=2, feature_name='bigram')],
-              'pos_distribution': [pos_distribution.build()]
+              'pos_distribution': [pos_distribution.build()],
+              'pos_distribution_uts': [pos_distribution.build(use_STTS=False)]
               }
