@@ -33,14 +33,13 @@ def build(use_TIGER=True, use_feature_selection=False, feature_selection_k=10):
 def get_dependency_histogram(pos_list, tag_set):
     histogram = OrderedDict.fromkeys(tag_set, 0)
     for entry in pos_list:
-        # print(entry)
         histogram[entry] += 1
     values = []
     for key, value in histogram.items():
         values.append(value)
     histogram = np.array(values, dtype=np.float64)
-    # print(histogram)
     return histogram
+
 
 class DependencyDistribution(BaseEstimator):
     def __init__(self, use_TIGER):
@@ -51,17 +50,12 @@ class DependencyDistribution(BaseEstimator):
         return self
 
     def transform(self, X):
-        self.logger.debug("transform called")
-        transformed = list(map(lambda x: self.transform_sentence(x), X))
-        # transformed = np.concatenate(transformed, axis=0)
-        self.logger.debug("transform returning")
-        return transformed
+        return list(map(lambda x: self.transform_sentence(x), X))
 
     def transform_sentence(self, thf_sentence):
-        # if self.use_STTS:
-        dependency_list = list(map(lambda x: x.releation, thf_sentence.dependencies))
-        distribution = get_dependency_histogram(dependency_list, TIGER_TAGSET)
-        # else:
-        # pos_list = list(map(lambda x: get_UTS_tag(x.pos_tag), thf_sentence.tokens))
-        # distribution = get_STTS_histogram(pos_list, UTS_TAGSET)
-        return distribution
+        if self.use_TIGER:
+            dependency_list = list(map(lambda x: x.releation, thf_sentence.dependencies))
+            distribution = get_dependency_histogram(dependency_list, TIGER_TAGSET)
+            return distribution
+        else:
+            raise NotImplementedError("")
