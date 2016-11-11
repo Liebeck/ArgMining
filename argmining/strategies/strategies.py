@@ -23,10 +23,14 @@ STRATEGIES = {'unigram': [bag_of_words.build(ngram=1)],
               'unigram_bigram': [bag_of_words.build(ngram=1, feature_name='unigram'),
                                  bag_of_words.build(ngram=2, feature_name='bigram')],
               'pos_distribution': [pos_distribution.build()],
+              'pos_distribution_fs35': [pos_distribution.build(use_feature_selection=True, feature_selection_k=35)],
               'pos_distribution_uts': [pos_distribution.build(use_STTS=False)],
               'n_unigram+pos_distribution': [bag_of_words.build(ngram=1, normalize=True), pos_distribution.build()],
               'dependency_distribution': [dependency_distribution.build()],
               'dependency_distribution_fs10': [
                   dependency_distribution.build(use_feature_selection=True, feature_selection_k=10)],
-              'pos+dep_distribution': [pos_distribution.build(), dependency_distribution.build()]
+              'pos+dep_distribution': [pos_distribution.build(), dependency_distribution.build()],
+              'pos+dep_distribution_fs': [pos_distribution.build(use_feature_selection=True, feature_selection_k=35),
+                                          dependency_distribution.build(use_feature_selection=True,
+                                                                        feature_selection_k=10)]
               }
