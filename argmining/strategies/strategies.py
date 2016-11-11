@@ -34,5 +34,6 @@ STRATEGIES = {'unigram': [bag_of_words.build(ngram=1)],
               'pos+dep_distribution_fs': [pos_distribution.build(use_feature_selection=True, feature_selection_k=35),
                                           dependency_distribution.build(use_feature_selection=True,
                                                                         feature_selection_k=10)],
-              'structural': [structural_features.build()]
+              'structural': [structural_features.build()],
+              'structural_without_token_length': [structural_features.build(use_sentence_length=False)]
               }
