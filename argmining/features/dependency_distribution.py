@@ -6,14 +6,22 @@ from argmining.models.tiger import TIGER_TAGSET
 from argmining.models.uts import UTS_TAGSET, get_UTS_tag
 from collections import OrderedDict
 import numpy as np
+from sklearn.feature_selection import SelectKBest, chi2
 
 
-def build(use_TIGER=True):
+def build(use_TIGER=True, use_feature_selection=False, feature_selection_k=10):
     if use_TIGER:
-        pipeline = Pipeline([('transformer',
-                              DependencyDistribution(use_TIGER=True)),
-                             ('normalizer', Normalizer())
-                             ])
+        if use_feature_selection:
+            pipeline = Pipeline([('transformer',
+                                  DependencyDistribution(use_TIGER=True)),
+                                 ('feature_selection', SelectKBest(chi2, k=feature_selection_k)),
+                                 ('normalizer', Normalizer())
+                                 ])
+        else:
+            pipeline = Pipeline([('transformer',
+                                  DependencyDistribution(use_TIGER=True)),
+                                 ('normalizer', Normalizer())
+                                 ])
     else:
         pipeline = Pipeline([('transformer',
                               DependencyDistribution(use_TIGER=False)),
@@ -25,11 +33,13 @@ def build(use_TIGER=True):
 def get_dependency_histogram(pos_list, tag_set):
     histogram = OrderedDict.fromkeys(tag_set, 0)
     for entry in pos_list:
+        # print(entry)
         histogram[entry] += 1
     values = []
     for key, value in histogram.items():
         values.append(value)
     histogram = np.array(values, dtype=np.float64)
+    # print(histogram)
     return histogram
 
 class DependencyDistribution(BaseEstimator):
