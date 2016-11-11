@@ -9,9 +9,9 @@ import numpy as np
 from sklearn.feature_selection import SelectKBest, chi2
 
 
-def build():
+def build(use_sentence_length=True):
     pipeline = Pipeline([('transformer',
-                          StructuralFeatures(use_sentence_length=True)),
+                          StructuralFeatures(use_sentence_length=use_sentence_length)),
                          ])
     return ('structural_features', pipeline)
 
