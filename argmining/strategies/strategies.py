@@ -1,6 +1,7 @@
 import argmining.features.bag_of_words as bag_of_words
 import argmining.features.pos_distribution as pos_distribution
 import argmining.features.dependency_distribution as dependency_distribution
+import argmining.features.structural_features as structural_features
 
 STRATEGIES = {'unigram': [bag_of_words.build(ngram=1)],
               'unigram_lowercase': [bag_of_words.build(ngram=1, lowercase=True)],
@@ -32,5 +33,6 @@ STRATEGIES = {'unigram': [bag_of_words.build(ngram=1)],
               'pos+dep_distribution': [pos_distribution.build(), dependency_distribution.build()],
               'pos+dep_distribution_fs': [pos_distribution.build(use_feature_selection=True, feature_selection_k=35),
                                           dependency_distribution.build(use_feature_selection=True,
-                                                                        feature_selection_k=10)]
+                                                                        feature_selection_k=10)],
+              'structural': [structural_features.build()]
               }
