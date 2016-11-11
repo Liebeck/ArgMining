@@ -6,22 +6,29 @@ from argmining.models.stts import STTS_TAGSET
 from argmining.models.uts import UTS_TAGSET, get_UTS_tag
 from collections import OrderedDict
 import numpy as np
+from sklearn.feature_selection import SelectKBest, chi2
 
 
-def build(use_STTS=True):
+def build(use_STTS=True, use_feature_selection=False, feature_selection_k=10):
     if use_STTS:
-        pipeline = Pipeline([('transformer',
-                              POSDistribution(use_STTS=True)),
-                             ('normalizer', Normalizer())
-                             ])
+        if use_feature_selection:
+            pipeline = Pipeline([('transformer',
+                                  POSDistribution(use_STTS=True)),
+                                 ('feature_selection', SelectKBest(chi2, k=feature_selection_k)),
+                                 ('normalizer', Normalizer())
+                                 ])
+        else:
+
+            pipeline = Pipeline([('transformer',
+                                  POSDistribution(use_STTS=True)),
+                                 ('normalizer', Normalizer())
+                                 ])
     else:
         pipeline = Pipeline([('transformer',
                               POSDistribution(use_STTS=False)),
                              ('normalizer', Normalizer())
                              ])
     return ('pos_distribution', pipeline)
-
-
 
 
 def get_pos_histogram(pos_list, tag_set):
