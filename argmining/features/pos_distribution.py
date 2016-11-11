@@ -44,10 +44,7 @@ class POSDistribution(BaseEstimator):
         return self
 
     def transform(self, X):
-        self.logger.debug("transform called")
         transformed = list(map(lambda x: self.transform_sentence(x), X))
-        # transformed = np.concatenate(transformed, axis=0)
-        self.logger.debug("transform returning")
         return transformed
 
     def transform_sentence(self, thf_sentence):
