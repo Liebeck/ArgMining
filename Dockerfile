@@ -12,6 +12,9 @@ RUN conda install -y \
   scikit-learn \
   matplotlib
 
+RUN sudo echo "Europe/Berlin " > /etc/timezone
+RUN sudo dpkg-reconfigure -f noninteractive tzdata
+
 WORKDIR /var/www
 ADD . .
 RUN pip install -r requirements.txt
