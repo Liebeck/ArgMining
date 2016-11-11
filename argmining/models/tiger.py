@@ -39,5 +39,6 @@ TIGER_TAGSET = ['AG',
                 'CVC',
                 'AVC',
                 'RS',
-                'NMC'
+                'NMC',
+                'Empty'
                 ]
