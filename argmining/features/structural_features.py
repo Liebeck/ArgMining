@@ -11,7 +11,7 @@ from sklearn.feature_selection import SelectKBest, chi2
 
 def build():
     pipeline = Pipeline([('transformer',
-                          StructuralFeatures(use_STTS=False)),
+                          StructuralFeatures(use_sentence_length=True)),
                          ])
     return ('structural_features', pipeline)
 
@@ -19,6 +19,7 @@ def build():
 class StructuralFeatures(BaseEstimator):
     def __init__(self, use_sentence_length=True):
         self.logger = logging.getLogger()
+        self.use_sentence_length = use_sentence_length
 
     def fit(self, X, y):
         return self
@@ -34,7 +35,8 @@ class StructuralFeatures(BaseEstimator):
         dot_relative = words.count('.') / float(len(words))
         values.append(comma_relative)
         values.append(dot_relative)
-        values.append(len(words))
+        if self.use_sentence_length:
+            values.append(len(words))
         link_count = 0
         for word in words:
             if word.startswith('www.') or word.startswith('http'):
@@ -43,11 +45,23 @@ class StructuralFeatures(BaseEstimator):
         last_word = words[len(words) - 1]
 
         if last_word == '.':
-            values.append([1.0, 0.0, 0.0, 0.0])
+            values.append(1.0)
+            values.append(0.0)
+            values.append(0.0)
+            values.append(0.0)
         elif last_word == '!':
-            values.append([0.0, 1.0, 0.0, 0.0])
+            values.append(0.0)
+            values.append(1.0)
+            values.append(0.0)
+            values.append(0.0)
         elif last_word == '?':
-            values.append([0.0, 0.0, 1.0, 0.0])
+            values.append(0.0)
+            values.append(0.0)
+            values.append(1.0)
+            values.append(0.0)
         else:
-            values.append([0.0, 0.0, 0.0, 1.0])
+            values.append(0.0)
+            values.append(0.0)
+            values.append(0.0)
+            values.append(1.0)
         return values
