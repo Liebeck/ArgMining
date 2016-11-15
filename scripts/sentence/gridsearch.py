@@ -6,7 +6,7 @@ import logging
 import json
 from argmining.pipelines.pipeline import pipeline
 from argmining.strategies.strategies import STRATEGIES
-from argmining.evaluation.gridsearch_report import report_best_results
+from argmining.evaluation.gridsearch_report import report_best_results, best_cv_result
 from argmining.classifiers.classifier import get_classifier
 from collections import OrderedDict
 
@@ -46,9 +46,6 @@ if __name__ == '__main__':
     gridsearch.fit(X_train, y_train)
     # 5) Report results
     report_best_results(gridsearch.cv_results_)
-    logger.info(gridsearch.cv_results_)
-
-
     # 6) Serialize the best settings
     settings = OrderedDict()
     settings['classifier'] = arguments.classifier
@@ -57,7 +54,9 @@ if __name__ == '__main__':
     settings['nfold'] = arguments.nfold
     settings['shuffle'] = arguments.shuffle
     settings['training_size'] = arguments.shuffle
-
+    best_mean, best_std = best_cv_result(gridsearch.cv_results_)
+    settings['gridsearch_best_mean'] = best_mean
+    settings['gridsearch_best_std'] = best_std
     settings['gridsearch_parameters'] = gridsearch.best_params_
     if hasattr(classifier, 'random_state'):
         settings['gridsearch_parameters']['classifier__random_state'] = classifier.random_state
