@@ -8,6 +8,7 @@ from argmining.pipelines.pipeline import pipeline
 from argmining.strategies.strategies import STRATEGIES
 from argmining.evaluation.gridsearch_report import report
 from argmining.classifiers.classifier import get_classifier
+
 NJOBS = 1
 
 
@@ -19,9 +20,6 @@ def config_argparser():
     argparser.add_argument('-c', '--classifier', type=str, required=True, help='Name of the classifier')
     argparser.add_argument('--shuffle', type=int, help='Random state of the shuffle or None', default=None)
     return argparser.parse_args()
-
-
-
 
 
 if __name__ == '__main__':
