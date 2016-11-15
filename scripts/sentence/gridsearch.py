@@ -11,7 +11,7 @@ from argmining.classifiers.classifier import get_classifier
 from collections import OrderedDict
 
 NJOBS = 1
-
+TRAINING_SIZE = 100 # only used in predict.py
 
 def config_argparser():
     argparser = argparse.ArgumentParser(description='ArgMining')
@@ -52,10 +52,12 @@ if __name__ == '__main__':
     settings['strategy'] = arguments.strategy
     settings['subtask'] = arguments.subtask
     settings['nfold'] = arguments.nfold
-    if hasattr(classifier, 'random_state'):
-        settings['random_state'] = classifier.random_state
     settings['shuffle'] = arguments.shuffle
+    settings['training_size'] = arguments.shuffle
+
     settings['gridsearch_parameters'] = gridsearch.best_params_
+    if hasattr(classifier, 'random_state'):
+        settings['gridsearch_parameters']['classifier__random_state'] = classifier.random_state
     output_path = 'results/sentence/temp/{}_{}_{}'.format(settings['classifier'], settings['strategy'], time.strftime('%Y%m%d_%H%M%S'))
     with open(output_path, 'w') as outfile:
         json.dump(settings, outfile, indent=2)
