@@ -6,7 +6,7 @@ import logging
 import json
 from argmining.pipelines.pipeline import pipeline
 from argmining.strategies.strategies import STRATEGIES
-from argmining.evaluation.gridsearch_report import report
+from argmining.evaluation.gridsearch_report import report_best_results
 from argmining.classifiers.classifier import get_classifier
 from collections import OrderedDict
 
@@ -45,7 +45,10 @@ if __name__ == '__main__':
     gridsearch = GridSearchCV(pipe, param_grid, scoring='f1_macro', cv=arguments.nfold, n_jobs=NJOBS, verbose=2)
     gridsearch.fit(X_train, y_train)
     # 5) Report results
-    report(gridsearch.grid_scores_)
+    report_best_results(gridsearch.cv_results_)
+    logger.info(gridsearch.cv_results_)
+
+
     # 6) Serialize the best settings
     settings = OrderedDict()
     settings['classifier'] = arguments.classifier
