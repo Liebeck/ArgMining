@@ -52,7 +52,7 @@ if __name__ == '__main__':
     settings['nfold'] = arguments.nfold
     settings['shuffle'] = arguments.shuffle
     settings['subtask'] = arguments.subtask
-    settings['gridsearch_paramteters'] = gridsearch.best_params_
+    settings['gridsearch_parameters'] = gridsearch.best_params_
     if hasattr(classifier, 'random_state'):
         logger.info(classifier.random_state)
     output_path = 'results/sentence/temp/{}_{}_{}'.format(settings['classifier'], settings['strategy'], time.strftime('%Y%m%d_%H%M%S'))
