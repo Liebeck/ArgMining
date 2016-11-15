@@ -1,0 +1,1 @@
+sudo chown -R admin2:admin2 .
