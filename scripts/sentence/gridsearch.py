@@ -1,9 +1,9 @@
 import argparse
 from argmining.sentence.loaders.THF_sentence_corpus_loader import load
-from time import time
+import time
 from sklearn.model_selection import GridSearchCV
-
 import logging
+import json
 from argmining.pipelines.pipeline import pipeline
 from argmining.strategies.strategies import STRATEGIES
 from argmining.evaluation.gridsearch_report import report
@@ -23,7 +23,7 @@ def config_argparser():
 
 
 if __name__ == '__main__':
-    t0 = time()
+    t0 = time.time()
     logger = logging.getLogger()
     arguments = config_argparser()
     # 1) Load data sets
@@ -45,5 +45,19 @@ if __name__ == '__main__':
     gridsearch.fit(X_train, y_train)
     # 5) Report results
     report(gridsearch.grid_scores_)
-    logger.info("Total execution time in %0.3fs" % (time() - t0))
+    # 6) Serialize the best settings
+    settings = {}
+    settings['classifier'] = arguments.classifier
+    settings['strategy'] = arguments.strategy
+    settings['nfold'] = arguments.nfold
+    settings['shuffle'] = arguments.shuffle
+    settings['subtask'] = arguments.subtask
+    settings['gridsearch_paramteters'] = gridsearch.best_params_
+    if hasattr(classifier, 'random_state'):
+        logger.info(classifier.random_state)
+    output_path = 'results/sentence/temp/{}_{}_{}'.format(settings['classifier'], settings['strategy'], time.strftime('%Y%m%d_%H%M%S'))
+    with open(output_path, 'w') as outfile:
+        json.dump(settings, outfile, indent=2)
+
+    logger.info("Total execution time in %0.3fs" % (time.time() - t0))
     logger.info("*****************************************")
