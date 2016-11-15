@@ -12,3 +12,13 @@ def get_classifier(name):
         return random_forest.build(), random_forest.param_grid()
     else:
         raise ValueError("Unknown classifier")
+
+def create_classifier(name, classifier_params):
+    if name == 'svm':
+        return svm.build(**classifier_params)
+    elif name == 'knn':
+        return knn.build(**classifier_params),
+    elif name == 'rf':
+        return random_forest.build()
+    else:
+        raise ValueError("Unknown classifier")
