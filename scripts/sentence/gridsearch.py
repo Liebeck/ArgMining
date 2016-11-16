@@ -38,11 +38,15 @@ if __name__ == '__main__':
     # 4) Select feature combination
     logger.info("Using gridsearch strategy: {}".format(arguments.gridsearchstrategy))
     strategy = GRIDSEARCH_STRATEGIES[arguments.gridsearchstrategy]['features']
+    strategy_built = []
+    for feature in strategy:
+        strategy_built.append(feature.build())
+
     param_grid.update(GRIDSEARCH_STRATEGIES[arguments.gridsearchstrategy]['param_grid'])
     logger.info(param_grid)
 
     # 5) Start grid search
-    pipe = pipeline(strategy=strategy, classifier=classifier)
+    pipe = pipeline(strategy=strategy_built, classifier=classifier)
     logger.info(pipe)
     logger.info("Start grid search")
     gridsearch = GridSearchCV(pipe, param_grid, scoring='f1_macro', cv=arguments.nfold, n_jobs=NJOBS, verbose=2)

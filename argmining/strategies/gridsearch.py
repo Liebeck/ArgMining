@@ -4,7 +4,7 @@ import argmining.features.dependency_distribution as dependency_distribution
 import argmining.features.structural_features as structural_features
 
 GRIDSEARCH_STRATEGIES = {'bag_of_words':
-                             {'features': [bag_of_words.build()],
+                             {'features': [bag_of_words],
                               'param_grid': {
                                   'union__bag_of_words__transformer__ngram': [1, 2],
                                   'union__bag_of_words__transformer__lowercase': [True, False],
