@@ -1,5 +1,5 @@
 import argparse
-from argmining.sentence.loaders.THF_sentence_corpus_loader import load
+from argmining.sentence.loaders.THF_sentence_corpus_loader import load_dataset
 from time import time
 from sklearn.model_selection import GridSearchCV
 
@@ -27,9 +27,7 @@ if __name__ == '__main__':
     logger = logging.getLogger()
     arguments = config_argparser()
     # 1) Load data sets
-    dataset = load(file_path='data/THF/sentence/subtask{}_train.json'.format(arguments.subtask))
-    X_train = dataset
-    y_train = [item.label for item in dataset]
+    X_train, y_train = load_dataset(file_path='data/THF/sentence/subtask{}_train.json'.format(arguments.subtask))
     # 2) Shuffle if desired
     # 3) Select feature combination
     logger.info("Using strategy: {}".format(arguments.strategy))
