@@ -6,7 +6,7 @@ import logging
 import json
 from argmining.pipelines.pipeline import pipeline
 from argmining.strategies.strategies import STRATEGIES
-from argmining.classifiers.classifier import get_classifier
+from argmining.classifiers.classifier import create_classifier
 from collections import OrderedDict
 
 NJOBS = 1
@@ -30,6 +30,16 @@ if __name__ == '__main__':
     X_train, y_train = load_dataset(file_path='data/THF/sentence/subtask{}_train.json'.format(settings['subtask']))
     X_test, y_test = load_dataset(file_path='data/THF/sentence/subtask{}_test.json'.format(settings['subtask']))
     # 3) Load classifier with arguments
+
+    classifer_parameters = {}
+    for key, value in settings['gridsearch_parameters'].items():
+        if key.startswith('classifier__'):
+            classifer_parameters[key.replace('classifier__', '')] = value
+    logger.info('Classifier arguments: {}'.format(classifer_parameters))
+    logger.info('Creating classifier {}'.format(settings['classifier']))
+    classifier = create_classifier(settings['classifier'], classifer_parameters)
+    logger.info(classifier)
+    #pipe = pipeline(strategy=strategy, classifier=classifier)
     # change create_classifier and check arguments for all 3 classifiers
     # 4) Load features and set arguments
     # 5) Train classifier
