@@ -9,7 +9,6 @@ GRIDSEARCH_STRATEGIES = {'bag_of_words':
                                   'union__bag_of_words__transformer__ngram': [1, 2],
                                   'union__bag_of_words__transformer__lowercase': [True, False],
                                   'union__bag_of_words__transformer__token_form': ['text', 'IWNLP_lemma'],
-                                  'union__bag_of_words__transformer__normalize': [True, False],
                               }
                               }
                          }
