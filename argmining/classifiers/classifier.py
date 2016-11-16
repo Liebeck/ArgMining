@@ -19,6 +19,6 @@ def create_classifier(name, classifier_params):
     elif name == 'knn':
         return knn.build(**classifier_params),
     elif name == 'rf':
-        return random_forest.build()
+        return random_forest.build(**classifier_params)
     else:
         raise ValueError("Unknown classifier")
