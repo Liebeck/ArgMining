@@ -54,7 +54,10 @@ if __name__ == '__main__':
                 'Building feature {} with the following parameters: {}'.format(feature_name, feature_parameters))
             strategy_built.append(feature.build(**feature_parameters))
     # 5) Train classifier
+    pipe = pipeline(strategy=strategy_built, classifier=classifier)
+    pipe.fit(X_train, y_train)
     # 6) Predict the test set
+
     # 7) Print the confusion matrix
     # 8) Save the prediction into the file system
 
