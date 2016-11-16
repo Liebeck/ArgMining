@@ -39,8 +39,9 @@ if __name__ == '__main__':
     logger.info("Using gridsearch strategy: {}".format(arguments.gridsearchstrategy))
     strategy = GRIDSEARCH_STRATEGIES[arguments.gridsearchstrategy]['features']
     strategy_built = []
-    for feature in strategy:
+    for feature_name, feature in strategy.items():
         strategy_built.append(feature.build())
+
 
     param_grid.update(GRIDSEARCH_STRATEGIES[arguments.gridsearchstrategy]['param_grid'])
     logger.info(param_grid)
