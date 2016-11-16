@@ -9,6 +9,13 @@ import json
 logger = logging.getLogger()
 
 
+def load_dataset(file_path):
+    dataset = load(file_path=file_path)
+    X = dataset
+    y = [item.label for item in dataset]
+    return X, y
+
+
 def load(file_path='data/THF/sentence/subtaskA_train.json'):
     """
     Loads the THF corpus from an JSON file
