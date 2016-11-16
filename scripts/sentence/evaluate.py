@@ -30,6 +30,7 @@ if __name__ == '__main__':
     X_train, y_train = load_dataset(file_path='data/THF/sentence/subtask{}_train.json'.format(settings['subtask']))
     X_test, y_test = load_dataset(file_path='data/THF/sentence/subtask{}_test.json'.format(settings['subtask']))
     # 3) Load classifier with arguments
+    # change create_classifier and check arguments for all 3 classifiers
     # 4) Load features and set arguments
     # 5) Train classifier
     # 6) Predict the test set
