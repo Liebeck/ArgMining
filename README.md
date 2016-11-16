@@ -19,6 +19,6 @@ Performs a cross-validation on the training set with a feature combination and e
 ### evaluate.py
 Given a path to a settings file, the evaluate script trains the specified classiers on the training set and predicts on the test set.
 ``` bash
-    python scripts/sentence/predict.py -configfile results/sentence/temp/XXX
+    python scripts/sentence/evaluate.py -configfile results/sentence/temp/XXX
 
 ```
