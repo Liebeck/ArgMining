@@ -6,7 +6,7 @@ from sklearn.model_selection import GridSearchCV
 import logging
 from argmining.pipelines.pipeline import pipeline
 from argmining.strategies.strategies import STRATEGIES
-from argmining.evaluation.gridsearch_report import report
+from argmining.evaluation.gridsearch_report import report_best_results
 from argmining.classifiers.classifier import get_classifier
 
 NJOBS = 1
@@ -42,6 +42,6 @@ if __name__ == '__main__':
     gridsearch = GridSearchCV(pipe, param_grid, scoring='f1_macro', cv=arguments.nfold, n_jobs=NJOBS, verbose=2)
     gridsearch.fit(X_train, y_train)
     # 5) Report results
-    report(gridsearch.grid_scores_)
+    report_best_results(gridsearch.cv_results_)
     logger.info("Total execution time in %0.3fs" % (time() - t0))
     logger.info("*****************************************")
