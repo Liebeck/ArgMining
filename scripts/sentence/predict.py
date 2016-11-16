@@ -6,7 +6,6 @@ import logging
 import json
 from argmining.pipelines.pipeline import pipeline
 from argmining.strategies.strategies import STRATEGIES
-from argmining.evaluation.gridsearch_report import report
 from argmining.classifiers.classifier import get_classifier
 from collections import OrderedDict
 
@@ -24,7 +23,9 @@ if __name__ == '__main__':
     logger = logging.getLogger()
     arguments = config_argparser()
     # 1) Read settings file
-
+    logger.info("Loading config file: {}".format(arguments.configfile))
+    with open(arguments.configfile) as data_file:
+        settings = json.load(data_file)
     # 2) Read datasets
 
 
