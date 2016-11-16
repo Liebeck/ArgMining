@@ -6,7 +6,9 @@ import json
 from argmining.pipelines.pipeline import pipeline
 from argmining.strategies.gridsearch import GRIDSEARCH_STRATEGIES
 from argmining.classifiers.classifier import create_classifier
-
+from pandas_confusion import ConfusionMatrix
+from sklearn.metrics import f1_score
+import numpy as np
 NJOBS = 1
 
 
@@ -57,9 +59,15 @@ if __name__ == '__main__':
     pipe = pipeline(strategy=strategy_built, classifier=classifier)
     pipe.fit(X_train, y_train)
     # 6) Predict the test set
-
-    # 7) Print the confusion matrix
-    # 8) Save the prediction into the file system
-
+    y_prediction = pipe.predict(X_test)
+    # 7) Print score and the confusion matrix
+    f1 = f1_score(y_test, y_prediction, average=None)
+    f1_mean = np.mean(f1)
+    logger.info("Micro-averaged F1: {}".format(f1_mean))
+    logger.info("Individual scores: {}".format(f1))
+    logger.info("Confusion matrix:")
+    logger.info(ConfusionMatrix(y_test, y_prediction))
+    # 8) Save the predictions into the file system
+    # 9) Save the score and the confusion matrix into the file system
     logger.info("Total execution time in %0.3fs" % (time.time() - t0))
     logger.info("*****************************************")
