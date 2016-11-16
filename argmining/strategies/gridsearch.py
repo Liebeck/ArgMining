@@ -4,9 +4,12 @@ import argmining.features.dependency_distribution as dependency_distribution
 import argmining.features.structural_features as structural_features
 
 GRIDSEARCH_STRATEGIES = {'bag_of_words':
-                             {'features': [bag_of_words],
+                             {'features': [bag_of_words.build()],
                               'param_grid': {
-                                  'transformer__bag_of_words': [1, 2]
+                                  'union__bag_of_words__transformer__ngram': [1, 2],
+                                  'union__bag_of_words__transformer__lowercase': [True, False],
+                                  'union__bag_of_words__transformer__token_form': ['text', 'IWNLP_lemma'],
+                                  'union__bag_of_words__transformer__normalize': [True, False],
                               }
                               }
                          }
