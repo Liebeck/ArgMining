@@ -69,10 +69,15 @@ if __name__ == '__main__':
     logger.info(ConfusionMatrix(y_test, y_prediction))
     # 8) Save the predictions into the file system
     prediction_file = '{}.predictions'.format(arguments.configfile)
-    with open(prediction_file, 'w') as f:
+    with open(prediction_file, 'w') as prediction_handler:
         for index, val in enumerate(y_test):
-            f.write('{}\t{}\n'.format(y_test[index], y_prediction[index]))
+            prediction_handler.write('{}\t{}\n'.format(y_test[index], y_prediction[index]))
     # 9) Save the score and the confusion matrix into the file system
-
+    score_file = '{}.predictions'.format(arguments.configfile)
+    with  open(score_file,'w') as score_handler: 
+        score_handler.write("Micro-averaged F1: {}".format(f1_mean))
+        score_handler.write("Individual scores: {}".format(f1))
+        score_handler.write("Confusion matrix:")
+        score_handler.write(ConfusionMatrix(y_test, y_prediction))
     logger.info("Total execution time in %0.3fs" % (time.time() - t0))
     logger.info("*****************************************")
