@@ -9,28 +9,6 @@ import numpy as np
 from sklearn.feature_selection import SelectKBest, chi2
 
 
-def build(use_STTS=True, use_feature_selection=False, feature_selection_k=10):
-    if use_STTS:
-        if use_feature_selection:
-            pipeline = Pipeline([('transformer',
-                                  POSDistribution(use_STTS=True)),
-                                 ('feature_selection', SelectKBest(chi2, k=feature_selection_k)),
-                                 ('normalizer', Normalizer())
-                                 ])
-        else:
-
-            pipeline = Pipeline([('transformer',
-                                  POSDistribution(use_STTS=True)),
-                                 ('normalizer', Normalizer())
-                                 ])
-    else:
-        pipeline = Pipeline([('transformer',
-                              POSDistribution(use_STTS=False)),
-                             ('normalizer', Normalizer())
-                             ])
-    return ('pos_distribution', pipeline)
-
-
 def get_pos_histogram(pos_list, tag_set):
     histogram = OrderedDict.fromkeys(tag_set, 0)
     for entry in pos_list:
@@ -43,9 +21,31 @@ def get_pos_histogram(pos_list, tag_set):
 
 
 class POSDistribution(BaseEstimator):
-    def __init__(self, use_STTS):
+    def __init__(self, use_STTS=True, use_feature_selection=False, feature_selection_k=10):
         self.logger = logging.getLogger()
         self.use_STTS = use_STTS
+        self.use_feature_selection = use_feature_selection
+        self.feature_selection_k = feature_selection_k
+
+    def build(self):
+        if self.use_STTS:
+            if self.use_feature_selection:
+                pipeline = Pipeline([('transformer',
+                                      POSDistribution(use_STTS=True)),
+                                     ('feature_selection', SelectKBest(chi2, k=self.feature_selection_k)),
+                                     ('normalizer', Normalizer())
+                                     ])
+            else:
+                pipeline = Pipeline([('transformer',
+                                      POSDistribution(use_STTS=True)),
+                                     ('normalizer', Normalizer())
+                                     ])
+        else:
+            pipeline = Pipeline([('transformer',
+                                  POSDistribution(use_STTS=False)),
+                                 ('normalizer', Normalizer())
+                                 ])
+        return ('pos_distribution', pipeline)
 
     def fit(self, X, y):
         return self

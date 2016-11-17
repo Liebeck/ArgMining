@@ -6,19 +6,6 @@ import numpy as np
 from sklearn.preprocessing import Normalizer
 
 
-def build(ngram=1, feature_name='bag_of_words', lowercase=False, token_form='text', normalize=False):
-    if normalize:
-        pipeline = Pipeline([('transformer',
-                              BagOfWords(ngram=ngram, lowercase=lowercase, token_form=token_form)),
-                             ('normalizer', Normalizer())
-                             ])
-    else:
-        pipeline = Pipeline([('transformer',
-                              BagOfWords(ngram=ngram, lowercase=lowercase, token_form=token_form)),
-                             ])
-    return (feature_name, pipeline)
-
-
 def tokenizer_THF_words(thf_sentence):
     return list(map(lambda token: token.text, thf_sentence.tokens))
 
@@ -48,11 +35,25 @@ def tokenizer_THF_lemma_lowercase(thf_sentence):
 
 
 class BagOfWords(BaseEstimator):
-    def __init__(self, ngram=1, token_form='text', lowercase=False):
+    def __init__(self, ngram=1, token_form='text', lowercase=False, normalize=False, feature_name='bag_of_words'):
         self.ngram = ngram
         self.token_form = token_form
         self.logger = logging.getLogger()
         self.lowercase = lowercase
+        self.normalize = normalize
+        self.feature_name = feature_name
+
+    def build(self):
+        if self.normalize:
+            pipeline = Pipeline([('transformer',
+                                  BagOfWords(self)),
+                                 ('normalizer', Normalizer())
+                                 ])
+        else:
+            pipeline = Pipeline([('transformer',
+                                  BagOfWords(self)),
+                                 ])
+        return (self.feature_name, pipeline)
 
     def get_tokenizer(self):
         if self.token_form == 'text' and not self.lowercase:

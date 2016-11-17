@@ -9,27 +9,6 @@ import numpy as np
 from sklearn.feature_selection import SelectKBest, chi2
 
 
-def build(use_TIGER=True, use_feature_selection=False, feature_selection_k=10):
-    if use_TIGER:
-        if use_feature_selection:
-            pipeline = Pipeline([('transformer',
-                                  DependencyDistribution(use_TIGER=True)),
-                                 ('feature_selection', SelectKBest(chi2, k=feature_selection_k)),
-                                 ('normalizer', Normalizer())
-                                 ])
-        else:
-            pipeline = Pipeline([('transformer',
-                                  DependencyDistribution(use_TIGER=True)),
-                                 ('normalizer', Normalizer())
-                                 ])
-    else:
-        pipeline = Pipeline([('transformer',
-                              DependencyDistribution(use_TIGER=False)),
-                             ('normalizer', Normalizer())
-                             ])
-    return ('dependency_distribution', pipeline)
-
-
 def get_dependency_histogram(pos_list, tag_set):
     histogram = OrderedDict.fromkeys(tag_set, 0)
     for entry in pos_list:
@@ -42,9 +21,31 @@ def get_dependency_histogram(pos_list, tag_set):
 
 
 class DependencyDistribution(BaseEstimator):
-    def __init__(self, use_TIGER):
+    def __init__(self, use_TIGER=True, use_feature_selection=False, feature_selection_k=10):
         self.logger = logging.getLogger()
         self.use_TIGER = use_TIGER
+        self.use_feature_selection = use_feature_selection
+        self.feature_selection_k = feature_selection_k
+
+    def build(self):
+        if self.use_TIGER:
+            if self.use_feature_selection:
+                pipeline = Pipeline([('transformer',
+                                      DependencyDistribution(use_TIGER=True)),
+                                     ('feature_selection', SelectKBest(chi2, k=self.feature_selection_k)),
+                                     ('normalizer', Normalizer())
+                                     ])
+            else:
+                pipeline = Pipeline([('transformer',
+                                      DependencyDistribution(use_TIGER=True)),
+                                     ('normalizer', Normalizer())
+                                     ])
+        else:
+            pipeline = Pipeline([('transformer',
+                                  DependencyDistribution(use_TIGER=False)),
+                                 ('normalizer', Normalizer())
+                                 ])
+        return ('dependency_distribution', pipeline)
 
     def fit(self, X, y):
         return self
