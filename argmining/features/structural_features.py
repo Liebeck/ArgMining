@@ -16,7 +16,7 @@ class StructuralFeatures(BaseEstimator):
 
     def build(self):
         pipeline = Pipeline([('transformer',
-                              StructuralFeatures(self)),
+                              StructuralFeatures(use_sentence_length=self.use_sentence_length)),
                              ])
         return ('structural_features', pipeline)
 

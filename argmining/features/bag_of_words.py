@@ -46,7 +46,8 @@ class BagOfWords(BaseEstimator):
     def build(self):
         if self.normalize:
             pipeline = Pipeline([('transformer',
-                                  BagOfWords(self)),
+                                  BagOfWords(ngram=self.ngram, token_form=self.token_form, lowercase=self.lowercase,
+                                             normalize=self.normalize, feature_name=self.feature_name)),
                                  ('normalizer', Normalizer())
                                  ])
         else:
