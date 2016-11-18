@@ -52,7 +52,7 @@ class BagOfWords(BaseEstimator):
                                  ])
         else:
             pipeline = Pipeline([('transformer',
-                                  BagOfWords(self)),
+                                  BagOfWords()),
                                  ])
         return (self.feature_name, pipeline)
 
