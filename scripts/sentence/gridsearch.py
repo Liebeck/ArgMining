@@ -40,7 +40,7 @@ if __name__ == '__main__':
     strategy = GRIDSEARCH_STRATEGIES[arguments.gridsearchstrategy]['features']
     strategy_built = []
     for feature_name, feature in strategy.items():
-        strategy_built.append(feature.build())
+        strategy_built.append(feature)
 
 
     param_grid.update(GRIDSEARCH_STRATEGIES[arguments.gridsearchstrategy]['param_grid'])
