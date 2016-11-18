@@ -6,7 +6,18 @@ from argmining.models.stts import STTS_TAGSET
 from argmining.models.uts import UTS_TAGSET, get_UTS_tag
 from collections import OrderedDict
 import numpy as np
-from sklearn.feature_selection import SelectKBest, chi2
+from sklearn.feature_selection import chi2
+from argmining.transformers.selectkbest_toggle import SelectKBestToggle
+
+
+def build(use_feature_selection=True, k=5):
+    pipeline = Pipeline([('transformer',
+                          POSDistribution(use_STTS=True)),
+                         ('feature_selection',
+                          SelectKBestToggle(chi2, use_feature_selection=use_feature_selection, k=k)),
+                         ('normalizer', Normalizer())
+                         ])
+    return ('pos_distribution', pipeline)
 
 
 def get_pos_histogram(pos_list, tag_set):
@@ -21,31 +32,9 @@ def get_pos_histogram(pos_list, tag_set):
 
 
 class POSDistribution(BaseEstimator):
-    def __init__(self, use_STTS=True, use_feature_selection=False, feature_selection_k=10):
+    def __init__(self, use_STTS=True):
         self.logger = logging.getLogger()
         self.use_STTS = use_STTS
-        self.use_feature_selection = use_feature_selection
-        self.feature_selection_k = feature_selection_k
-
-    def build(self):
-        if self.use_STTS:
-            if self.use_feature_selection:
-                pipeline = Pipeline([('transformer',
-                                      POSDistribution(use_STTS=True)),
-                                     ('feature_selection', SelectKBest(chi2, k=self.feature_selection_k)),
-                                     ('normalizer', Normalizer())
-                                     ])
-            else:
-                pipeline = Pipeline([('transformer',
-                                      POSDistribution(use_STTS=True)),
-                                     ('normalizer', Normalizer())
-                                     ])
-        else:
-            pipeline = Pipeline([('transformer',
-                                  POSDistribution(use_STTS=False)),
-                                 ('normalizer', Normalizer())
-                                 ])
-        return ('pos_distribution', pipeline)
 
     def fit(self, X, y):
         return self
