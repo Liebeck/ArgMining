@@ -1,5 +1,4 @@
-from argmining.features.bag_of_words import build
-from argmining.features.pos_distribution import POSDistribution
+import argmining.features.bag_of_words as bag_of_words
 import argmining.features.pos_distribution as pos_distribution
 import argmining.features.dependency_distribution as dependency_distribution
 import argmining.features.structural_features as structural_features
@@ -10,7 +9,7 @@ GRIDSEARCH_STRATEGIES = {
         {
             'features':
                 OrderedDict([
-                    ('bag_of_words', build())
+                    ('bag_of_words', bag_of_words.build())
                 ]),
             'param_grid': {
                 'union__bag_of_words__transformer__ngram': [1],
@@ -23,7 +22,7 @@ GRIDSEARCH_STRATEGIES = {
         {
             'features':
                 OrderedDict([
-                    ('bag_of_words', build())
+                    ('bag_of_words', bag_of_words.build())
                 ]),
             'param_grid': {
                 'union__bag_of_words__transformer__ngram': [2],
@@ -32,16 +31,17 @@ GRIDSEARCH_STRATEGIES = {
                 'union__bag_of_words__normalizer__use_normalize': [True, False],
             }
         },
-    # 'pos_distribution_feature_selection':
-    #     {
-    #         'features':
-    #             OrderedDict([
-    #                 ('pos_distribution', POSDistribution(use_feature_selection=True))
-    #             ]),
-    #         'param_grid': {
-    #             # 'union__pos_distribution__transformer__feature_selection_k': [5, 10, 15, 20, 25],
-    #             'union__pos_distribution__feature_selection__feature_selection_k': [1, 2, 3],
-    #             'union__pos_distribution__transformer__use_feature_selection': [True],
-    #         }
-    #     }
+    'pos_distribution_feature_selection':
+        {
+            'features':
+                OrderedDict([
+                    ('pos_distribution', pos_distribution.build())
+                ]),
+            'param_grid': {
+                # 'union__pos_distribution__transformer__feature_selection_k': [5, 10, 15, 20, 25],
+                # 'union__pos_distribution__feature_selection__k': [5, 10, 15, 20],
+                'union__pos_distribution__feature_selection__k': [6, 10],
+                'union__pos_distribution__feature_selection__use_feature_selection': [True, False],
+            }
+        }
 }
