@@ -22,6 +22,8 @@ def config_argparser():
     argparser.add_argument('-gridsearchstrategy', type=str, required=True, help='Name of the gridsearch strategy')
     argparser.add_argument('-c', '--classifier', type=str, required=True, help='Name of the classifier')
     argparser.add_argument('--shuffle', type=int, help='Random state of the shuffle or None', default=None)
+    argparser.add_argument('--trainingsize', type=int,
+                           help='Amount of training data to be used, e.g. 50 for 50% of the data', default=None)
     return argparser.parse_args()
 
 
