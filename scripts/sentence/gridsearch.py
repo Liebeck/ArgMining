@@ -81,8 +81,9 @@ if __name__ == '__main__':
     settings['gridsearch_parameters'] = gridsearch.best_params_
     if hasattr(classifier, 'random_state'):
         settings['gridsearch_parameters']['classifier__random_state'] = classifier.random_state
-    output_path = 'results/sentence/temp/{}_{}_{}'.format(settings['classifier'], settings['gridsearchstrategy'],
-                                                          time.strftime('%Y%m%d_%H%M%S'))
+    output_path = 'results/sentence/temp/{}_{}_{}_{}'.format(settings['subtask'], settings['classifier'],
+                                                             settings['gridsearchstrategy'],
+                                                             time.strftime('%Y%m%d_%H%M%S'))
     with open(output_path, 'w') as outfile:
         json.dump(settings, outfile, indent=2)
 
