@@ -10,6 +10,7 @@ from argmining.evaluation.gridsearch_report import report_best_results, best_cv_
 from argmining.classifiers.classifier import get_classifier
 from collections import OrderedDict
 import copy
+from argmining.evaluation.reduce_training_set import reduce_training_set
 
 NJOBS = 1
 TRAINING_SIZE = 100  # only used in predict.py
@@ -23,7 +24,7 @@ def config_argparser():
     argparser.add_argument('-c', '--classifier', type=str, required=True, help='Name of the classifier')
     argparser.add_argument('--shuffle', type=int, help='Random state of the shuffle or None', default=None)
     argparser.add_argument('--trainingsize', type=int,
-                           help='Amount of training data to be used, e.g. 50 for 50% of the data', default=None)
+                           help='Amount of training data to be used, e.g. 50 for 50% of the data', default=100)
     return argparser.parse_args()
 
 
@@ -35,10 +36,12 @@ if __name__ == '__main__':
     X_train, y_train = load_dataset(file_path='data/THF/sentence/subtask{}_train.json'.format(arguments.subtask))
     # 2) Shuffle if desired
 
-    # 3) Select classifier
+    # 3) Reduce training size
+    X_train, y_train = reduce_training_set(X_train, y_train, arguments.trainingsize)
+    # 4) Select classifier
     logger.info("Using classifier: {}".format(arguments.classifier))
     classifier, param_grid_clf = get_classifier(arguments.classifier)
-    # 4) Select feature combination
+    # 5) Select feature combination
     logger.info("Using gridsearch strategy: {}".format(arguments.gridsearchstrategy))
     strategy = GRIDSEARCH_STRATEGIES[arguments.gridsearchstrategy]['features']
     strategy_built = []
@@ -55,15 +58,15 @@ if __name__ == '__main__':
         param_grid = GRIDSEARCH_STRATEGIES[arguments.gridsearchstrategy]['param_grid']
         param_grid.update(param_grid_clf)
     logger.info(param_grid)
-    # 5) Start grid search
+    # 6) Start grid search
     pipe = pipeline(strategy=strategy_built, classifier=classifier)
     logger.info(pipe)
     logger.info("Start grid search")
     gridsearch = GridSearchCV(pipe, param_grid, scoring='f1_macro', cv=arguments.nfold, n_jobs=NJOBS, verbose=2)
     gridsearch.fit(X_train, y_train)
-    # 5) Report results
+    # 7) Report results
     report_best_results(gridsearch.cv_results_)
-    # 6) Serialize the best settings
+    # 8) Serialize the best settings
     settings = OrderedDict()
     settings['classifier'] = arguments.classifier
     settings['gridsearchstrategy'] = arguments.gridsearchstrategy
