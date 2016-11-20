@@ -9,6 +9,7 @@ from argmining.strategies.gridsearch import GRIDSEARCH_STRATEGIES
 from argmining.evaluation.gridsearch_report import report_best_results, best_cv_result
 from argmining.classifiers.classifier import get_classifier
 from collections import OrderedDict
+import copy
 
 NJOBS = 1
 TRAINING_SIZE = 100  # only used in predict.py
@@ -34,7 +35,7 @@ if __name__ == '__main__':
 
     # 3) Select classifier
     logger.info("Using classifier: {}".format(arguments.classifier))
-    classifier, param_grid = get_classifier(arguments.classifier)
+    classifier, param_grid_clf = get_classifier(arguments.classifier)
     # 4) Select feature combination
     logger.info("Using gridsearch strategy: {}".format(arguments.gridsearchstrategy))
     strategy = GRIDSEARCH_STRATEGIES[arguments.gridsearchstrategy]['features']
@@ -42,8 +43,18 @@ if __name__ == '__main__':
     for feature_name, feature in strategy.items():
         strategy_built.append(feature)
 
+    param_grid = []
+    for dict in GRIDSEARCH_STRATEGIES[arguments.gridsearchstrategy]['param_grid']:
+        print(dict)
+        new_dict = copy.deepcopy(dict)
+        new_dict.update(param_grid_clf)
+        param_grid.append(new_dict)
 
-    param_grid.update(GRIDSEARCH_STRATEGIES[arguments.gridsearchstrategy]['param_grid'])
+
+    #logger.info(GRIDSEARCH_STRATEGIES[arguments.gridsearchstrategy]['param_grid'])
+    #for dict in GRIDSEARCH_STRATEGIES[arguments.gridsearchstrategy]['param_grid']:
+        #logger.info(dict)
+    #param_grid.update(GRIDSEARCH_STRATEGIES[arguments.gridsearchstrategy]['param_grid'])
     logger.info(param_grid)
 
     # 5) Start grid search
