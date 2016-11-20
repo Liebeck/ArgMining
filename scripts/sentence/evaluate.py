@@ -79,6 +79,6 @@ if __name__ == '__main__':
         score_handler.write("Micro-averaged F1: {}".format(f1_mean))
         score_handler.write("Individual scores: {}".format(f1))
         score_handler.write("Confusion matrix:")
-        score_handler.write(ConfusionMatrix(y_test, y_prediction))
+        score_handler.write(str(ConfusionMatrix(y_test, y_prediction)))
     logger.info("Total execution time in %0.3fs" % (time.time() - t0))
     logger.info("*****************************************")
