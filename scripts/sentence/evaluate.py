@@ -10,6 +10,7 @@ from pandas_confusion import ConfusionMatrix
 from sklearn.metrics import f1_score
 import numpy as np
 from argmining.evaluation.reduce_training_set import reduce_training_set
+from argmining.evaluation.shuffle import shuffle_training_Set
 
 NJOBS = 1
 
@@ -32,7 +33,7 @@ if __name__ == '__main__':
     X_train, y_train = load_dataset(file_path='data/THF/sentence/subtask{}_train.json'.format(settings['subtask']))
     X_test, y_test = load_dataset(file_path='data/THF/sentence/subtask{}_test.json'.format(settings['subtask']))
     # 4) Shuffle if desired
-
+    X_train, y_train = shuffle_training_Set(X_train, y_train, settings['shuffle'])
     # 5) Reduce training size
     X_train, y_train = reduce_training_set(X_train, y_train, settings['training_size'])
     # 6) Load classifier with arguments

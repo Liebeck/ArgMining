@@ -11,6 +11,7 @@ from argmining.classifiers.classifier import get_classifier
 from collections import OrderedDict
 import copy
 from argmining.evaluation.reduce_training_set import reduce_training_set
+from argmining.evaluation.shuffle import shuffle_training_Set
 
 NJOBS = 1
 TRAINING_SIZE = 100  # only used in predict.py
@@ -35,7 +36,7 @@ if __name__ == '__main__':
     # 1) Load data sets
     X_train, y_train = load_dataset(file_path='data/THF/sentence/subtask{}_train.json'.format(arguments.subtask))
     # 2) Shuffle if desired
-
+    X_train, y_train = shuffle_training_Set(X_train, y_train, arguments.shuffle)
     # 3) Reduce training size
     X_train, y_train = reduce_training_set(X_train, y_train, arguments.trainingsize)
     # 4) Select classifier
