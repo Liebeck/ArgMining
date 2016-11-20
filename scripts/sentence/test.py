@@ -5,22 +5,47 @@ from sklearn.feature_selection import chi2
 from sklearn.svm import SVC
 from sklearn.feature_selection import SelectKBest
 from sklearn.feature_selection import f_classif
+from sklearn.base import BaseEstimator
+from sklearn.feature_selection.base import SelectorMixin
 
 
 class SelectKBestToggle(SelectKBest):
-    def __init__(self, k=30, score_func=f_classif):
-        print('k: {}'.format(k))
+    def __init__(self, k=30, score_func=f_classif, use_feature_selection=False):
+        # print('k: {}'.format(k))
         self.k = k
-        self.score_func=score_func
+        self.use_feature_selection = use_feature_selection
+        self.score_func = score_func
         # super(SelectKBest, self).__init__(score_func)
 
+    def set_params(self, **params):
+        if 'use_feature_selection' in params:
+            if not params['use_feature_selection']:
+                print("FS is disabled")
+                BaseEstimator.set_params(self, k='all')
+                # params['k'] = 'all'
+                # print(params['use_feature_selection'])
+        # print(params['k'])
+        print(params)
 
-grid = {
-    #'feature_selection__k': [5, 10, 20],
-    'feature_selection': [SelectKBestToggle(score_func=chi2, k=5),
-                          SelectKBestToggle(score_func=chi2, k=10)],
+        # super(BaseEstimator, self).set_params(**params)
+        BaseEstimator.set_params(self, **params)
+
+        # def transform(self, X):
+        # print(self)
+
+        # super(SelectorMixin, self).transform(X)
+        # SelectorMixin.transform(self, X)
+
+
+grid = [{
+    'feature_selection__k': [5, 10, 20],
+    'feature_selection__use_feature_selection': [True],
+    'classifier__gamma': [0.005, 0.01]
+}, {
+    'feature_selection__use_feature_selection': [False],
     'classifier__gamma': [0.005, 0.01]
 }
+]
 
 digits = load_digits()
 
