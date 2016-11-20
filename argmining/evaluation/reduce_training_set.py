@@ -1,5 +1,6 @@
 import logging
 
+
 def reduce_training_set(X_train, y_train, training_size):
     logger = logging.getLogger()
     if training_size == 100:
