@@ -1,5 +1,6 @@
 from sklearn.preprocessing import Normalizer
 
+
 class NormalizerToggle(Normalizer):
     def __init__(self, use_normalize=True, norm='l2', copy=True):
         self.norm = norm

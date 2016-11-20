@@ -9,6 +9,7 @@ from argmining.classifiers.classifier import create_classifier
 from pandas_confusion import ConfusionMatrix
 from sklearn.metrics import f1_score
 import numpy as np
+
 NJOBS = 1
 
 
@@ -75,7 +76,7 @@ if __name__ == '__main__':
             prediction_handler.write('{}\t{}\n'.format(y_test[index], y_prediction[index]))
     # 9) Save the score and the confusion matrix into the file system
     score_file = '{}.predictions'.format(arguments.configfile)
-    with  open(score_file,'w') as score_handler: 
+    with open(score_file, 'w') as score_handler:
         score_handler.write("Micro-averaged F1: {}".format(f1_mean))
         score_handler.write("Individual scores: {}".format(f1))
         score_handler.write("Confusion matrix:")

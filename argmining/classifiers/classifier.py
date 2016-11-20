@@ -13,6 +13,7 @@ def get_classifier(name):
     else:
         raise ValueError("Unknown classifier")
 
+
 def create_classifier(name, classifier_params):
     if name == 'svm':
         return svm.build(**classifier_params)
