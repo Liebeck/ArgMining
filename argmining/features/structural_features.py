@@ -1,12 +1,6 @@
 from sklearn.base import BaseEstimator
 from sklearn.pipeline import Pipeline
 import logging
-from sklearn.preprocessing import Normalizer
-from argmining.models.stts import STTS_TAGSET
-from argmining.models.uts import UTS_TAGSET, get_UTS_tag
-from collections import OrderedDict
-import numpy as np
-from sklearn.feature_selection import SelectKBest, chi2
 
 
 def build(use_sentence_length=True):
@@ -14,6 +8,7 @@ def build(use_sentence_length=True):
                           StructuralFeatures(use_sentence_length=use_sentence_length)),
                          ])
     return ('structural_features', pipeline)
+
 
 class StructuralFeatures(BaseEstimator):
     def __init__(self, use_sentence_length=True):
