@@ -118,6 +118,20 @@ class THFSentenceFeaturesStructural(unittest.TestCase):
                           ]
         self.assertEqual(feature_value, expected_value)
 
+    def test_link(self):
+        tokens = []
+        tokens.append(Token(1, 'Test', None, None, None, None, None, None))
+        tokens.append(Token(2, 'http://umap.openstreetmap.fr', None, None, None, None, None, None))
+        thf_sentence = THFSentenceExport(None, None, 'Test http://umap.openstreetmap.fr', tokens, None)
+        use_sentence_length = False
+        feature_value = structural_features.transform_sentence(thf_sentence, use_sentence_length)
+        expected_value = [0.0 / len(tokens),
+                          0.0 / len(tokens),
+                          1.0,
+                          0.0, 0.0, .0, 1.0
+                          ]
+        self.assertEqual(feature_value, expected_value)
+
 
 if __name__ == '__main__':
     unittest.main()
