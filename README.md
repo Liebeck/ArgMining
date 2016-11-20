@@ -16,6 +16,8 @@ Performs a cross-validation on the training set with a feature combination and e
     python scripts/sentence/gridsearch.py -subtask A -gridsearchstrategy bigram -c svm
     python scripts/sentence/gridsearch.py -subtask A -gridsearchstrategy pos_distribution_feature_selection -c svm
     python scripts/sentence/gridsearch.py -subtask A -gridsearchstrategy pos_distribution -c svm
+    python scripts/sentence/gridsearch.py -subtask A -gridsearchstrategy unigram+grammatical -c svm
+    python scripts/sentence/gridsearch.py -subtask B -gridsearchstrategy unigram+grammatical -c svm
 
 ```
 
