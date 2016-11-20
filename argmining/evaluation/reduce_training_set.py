@@ -3,10 +3,10 @@ import logging
 
 def reduce_training_set(X_train, y_train, training_size):
     logger = logging.getLogger()
-    logger.debug('Reducing training size: {}'.format(training_size))
     if training_size == 100:
         return X_train, y_train
     training_size = float(training_size) / 100  # get percentage
+    logger.debug('Reducing training size: {}'.format(training_size))
     row_count = X_train.shape[0]
     logger.debug('Row count before reduction: {}'.format(row_count))
     row_upper_index = int(round(row_count * training_size))
