@@ -81,7 +81,7 @@ if __name__ == '__main__':
         for index, val in enumerate(y_test):
             prediction_handler.write('{}\t{}\n'.format(y_test[index], y_prediction[index]))
     # 12) Save the score and the confusion matrix into the file system
-    score_file = '{}.predictions'.format(arguments.configfile)
+    score_file = '{}.score'.format(arguments.configfile)
     with open(score_file, 'w') as score_handler:
         score_handler.write("Micro-averaged F1: {}".format(f1_mean))
         score_handler.write("Individual scores: {}".format(f1))
