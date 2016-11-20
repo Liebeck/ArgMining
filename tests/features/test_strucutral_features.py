@@ -44,7 +44,6 @@ class THFSentenceFeaturesStructural(unittest.TestCase):
                           ]
         self.assertEqual(feature_value, expected_value)
 
-
     def test_example2_without_sentence_length(self):
         tokens = []
         tokens.append(Token(1, 'Das', None, None, None, None, None, None))
@@ -60,6 +59,62 @@ class THFSentenceFeaturesStructural(unittest.TestCase):
                           1.0 / len(tokens),
                           0.0,
                           0.0, 1.0, 0.0, 0.0
+                          ]
+        self.assertEqual(feature_value, expected_value)
+
+    def test_comma_end(self):
+        tokens = []
+        tokens.append(Token(1, 'Test', None, None, None, None, None, None))
+        tokens.append(Token(2, ',', None, None, None, None, None, None))
+        thf_sentence = THFSentenceExport(None, None, 'Test ,', tokens, None)
+        use_sentence_length = False
+        feature_value = structural_features.transform_sentence(thf_sentence, use_sentence_length)
+        expected_value = [1.0 / len(tokens),
+                          0.0 / len(tokens),
+                          0.0,
+                          0.0, 0.0, 0.0, 1.0
+                          ]
+        self.assertEqual(feature_value, expected_value)
+
+    def test_dot_end(self):
+        tokens = []
+        tokens.append(Token(1, 'Test', None, None, None, None, None, None))
+        tokens.append(Token(2, '.', None, None, None, None, None, None))
+        thf_sentence = THFSentenceExport(None, None, 'Test .', tokens, None)
+        use_sentence_length = False
+        feature_value = structural_features.transform_sentence(thf_sentence, use_sentence_length)
+        expected_value = [0.0 / len(tokens),
+                          1.0 / len(tokens),
+                          0.0,
+                          1.0, 0.0, 0.0, 0.0
+                          ]
+        self.assertEqual(feature_value, expected_value)
+
+    def test_exclamation_mark_end(self):
+        tokens = []
+        tokens.append(Token(1, 'Test', None, None, None, None, None, None))
+        tokens.append(Token(2, '!', None, None, None, None, None, None))
+        thf_sentence = THFSentenceExport(None, None, 'Test !', tokens, None)
+        use_sentence_length = False
+        feature_value = structural_features.transform_sentence(thf_sentence, use_sentence_length)
+        expected_value = [0.0 / len(tokens),
+                          0.0 / len(tokens),
+                          0.0,
+                          0.0, 1.0, 0.0, 0.0
+                          ]
+        self.assertEqual(feature_value, expected_value)
+
+    def test_question_mark_end(self):
+        tokens = []
+        tokens.append(Token(1, 'Test', None, None, None, None, None, None))
+        tokens.append(Token(2, '?', None, None, None, None, None, None))
+        thf_sentence = THFSentenceExport(None, None, 'Test ?', tokens, None)
+        use_sentence_length = False
+        feature_value = structural_features.transform_sentence(thf_sentence, use_sentence_length)
+        expected_value = [0.0 / len(tokens),
+                          0.0 / len(tokens),
+                          0.0,
+                          0.0, 0.0, 1.0, 0.0
                           ]
         self.assertEqual(feature_value, expected_value)
 
