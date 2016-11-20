@@ -9,6 +9,7 @@ from argmining.classifiers.classifier import create_classifier
 from pandas_confusion import ConfusionMatrix
 from sklearn.metrics import f1_score
 import numpy as np
+from argmining.evaluation.reduce_training_set import reduce_training_set
 
 NJOBS = 1
 
@@ -30,7 +31,11 @@ if __name__ == '__main__':
     # 2) Read datasets
     X_train, y_train = load_dataset(file_path='data/THF/sentence/subtask{}_train.json'.format(settings['subtask']))
     X_test, y_test = load_dataset(file_path='data/THF/sentence/subtask{}_test.json'.format(settings['subtask']))
-    # 3) Load classifier with arguments
+    # 4) Shuffle if desired
+
+    # 5) Reduce training size
+    X_train, y_train = reduce_training_set(X_train, y_train, settings['training_size'])
+    # 6) Load classifier with arguments
     classifer_parameters = {}
     for key, value in settings['gridsearch_parameters'].items():
         if key.startswith('classifier__'):
@@ -39,7 +44,7 @@ if __name__ == '__main__':
     logger.info('Creating classifier {}'.format(settings['classifier']))
     classifier = create_classifier(settings['classifier'], classifer_parameters)
     logger.info(classifier)
-    # 4) Load features and set arguments
+    # 7) Load features and set arguments
     logger.info("Using gridsearch strategy: {}".format(settings['gridsearchstrategy']))
     strategy = GRIDSEARCH_STRATEGIES[settings['gridsearchstrategy']]['features']
     strategy_built = []
@@ -57,24 +62,24 @@ if __name__ == '__main__':
                 'Building feature {} with the following parameters: {}'.format(feature_name, feature_parameters))
             strategy_built.append(feature(**feature_parameters))
         logger.debug(strategy_built[-1])
-    # 5) Train classifier
+    # 8) Train classifier
     pipe = pipeline(strategy=strategy_built, classifier=classifier)
     pipe.fit(X_train, y_train)
-    # 6) Predict the test set
+    # 9) Predict the test set
     y_prediction = pipe.predict(X_test)
-    # 7) Print score and the confusion matrix
+    # 10) Print score and the confusion matrix
     f1 = f1_score(y_test, y_prediction, average=None)
     f1_mean = np.mean(f1)
     logger.info("Micro-averaged F1: {}".format(f1_mean))
     logger.info("Individual scores: {}".format(f1))
     logger.info("Confusion matrix:")
     logger.info(ConfusionMatrix(y_test, y_prediction))
-    # 8) Save the predictions into the file system
+    # 11) Save the predictions into the file system
     prediction_file = '{}.predictions'.format(arguments.configfile)
     with open(prediction_file, 'w') as prediction_handler:
         for index, val in enumerate(y_test):
             prediction_handler.write('{}\t{}\n'.format(y_test[index], y_prediction[index]))
-    # 9) Save the score and the confusion matrix into the file system
+    # 12) Save the score and the confusion matrix into the file system
     score_file = '{}.predictions'.format(arguments.configfile)
     with open(score_file, 'w') as score_handler:
         score_handler.write("Micro-averaged F1: {}".format(f1_mean))
