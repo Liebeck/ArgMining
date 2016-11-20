@@ -9,16 +9,16 @@ import numpy as np
 from sklearn.feature_selection import SelectKBest, chi2
 
 
+def build(use_sentence_length=True):
+    pipeline = Pipeline([('transformer',
+                          StructuralFeatures(use_sentence_length=use_sentence_length)),
+                         ])
+    return ('structural_features', pipeline)
+
 class StructuralFeatures(BaseEstimator):
     def __init__(self, use_sentence_length=True):
         self.logger = logging.getLogger()
         self.use_sentence_length = use_sentence_length
-
-    def build(self):
-        pipeline = Pipeline([('transformer',
-                              StructuralFeatures(use_sentence_length=self.use_sentence_length)),
-                             ])
-        return ('structural_features', pipeline)
 
     def fit(self, X, y):
         return self
