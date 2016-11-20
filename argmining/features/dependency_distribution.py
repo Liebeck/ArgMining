@@ -38,11 +38,9 @@ def get_dependency_histogram(pos_list, tag_set):
 
 
 class DependencyDistribution(BaseEstimator):
-    def __init__(self, use_TIGER=True, use_feature_selection=False, feature_selection_k=10):
+    def __init__(self, use_TIGER=True):
         self.logger = logging.getLogger()
         self.use_TIGER = use_TIGER
-        self.use_feature_selection = use_feature_selection
-        self.feature_selection_k = feature_selection_k
 
     def fit(self, X, y):
         return self
