@@ -7,14 +7,22 @@ from argmining.models.uts import UTS_TAGSET, get_UTS_tag
 from collections import OrderedDict
 import numpy as np
 from sklearn.feature_selection import chi2
-from argmining.transformers.selectkbest_toggle import SelectKBestToggle
+from sklearn.feature_selection import SelectKBest
 
 
-def build(use_feature_selection=True, k=5):
+def build():
+    pipeline = Pipeline([('transformer',
+                          POSDistribution(use_STTS=True)),
+                         ('normalizer', Normalizer())
+                         ])
+    return ('pos_distribution', pipeline)
+
+
+def build_feature_selection(k=5):
     pipeline = Pipeline([('transformer',
                           POSDistribution(use_STTS=True)),
                          ('feature_selection',
-                          SelectKBestToggle(chi2, use_feature_selection=use_feature_selection, k=k)),
+                          SelectKBest(chi2, k=k)),
                          ('normalizer', Normalizer())
                          ])
     return ('pos_distribution', pipeline)
