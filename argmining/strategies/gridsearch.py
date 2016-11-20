@@ -59,5 +59,21 @@ GRIDSEARCH_STRATEGIES = {
 
             ]
 
-        }
+        },
+    'unigram+grammatical':
+        {
+            'features':
+                OrderedDict([
+                    ('bag_of_words', bag_of_words.build),
+                    ('pos_distribution', pos_distribution.build),
+                    ('dependency_distribution', dependency_distribution.build),
+                ]),
+            'param_grid': {
+                'union__bag_of_words__transformer__ngram': [1],
+                'union__bag_of_words__transformer__lowercase': [True, False],
+                'union__bag_of_words__transformer__token_form': ['text', 'IWNLP_lemma'],
+                'union__bag_of_words__normalizer__use_normalize': [True, False],
+                'union__pos_distribution__transformer__use_STTS': [True, False],
+            }
+        },
 }
