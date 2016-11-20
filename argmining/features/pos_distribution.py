@@ -10,17 +10,17 @@ from sklearn.feature_selection import chi2
 from sklearn.feature_selection import SelectKBest
 
 
-def build():
+def build(use_STTS=True):
     pipeline = Pipeline([('transformer',
-                          POSDistribution(use_STTS=True)),
+                          POSDistribution(use_STTS=use_STTS)),
                          ('normalizer', Normalizer())
                          ])
     return ('pos_distribution', pipeline)
 
 
-def build_feature_selection(k=5):
+def build_feature_selection(use_STTS=True, k=5):
     pipeline = Pipeline([('transformer',
-                          POSDistribution(use_STTS=True)),
+                          POSDistribution(use_STTS=use_STTS)),
                          ('feature_selection',
                           SelectKBest(chi2, k=k)),
                          ('normalizer', Normalizer())
