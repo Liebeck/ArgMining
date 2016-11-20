@@ -31,17 +31,33 @@ GRIDSEARCH_STRATEGIES = {
                 'union__bag_of_words__normalizer__use_normalize': [True, False],
             }
         },
-    'pos_distribution_feature_selection':
+    'pos_distribution':
         {
             'features':
                 OrderedDict([
                     ('pos_distribution', pos_distribution.build())
                 ]),
             'param_grid': {
-                # 'union__pos_distribution__transformer__feature_selection_k': [5, 10, 15, 20, 25],
-                # 'union__pos_distribution__feature_selection__k': [5, 10, 15, 20],
-                'union__pos_distribution__feature_selection__k': [6, 10],
-                'union__pos_distribution__feature_selection__use_feature_selection': [True, False],
+                'union__pos_distribution__transformer__use_STTS': [True, False],
             }
+        },
+    'pos_distribution_feature_selection':
+        {
+            'features':
+                OrderedDict([
+                    ('pos_distribution', pos_distribution.build_feature_selection())
+                ]),
+            'param_grid': [
+                {
+                    'union__pos_distribution__transformer__use_STTS': [True],
+                    'union__pos_distribution__feature_selection__k': [5, 10, 15, 20, 30, 'all'],
+                },
+                {
+                    'union__pos_distribution__transformer__use_STTS': [False],
+                    'union__pos_distribution__feature_selection__k': [6, 7, 8, 9, 10, 11, 'all'],
+                }
+
+            ]
+
         }
 }
