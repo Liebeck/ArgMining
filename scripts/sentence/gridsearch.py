@@ -73,7 +73,7 @@ if __name__ == '__main__':
     settings['subtask'] = arguments.subtask
     settings['nfold'] = arguments.nfold
     settings['shuffle'] = arguments.shuffle
-    settings['training_size'] = arguments.shuffle
+    settings['training_size'] = arguments.trainingsize
     best_mean, best_std = best_cv_result(gridsearch.cv_results_)
     settings['gridsearch_best_mean'] = best_mean
     settings['gridsearch_best_std'] = best_std
