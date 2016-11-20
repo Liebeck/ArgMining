@@ -42,21 +42,17 @@ if __name__ == '__main__':
     strategy_built = []
     for feature_name, feature in strategy.items():
         strategy_built.append(feature)
-
     param_grid = []
-    for dict in GRIDSEARCH_STRATEGIES[arguments.gridsearchstrategy]['param_grid']:
-        print(dict)
-        new_dict = copy.deepcopy(dict)
-        new_dict.update(param_grid_clf)
-        param_grid.append(new_dict)
-
-
-    #logger.info(GRIDSEARCH_STRATEGIES[arguments.gridsearchstrategy]['param_grid'])
-    #for dict in GRIDSEARCH_STRATEGIES[arguments.gridsearchstrategy]['param_grid']:
-        #logger.info(dict)
-    #param_grid.update(GRIDSEARCH_STRATEGIES[arguments.gridsearchstrategy]['param_grid'])
+    if type(GRIDSEARCH_STRATEGIES[arguments.gridsearchstrategy]['param_grid']) is list:
+        for dict in GRIDSEARCH_STRATEGIES[arguments.gridsearchstrategy]['param_grid']:
+            print(dict)
+            new_dict = copy.deepcopy(dict)
+            new_dict.update(param_grid_clf)
+            param_grid.append(new_dict)
+    else:
+        param_grid = GRIDSEARCH_STRATEGIES[arguments.gridsearchstrategy]['param_grid']
+        param_grid.update(param_grid_clf)
     logger.info(param_grid)
-
     # 5) Start grid search
     pipe = pipeline(strategy=strategy_built, classifier=classifier)
     logger.info(pipe)
