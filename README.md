@@ -13,7 +13,7 @@ Performs a cross-validation for a strategy with fixed feature parameters on the 
 Performs a cross-validation on the training set with a feature combination and experiments with different parameters for the features. The result of the gridsearch is saved in the file system.
 ``` bash
     python scripts/sentence/gridsearch.py -subtask A -gridsearchstrategy unigram -c svm
-    python scripts/sentence/gridsearch.py -subtask A -gridsearchstrategy unigram -c svm
+    python scripts/sentence/gridsearch.py -subtask A -gridsearchstrategy bigram -c svm
     python scripts/sentence/gridsearch.py -subtask A -gridsearchstrategy pos_distribution_feature_selection -c svm
     python scripts/sentence/gridsearch.py -subtask A -gridsearchstrategy pos_distribution -c svm
 
