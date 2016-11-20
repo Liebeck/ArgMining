@@ -43,6 +43,7 @@ if __name__ == '__main__':
     strategy = GRIDSEARCH_STRATEGIES[settings['gridsearchstrategy']]['features']
     strategy_built = []
     for feature_name, feature in strategy.items():
+        logger.debug(feature)
         feature_parameters = {}
         for key, value in settings['gridsearch_parameters'].items():
             if key.startswith('union__{}'.format(feature_name)):
@@ -50,11 +51,11 @@ if __name__ == '__main__':
         if not feature_parameters:
             logger.info(
                 'Building feature {} without parameters'.format(feature_name))
-            strategy_built.append(feature.build())
+            strategy_built.append(feature())
         else:
             logger.info(
                 'Building feature {} with the following parameters: {}'.format(feature_name, feature_parameters))
-            strategy_built.append(feature.build(**feature_parameters))
+            strategy_built.append(feature(**feature_parameters))
     # 5) Train classifier
     pipe = pipeline(strategy=strategy_built, classifier=classifier)
     pipe.fit(X_train, y_train)

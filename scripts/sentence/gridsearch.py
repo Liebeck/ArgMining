@@ -41,7 +41,7 @@ if __name__ == '__main__':
     strategy = GRIDSEARCH_STRATEGIES[arguments.gridsearchstrategy]['features']
     strategy_built = []
     for feature_name, feature in strategy.items():
-        strategy_built.append(feature)
+        strategy_built.append(feature())
     param_grid = []
     if type(GRIDSEARCH_STRATEGIES[arguments.gridsearchstrategy]['param_grid']) is list:
         for dict in GRIDSEARCH_STRATEGIES[arguments.gridsearchstrategy]['param_grid']:

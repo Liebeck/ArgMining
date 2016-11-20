@@ -9,7 +9,7 @@ GRIDSEARCH_STRATEGIES = {
         {
             'features':
                 OrderedDict([
-                    ('bag_of_words', bag_of_words.build())
+                    ('bag_of_words', bag_of_words.build)
                 ]),
             'param_grid': {
                 'union__bag_of_words__transformer__ngram': [1],
@@ -22,7 +22,7 @@ GRIDSEARCH_STRATEGIES = {
         {
             'features':
                 OrderedDict([
-                    ('bag_of_words', bag_of_words.build())
+                    ('bag_of_words', bag_of_words.build)
                 ]),
             'param_grid': {
                 'union__bag_of_words__transformer__ngram': [2],
@@ -35,7 +35,7 @@ GRIDSEARCH_STRATEGIES = {
         {
             'features':
                 OrderedDict([
-                    ('pos_distribution', pos_distribution.build())
+                    ('pos_distribution', pos_distribution.build)
                 ]),
             'param_grid': {
                 'union__pos_distribution__transformer__use_STTS': [True, False],
@@ -45,7 +45,7 @@ GRIDSEARCH_STRATEGIES = {
         {
             'features':
                 OrderedDict([
-                    ('pos_distribution', pos_distribution.build_feature_selection())
+                    ('pos_distribution', pos_distribution.build_feature_selection)
                 ]),
             'param_grid': [
                 {
