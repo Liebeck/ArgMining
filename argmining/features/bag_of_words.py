@@ -6,8 +6,8 @@ import numpy as np
 from argmining.transformers.normalizer_toggle import NormalizerToggle
 
 
-def build(feature_name='bag_of_words'):
-    pipeline = Pipeline([('transformer', BagOfWords()),
+def build(feature_name='bag_of_words', ngram=1, token_form='text', lowercase=False):
+    pipeline = Pipeline([('transformer', BagOfWords(ngram=ngram, token_form=token_form, lowercase=lowercase)),
                          ('normalizer', NormalizerToggle())
                          ])
     return (feature_name, pipeline)
