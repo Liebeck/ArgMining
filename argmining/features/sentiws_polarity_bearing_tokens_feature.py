@@ -19,7 +19,7 @@ def count_polarity_bearing_tokens(thf_sentence):
 
 
 class SentiWSPolarityBearingTokens(BaseEstimator):
-    def __init__(self, feature):
+    def __init__(self):
         self.logger = logging.getLogger()
 
     def fit(self, X, y):

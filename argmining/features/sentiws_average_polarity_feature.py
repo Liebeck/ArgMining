@@ -25,7 +25,7 @@ def extract_average_polarity(thf_sentence):
 
 
 class SentiWSAveragePolarity(BaseEstimator):
-    def __init__(self, feature):
+    def __init__(self):
         self.logger = logging.getLogger()
 
     def fit(self, X, y):
