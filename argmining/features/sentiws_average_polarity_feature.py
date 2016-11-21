@@ -16,8 +16,6 @@ def extract_average_polarity(thf_sentence):
     for token in thf_sentence.tokens:
         if token.polarity is not None:
             polarity_scores.append(token.polarity)
-    print(polarity_scores)
-    print(np.mean(polarity_scores))
     if not polarity_scores:
         return [0.0]
     else:
