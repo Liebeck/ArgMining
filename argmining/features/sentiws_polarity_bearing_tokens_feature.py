@@ -26,5 +26,5 @@ class SentiWSPolarityBearingTokens(BaseEstimator):
         return self
 
     def transform(self, X):
-        transformed = list(map(lambda x: self.extract_average_polarity(x), X))
+        transformed = list(map(lambda x: count_polarity_bearing_tokens(x), X))
         return transformed

@@ -32,5 +32,5 @@ class SentiWSAveragePolarity(BaseEstimator):
         return self
 
     def transform(self, X):
-        transformed = list(map(lambda x: self.extract_average_polarity(x), X))
+        transformed = list(map(lambda x: extract_average_polarity(x), X))
         return transformed
