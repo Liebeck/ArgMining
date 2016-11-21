@@ -4,7 +4,7 @@ from argmining.models.thf_sentence_export import THFSentenceExport
 from argmining.models.token import Token
 
 
-class THFSentenceSentiWSAveragePolarity(unittest.TestCase):
+class THFSentenceFeaturesStructural(unittest.TestCase):
     def test_extract_average_polarity_example1(self):
         tokens = []
         tokens.append(Token(1, None, None, None, None, None, None, 0.5))
