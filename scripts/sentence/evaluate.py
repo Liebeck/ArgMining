@@ -78,8 +78,9 @@ if __name__ == '__main__':
     # 11) Save the predictions into the file system
     prediction_file = '{}.predictions'.format(arguments.configfile)
     with open(prediction_file, 'w') as prediction_handler:
+        prediction_handler.write('{}\t{}\t{}\n'.format("UniqueID", "Gold_Label", "Prediction"))
         for index, val in enumerate(y_test):
-            prediction_handler.write('{}\t{}\n'.format(y_test[index], y_prediction[index]))
+            prediction_handler.write('{}\t{}\t{}\n'.format(X_test[index].uniqueID, y_test[index], y_prediction[index]))
     # 12) Save the score and the confusion matrix into the file system
     score_file = '{}.score'.format(arguments.configfile)
     with open(score_file, 'w') as score_handler:
