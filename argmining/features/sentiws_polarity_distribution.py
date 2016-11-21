@@ -23,15 +23,16 @@ def extract_polarity_tokens(thf_sentence):
 
 
 class SentiWSPolarityDistribution(BaseEstimator):
-    def __init__(self, bins=10):
+    def __init__(self, bins=10, density=None):
         self.bins = bins
+        self.density = density
         self.logger = logging.getLogger()
 
     def fit(self, X, y):
         all_polarity_values = []
         for thf_sentence in X:
             all_polarity_values.extend(extract_polarity_tokens(thf_sentence))
-        histogram, edges = np.histogram(all_polarity_values, bins=self.bins)
+        histogram, edges = np.histogram(all_polarity_values, bins=self.bins, density=self.density)
         self.edges = edges
         return self
 
