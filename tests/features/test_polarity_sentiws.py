@@ -1,5 +1,5 @@
 import unittest
-import argmining.features.polarity_sentiws_feature as polarity_sentiws_feature
+import argmining.features.sentiws_average_polarity_feature as polarity_sentiws_feature
 from argmining.models.thf_sentence_export import THFSentenceExport
 from argmining.models.token import Token
 

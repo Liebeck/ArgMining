@@ -5,7 +5,7 @@ import numpy as np
 
 def build():
     pipeline = Pipeline([('transformer',
-                          PolaritySentiWS()),
+                          SentiWSAveragePolarity()),
                          ])
     return ('polarity_sentiws', pipeline)
 
@@ -23,13 +23,13 @@ def extract_average_polarity(thf_sentence):
         return [np.mean(polarity_scores)]
 
 
-class PolaritySentiWS(BaseEstimator):
-    def __init__(self):
+class SentiWSAveragePolarity(BaseEstimator):
+    def __init__(self, feature):
         self.logger = logging.getLogger()
 
     def fit(self, X, y):
         return self
 
     def transform(self, X):
-        transformed = list(map(lambda x: self.transform_sentence(x), X))
+        transformed = list(map(lambda x: self.extract_average_polarity(x), X))
         return transformed
