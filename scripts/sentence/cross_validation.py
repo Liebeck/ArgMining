@@ -40,7 +40,7 @@ if __name__ == '__main__':
     strategy = STRATEGIES[arguments.strategy]
     # 6) Select classifier
     logger.info("Using classifier: {}".format(arguments.classifier))
-    classifier, param_grid = get_classifier(arguments.classifier)
+    classifier, param_grid = get_classifier(arguments.classifier, cross_validation=True)
     # 7) Start grid search
     pipe = pipeline(strategy=strategy, classifier=classifier)
     logger.info("Start grid search")
