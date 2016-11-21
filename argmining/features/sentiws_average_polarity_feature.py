@@ -3,11 +3,12 @@ from sklearn.pipeline import Pipeline
 import logging
 import numpy as np
 
+
 def build():
     pipeline = Pipeline([('transformer',
                           SentiWSAveragePolarity()),
                          ])
-    return ('polarity_sentiws', pipeline)
+    return ('polarity_sentiws_average', pipeline)
 
 
 def extract_average_polarity(thf_sentence):

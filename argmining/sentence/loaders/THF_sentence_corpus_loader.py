@@ -47,7 +47,7 @@ def load(file_path='data/THF/sentence/subtaskA_train.json', group_claims=True):
                 dependencies.append(dependency_model)
             label = sentence["Label"]
             if group_claims:
-                if label == 'ClaimContra' or label =='ClaimPro':
+                if label == 'ClaimContra' or label == 'ClaimPro':
                     label = 'Claim'
             sentence_model = THFSentenceExport(sentence["UniqueID"], label, sentence["Text"], tokens,
                                                dependencies)
