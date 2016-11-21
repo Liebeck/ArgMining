@@ -12,8 +12,6 @@ class NormalizerToggle(Normalizer):
 
     def transform(self, X, y=None, copy=None):
         if self.use_normalize:
-            print('using normalizer')
             return super().transform(X, y, copy)
         else:
-            print("don't use normalizer")
             return X
