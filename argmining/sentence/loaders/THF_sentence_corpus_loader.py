@@ -16,7 +16,7 @@ def load_dataset(file_path):
     return X, y
 
 
-def load(file_path='data/THF/sentence/subtaskA_train.json'):
+def load(file_path='data/THF/sentence/subtaskA_train.json', group_claims=True):
     """
     Loads the THF corpus from an JSON file
     :param file_path: relative path to the JSON file
@@ -45,7 +45,11 @@ def load(file_path='data/THF/sentence/subtaskA_train.json'):
                 dependency_model = Dependency(dependency["TokenID"], dependency["DependencyRelation"],
                                               dependency["DependencyHeadTokenID"])
                 dependencies.append(dependency_model)
-            sentence_model = THFSentenceExport(sentence["UniqueID"], sentence["Label"], sentence["Text"], tokens,
+            label = sentence["Label"]
+            if group_claims:
+                if label == 'ClaimContra' or label =='ClaimPro':
+                    label = 'Claim'
+            sentence_model = THFSentenceExport(sentence["UniqueID"], label, sentence["Text"], tokens,
                                                dependencies)
             sentences.append(sentence_model)
     logger.info('Parsed {} sentences'.format(len(sentences)))
