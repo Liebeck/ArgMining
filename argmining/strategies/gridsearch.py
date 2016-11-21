@@ -2,6 +2,7 @@ import argmining.features.bag_of_words as bag_of_words
 import argmining.features.pos_distribution as pos_distribution
 import argmining.features.dependency_distribution as dependency_distribution
 import argmining.features.structural_features as structural_features
+import argmining.features.sentiws_polarity_distribution as sentiws_polarity_distribution
 from collections import OrderedDict
 
 GRIDSEARCH_STRATEGIES = {
@@ -74,6 +75,18 @@ GRIDSEARCH_STRATEGIES = {
                 'union__bag_of_words__transformer__token_form': ['text', 'IWNLP_lemma'],
                 'union__bag_of_words__normalizer__use_normalize': [True, False],
                 'union__pos_distribution__transformer__use_STTS': [True, False],
+            }
+        },
+    'sentiws_distribution':
+        {
+            'features':
+                OrderedDict([
+                    ('polarity_sentiws_distribution', sentiws_polarity_distribution.build),
+                ]),
+            'param_grid': {
+                'union__polarity_sentiws_distribution__transformer__bins': [5, 10, 'auto'],
+                'union__polarity_sentiws_distribution__transformer__density': [None, True, False],
+
             }
         },
 }
