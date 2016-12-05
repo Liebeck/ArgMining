@@ -19,6 +19,21 @@ GRIDSEARCH_STRATEGIES = {
                 'union__bag_of_words__normalizer__use_normalize': [True, False],
             }
         },
+    'unigram_frequency':
+        {
+            'features':
+                OrderedDict([
+                    ('bag_of_words', bag_of_words.build)
+                ]),
+            'param_grid': {
+                'union__bag_of_words__transformer__ngram': [1],
+                'union__bag_of_words__transformer__lowercase': [True, False],
+                'union__bag_of_words__transformer__token_form': ['text'],
+                'union__bag_of_words__transformer__min_df': [1, 2, 3, 4, 5, 10, 20],
+                'union__bag_of_words__transformer__max_features': [500, 1000, 1500, 2000, None],
+                'union__bag_of_words__normalizer__use_normalize': [True, False],
+            }
+        },
     'bigram':
         {
             'features':
