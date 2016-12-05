@@ -12,6 +12,8 @@ def build(use_sentence_length=True):
 
 def transform_sentence(thf_sentence, use_sentence_length=True):
     values = []
+    sentence_number = int(thf_sentence.uniqueID[thf_sentence.uniqueID.index('s') + 1:])
+    values.append(sentence_number)
     words = list(map(lambda token: token.text, thf_sentence.tokens))
     comma_relative = words.count(',') / float(len(words))
     dot_relative = words.count('.') / float(len(words))
