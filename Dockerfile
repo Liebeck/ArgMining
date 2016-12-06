@@ -10,10 +10,13 @@ RUN conda install -y \
   numpy \
   pandas \
   scikit-learn \
+  nltk \
   matplotlib
 
 RUN sudo echo "Europe/Berlin " > /etc/timezone
 RUN sudo dpkg-reconfigure -f noninteractive tzdata
+
+RUN python -c "import nltk; nltk.download('stopwords');"
 
 WORKDIR /var/www
 ADD . .
