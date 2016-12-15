@@ -7,10 +7,10 @@ from argmining.transformers.normalizer_toggle import NormalizerToggle
 
 
 def build(feature_name='bag_of_words', ngram=1, token_form='text', lowercase=False, normalize=False, min_df=1,
-          max_features=None):
+          max_features=None, stopwords=None):
     pipeline = Pipeline(
         [('transformer', BagOfWords(ngram=ngram, token_form=token_form, lowercase=lowercase, min_df=min_df,
-                                    max_features=max_features)),
+                                    max_features=max_features, stopwords=stopwords)),
          ('normalizer', NormalizerToggle(use_normalize=normalize))
          ])
     return (feature_name, pipeline)
@@ -45,13 +45,14 @@ def tokenizer_THF_lemma_lowercase(thf_sentence):
 
 
 class BagOfWords(BaseEstimator):
-    def __init__(self, ngram=1, token_form='text', lowercase=False, min_df=1, max_features=None):
+    def __init__(self, ngram=1, token_form='text', lowercase=False, min_df=1, max_features=None, stopwords=None):
         self.ngram = ngram
         self.token_form = token_form
         self.logger = logging.getLogger()
         self.lowercase = lowercase
         self.min_df = min_df
         self.max_features = max_features
+        self.stopwords = stopwords
 
     def get_tokenizer(self):
         if self.token_form == 'text' and not self.lowercase:
@@ -69,6 +70,7 @@ class BagOfWords(BaseEstimator):
                                           ngram_range=(self.ngram, self.ngram),
                                           min_df=self.min_df,
                                           max_features=self.max_features,
+                                          stop_words=self.stopwords,
                                           lowercase=False)  # the lowercase is workaround for passing a custom class
         self.vectorizer.fit(X)
         self.logger.info("Created a vocabulary with length {}".format(len(self.vectorizer.get_feature_names())))

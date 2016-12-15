@@ -17,6 +17,7 @@ RUN sudo echo "Europe/Berlin " > /etc/timezone
 RUN sudo dpkg-reconfigure -f noninteractive tzdata
 
 RUN python -c "import nltk; nltk.download('stopwords');"
+RUN pip install --upgrade gensim
 
 WORKDIR /var/www
 ADD . .

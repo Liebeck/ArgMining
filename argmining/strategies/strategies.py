@@ -5,12 +5,15 @@ import argmining.features.structural_features as structural_features
 import argmining.features.sentiws_average_polarity_feature as sentiws_average_polarity_feature
 import argmining.features.sentiws_polarity_bearing_tokens_feature as sentiws_polarity_bearing_tokens_feature
 import argmining.features.sentiws_polarity_distribution as sentiws_polarity_distribution
+import argmining.resources.stopwords as stopwords
 
 STRATEGIES = {'unigram': [bag_of_words.build(ngram=1)],
+              'unigram_stopwords': [bag_of_words.build(ngram=1, stopwords=stopwords.german_stopwords_nltk())],
               'unigram_lowercase': [bag_of_words.build(ngram=1, lowercase=True)],
               'unigram_iwnlp': [bag_of_words.build(ngram=1, token_form='IWNLP_lemma')],
               'unigram_iwnlp_lowercase': [bag_of_words.build(ngram=1, token_form='IWNLP_lemma', lowercase=True)],
-              'unigram_frequency_test': [bag_of_words.build(ngram=2, min_df=3, max_features=None)],
+              'unigram_frequency_test': [bag_of_words.build(ngram=1, min_df=3, max_features=None,
+                                                            stopwords=stopwords.german_stopwords_nltk())],
               'n_unigram': [bag_of_words.build(ngram=1, normalize=True)],
               'n_unigram_lowercase': [bag_of_words.build(ngram=1, lowercase=True, normalize=True)],
               'n_unigram_iwnlp': [bag_of_words.build(ngram=1, token_form='IWNLP_lemma', normalize=True)],
