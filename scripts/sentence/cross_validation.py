@@ -9,6 +9,7 @@ from argmining.evaluation.gridsearch_report import report_best_results
 from argmining.classifiers.classifier import get_classifier
 from argmining.evaluation.reduce_training_set import reduce_training_set
 from argmining.evaluation.shuffle import shuffle_training_Set
+from argmining.resources.word2vec import Word2Vec
 
 NJOBS = 1
 
@@ -31,6 +32,9 @@ if __name__ == '__main__':
     arguments = config_argparser()
     # 1) Load data sets
     X_train, y_train = load_dataset(file_path='data/THF/sentence/subtask{}_train.json'.format(arguments.subtask))
+    word2vec = Word2Vec()
+    word2vec.load()
+    word2vec.annotate_sentences(X_train)
     # 2) Shuffle if desired
     X_train, y_train = shuffle_training_Set(X_train, y_train, arguments.shuffle)
     # 4) Reduce training size
