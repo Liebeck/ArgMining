@@ -6,6 +6,7 @@ import argmining.features.sentiws_average_polarity_feature as sentiws_average_po
 import argmining.features.sentiws_polarity_bearing_tokens_feature as sentiws_polarity_bearing_tokens_feature
 import argmining.features.sentiws_polarity_distribution as sentiws_polarity_distribution
 import argmining.resources.stopwords as stopwords
+import argmining.features.embedding_centroid as embedding_centroid
 
 STRATEGIES = {'unigram': [bag_of_words.build(ngram=1)],
               'unigram_stopwords': [bag_of_words.build(ngram=1, stopwords=stopwords.german_stopwords_nltk())],
@@ -45,5 +46,6 @@ STRATEGIES = {'unigram': [bag_of_words.build(ngram=1)],
               'structural_without_token_length': [structural_features.build(use_sentence_length=False)],
               'sentiws_polarity': [sentiws_average_polarity_feature.build(),
                                    sentiws_polarity_bearing_tokens_feature.build()],
-              'sentiws_distribution': [sentiws_polarity_distribution.build(bins='auto')]
+              'sentiws_distribution': [sentiws_polarity_distribution.build(bins='auto')],
+              'embedding_centroid_100': [embedding_centroid.build(embedding_length=100)]
               }
