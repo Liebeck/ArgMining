@@ -9,3 +9,4 @@ class Token:
         self.tree_tagger_lemma = tree_tagger_lemma
         self.iwnlp_lemma = iwnlp_lemma
         self.polarity = polarity
+        self.embedding = None
