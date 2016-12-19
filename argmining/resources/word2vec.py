@@ -28,6 +28,7 @@ class Word2Vec:
             key = self.get_key(token)
             if key in self.model.vocab:
                 self.coverage = self.coverage + 1
+                # self.logger.debug(type(self.model[key]))
                 token.embedding = self.model[key]
 
     def annotate_sentences(self, sentences):
