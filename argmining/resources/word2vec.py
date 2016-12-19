@@ -2,6 +2,7 @@ import gensim
 from gensim.models import word2vec
 import logging
 
+
 class Word2Vec:
     def __init__(self, model_path='data/word_embeddings/word2vec_wiki-de_20161120_100', text_type='lowercase'):
         self.model_path = model_path
@@ -30,6 +31,5 @@ class Word2Vec:
                 token.embedding = self.model[key]
 
     def annotate_sentences(self, sentences):
-        sentences = list(map(lambda sentence: self.annotate_sentence(sentence), sentences))
+        list(map(lambda sentence: self.annotate_sentence(sentence), sentences))
         self.logger.info("Annotated Tokens {}/{}".format(self.coverage, self.total_tokens))
-        return sentences
