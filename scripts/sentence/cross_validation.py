@@ -34,7 +34,7 @@ if __name__ == '__main__':
     X_train, y_train = load_dataset(file_path='data/THF/sentence/subtask{}_train.json'.format(arguments.subtask))
     word2vec = Word2Vec()
     word2vec.load()
-    word2vec.annotate_sentences(X_train)
+    X_train = word2vec.annotate_sentences(X_train)
     # 2) Shuffle if desired
     X_train, y_train = shuffle_training_Set(X_train, y_train, arguments.shuffle)
     # 4) Reduce training size
