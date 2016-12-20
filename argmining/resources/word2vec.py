@@ -17,15 +17,10 @@ class Word2Vec:
         self.model = gensim.models.Word2Vec.load_word2vec_format(self.model_path)
         self.logger.info("Model loaded")
 
-    def get_key(self, token):
-        if self.text_type == 'lowercase':
-            return token.text.lower()
-        return token.text
-
     def annotate_sentence(self, sentence):
         for token in sentence.tokens:
             self.total_tokens = self.total_tokens + 1
-            key = self.get_key(token)
+            key = token.get_key(self.text_type)
             if key in self.model.vocab:
                 self.coverage = self.coverage + 1
                 # self.logger.debug(type(self.model[key]))

@@ -10,3 +10,8 @@ class Token:
         self.iwnlp_lemma = iwnlp_lemma
         self.polarity = polarity
         self.embedding = None
+
+    def get_key(self, text_type):
+        if text_type == 'lowercase':
+            return self.text.lower()
+        return self.text
