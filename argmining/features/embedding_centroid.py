@@ -3,6 +3,7 @@ from sklearn.pipeline import Pipeline
 import logging
 import numpy as np
 
+
 def build(embedding_length=100):
     pipeline = Pipeline([('transformer',
                           EmbeddingCentroid(embedding_length)),
@@ -17,15 +18,15 @@ def transform_sentence(thf_sentence, embedding_length):
         if token.embedding is not None:
             values.append(token.embedding)
     if not values:
-        val = [np.zeros(embedding_length)]
-        logger.debug(val)
+        val = np.zeros(embedding_length)
+        # logger.debug(val)
         return val
     else:
-        val = [np.mean(values)]
-        logger.debug(val)
+        arr = np.array(values)
+        # logger.debug(arr)
+        val = np.mean(arr, axis=0)
+        # logger.debug(val)
         return val
-
-
 
 
 class EmbeddingCentroid(BaseEstimator):
