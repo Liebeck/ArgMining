@@ -13,6 +13,9 @@ RUN conda install -y \
   nltk \
   matplotlib
 
+RUN conda install nomkl numpy scipy scikit-learn numexpr
+RUN conda remove mkl mkl-service
+
 RUN sudo echo "Europe/Berlin " > /etc/timezone
 RUN sudo dpkg-reconfigure -f noninteractive tzdata
 
