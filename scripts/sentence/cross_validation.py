@@ -23,6 +23,8 @@ def config_argparser():
     argparser.add_argument('--shuffle', type=int, help='Random state of the shuffle or None', default=None)
     argparser.add_argument('--trainingsize', type=int,
                            help='Amount of training data to be used, e.g. 50 for 50% of the data', default=100)
+    argparser.add_argument('-embeddings', dest='load_embeddings', action='store_true')
+    argparser.set_defaults(load_embeddings=False)
     return argparser.parse_args()
 
 
@@ -32,9 +34,10 @@ if __name__ == '__main__':
     arguments = config_argparser()
     # 1) Load data sets
     X_train, y_train = load_dataset(file_path='data/THF/sentence/subtask{}_train.json'.format(arguments.subtask))
-    word2vec = Word2Vec()
-    word2vec.load()
-    word2vec.annotate_sentences(X_train)
+    if arguments.load_embeddings:
+        word2vec = Word2Vec()
+        word2vec.load()
+        word2vec.annotate_sentences(X_train)
     # 2) Shuffle if desired
     X_train, y_train = shuffle_training_Set(X_train, y_train, arguments.shuffle)
     # 4) Reduce training size

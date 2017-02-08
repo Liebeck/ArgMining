@@ -7,9 +7,10 @@ Performs a cross-validation for a strategy with fixed feature parameters on the 
   python scripts/sentence/cross_validation.py -subtask A -strategy unigram -c svm
   python scripts/sentence/cross_validation.py -subtask A -strategy pos_distribution -c svm
   python scripts/sentence/cross_validation.py -subtask A -strategy sentiws_polarity -c svm
-  python scripts/sentence/cross_validation.py -subtask A -strategy embedding_centroid_100 -c svm
-  python scripts/sentence/cross_validation.py -subtask A -strategy embedding_centroid_stopwords_100 -c svm
-  python scripts/sentence/cross_validation.py -subtask A -strategy n_unigram+pos_distribution+embedding_centroid -c svm
+  python scripts/sentence/cross_validation.py -subtask A -embeddings -strategy embedding_centroid_100 -c svm
+  python scripts/sentence/cross_validation.py -subtask A -embeddings -strategy embedding_centroid_stopwords_100 -c svm
+  python scripts/sentence/cross_validation.py -subtask A -embeddings -strategy n_unigram+pos_distribution+embedding_centroid -c svm
+  python scripts/sentence/cross_validation.py -subtask A -strategy unigram_lowercase_tfidf -c svm
 
 
 ```
