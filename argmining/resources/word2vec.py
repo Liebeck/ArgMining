@@ -21,7 +21,7 @@ class Word2Vec:
         for token in sentence.tokens:
             self.total_tokens = self.total_tokens + 1
             key = token.get_key(self.text_type)
-            if key in self.model.vocab:
+            if key in self.model.wv.vocab:
                 self.coverage = self.coverage + 1
                 # self.logger.debug(type(self.model[key]))
                 token.embedding = self.model[key]
