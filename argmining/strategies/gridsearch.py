@@ -4,6 +4,7 @@ import argmining.features.dependency_distribution as dependency_distribution
 import argmining.features.structural_features as structural_features
 import argmining.features.sentiws_polarity_distribution as sentiws_polarity_distribution
 from collections import OrderedDict
+import argmining.features.embedding_centroid as embedding_centroid
 
 GRIDSEARCH_STRATEGIES = {
     'unigram':
@@ -102,6 +103,16 @@ GRIDSEARCH_STRATEGIES = {
                 'union__polarity_sentiws_distribution__transformer__bins': [5, 10, 'auto'],
                 'union__polarity_sentiws_distribution__transformer__density': [None, True, False],
 
+            }
+        },
+    'embedding_centroid_100':
+        {
+            'features':
+                OrderedDict([
+                    ('embedding_centroid', embedding_centroid.build)
+                ]),
+            'param_grid': {
+                'union__embedding_centroid__transformer__embedding_length': [100],
             }
         },
 }
