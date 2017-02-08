@@ -12,6 +12,7 @@ from collections import OrderedDict
 import copy
 from argmining.evaluation.reduce_training_set import reduce_training_set
 from argmining.evaluation.shuffle import shuffle_training_Set
+from argmining.resources.word2vec import Word2Vec
 
 NJOBS = 1
 TRAINING_SIZE = 100  # only used in predict.py
@@ -26,6 +27,8 @@ def config_argparser():
     argparser.add_argument('--shuffle', type=int, help='Random state of the shuffle or None', default=None)
     argparser.add_argument('--trainingsize', type=int,
                            help='Amount of training data to be used, e.g. 50 for 50% of the data', default=100)
+    argparser.add_argument('-embeddings', dest='load_embeddings', action='store_true')
+    argparser.set_defaults(load_embeddings=False)
     return argparser.parse_args()
 
 
@@ -35,6 +38,10 @@ if __name__ == '__main__':
     arguments = config_argparser()
     # 1) Load data sets
     X_train, y_train = load_dataset(file_path='data/THF/sentence/subtask{}_train.json'.format(arguments.subtask))
+    if arguments.load_embeddings:
+        word2vec = Word2Vec()
+        word2vec.load()
+        word2vec.annotate_sentences(X_train)
     # 2) Shuffle if desired
     X_train, y_train = shuffle_training_Set(X_train, y_train, arguments.shuffle)
     # 3) Reduce training size
@@ -75,6 +82,7 @@ if __name__ == '__main__':
     settings['nfold'] = arguments.nfold
     settings['shuffle'] = arguments.shuffle
     settings['training_size'] = arguments.trainingsize
+    settings['load_embeddings'] = arguments.load_embeddings
     best_mean, best_std = best_cv_result(gridsearch.cv_results_)
     settings['gridsearch_best_mean'] = best_mean
     settings['gridsearch_best_std'] = best_std
