@@ -42,13 +42,13 @@ Given a path to a settings file, the evaluate script trains the specified classi
 Data_v1
 ``` bash
     qsub -v c=svm,subtask=A,embeddings_path=/scratch_gs/malie102/word_embeddings/word2vec_wiki-de_20161120_100,gridsearchstrategy=unigram+embedding_centroid_100 hilbert_data_v1.job
-    qsub -v c=svm,subtask=Agridsearchstrategy=unigram hilbert_data_v1.job
+    qsub -v c=svm,subtask=A,gridsearchstrategy=unigram hilbert_data_v1.job
 
 ```
 
 Data_v2
 ``` bash
     qsub -v c=svm,subtask=A,embeddings_path=/scratch_gs/malie102/word_embeddings/word2vec_wiki-de_20161120_100,gridsearchstrategy=unigram+embedding_centroid_100 hilbert_data_v2.job
-    qsub -v c=svm,subtask=Agridsearchstrategy=unigram hilbert_data_v2.job
+    qsub -v c=svm,subtask=A,gridsearchstrategy=unigram hilbert_data_v2.job
 
 ```
