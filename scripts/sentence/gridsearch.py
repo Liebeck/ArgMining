@@ -30,6 +30,8 @@ def config_argparser():
     argparser.add_argument('-embeddings_path', type=str, help='Path to the embeddingsfile', default=None)
     argparser.add_argument('--data_version', type=str, help='Version of the data',
                            default='v1')
+    argparser.add_argument('-hilbert', dest='hilbert', action='store_true')
+    argparser.set_defaults(hilbert=False)
     return argparser.parse_args()
 
 
@@ -42,6 +44,8 @@ if __name__ == '__main__':
         train_path = 'data/THF/sentence/subtask{}_train.json'.format(arguments.subtask)
     elif arguments.data_version == 'v2':
         train_path = 'data/THF/sentence/subtask{}_v2_train.json'.format(arguments.subtask)
+    if arguments.hilbert: # work around for absolute paths on the hilbert cluster
+        train_path = '/home/malie102/jobs/ArgMining/' + train_path
     X_train, y_train = load_dataset(file_path=train_path)
     if arguments.embeddings_path:
         word2vec = Word2Vec(model_path=arguments.embeddings_path)
