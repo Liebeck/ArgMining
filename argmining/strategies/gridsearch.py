@@ -102,7 +102,6 @@ GRIDSEARCH_STRATEGIES = {
             'param_grid': {
                 'union__polarity_sentiws_distribution__transformer__bins': [5, 10, 'auto'],
                 'union__polarity_sentiws_distribution__transformer__density': [None, True, False],
-
             }
         },
     'embedding_centroid_100':
