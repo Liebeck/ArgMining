@@ -27,7 +27,7 @@ def config_argparser():
     argparser.add_argument('--shuffle', type=int, help='Random state of the shuffle or None', default=None)
     argparser.add_argument('--trainingsize', type=int,
                            help='Amount of training data to be used, e.g. 50 for 50% of the data', default=100)
-    argparser.add_argument('-embeddings_path', type=str, help='Path to the embeddingsfile')
+    argparser.add_argument('-embeddings_path', type=str, help='Path to the embeddingsfile', default=None)
     argparser.add_argument('--train_file_path', type=int, help='Path to the training file',
                            default='data/THF/sentence/subtask{}_train.json')
     return argparser.parse_args()
