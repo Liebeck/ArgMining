@@ -7,6 +7,7 @@ import argmining.features.sentiws_polarity_bearing_tokens_feature as sentiws_pol
 import argmining.features.sentiws_polarity_distribution as sentiws_polarity_distribution
 import argmining.resources.stopwords as stopwords
 import argmining.features.embedding_centroid as embedding_centroid
+from argmining.features.tfidf import build_tfidf
 
 STRATEGIES = {'unigram': [bag_of_words.build(ngram=1)],
               'unigram_stopwords': [bag_of_words.build(ngram=1, stopwords=stopwords.german_stopwords_nltk())],
@@ -20,6 +21,8 @@ STRATEGIES = {'unigram': [bag_of_words.build(ngram=1)],
               'n_unigram_iwnlp': [bag_of_words.build(ngram=1, token_form='IWNLP_lemma', normalize=True)],
               'n_unigram_iwnlp_lowercase': [
                   bag_of_words.build(ngram=1, token_form='IWNLP_lemma', lowercase=True, normalize=True)],
+              'unigram_lowercase_tfidf': [
+                  build_tfidf(ngram=1)],
               'bigram': [bag_of_words.build(ngram=2)],
               'bigram_lowercase': [bag_of_words.build(ngram=2, lowercase=True)],
               'bigram_iwnlp': [bag_of_words.build(ngram=2, token_form='IWNLP_lemma')],
