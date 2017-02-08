@@ -114,4 +114,19 @@ GRIDSEARCH_STRATEGIES = {
                 'union__embedding_centroid__transformer__embedding_length': [100],
             }
         },
+    'unigram+embedding_centroid_100':
+        {
+            'features':
+                OrderedDict([
+                    ('bag_of_words', bag_of_words.build),
+                    ('embedding_centroid', embedding_centroid.build),
+                ]),
+            'param_grid': {
+                'union__bag_of_words__transformer__ngram': [1],
+                'union__bag_of_words__transformer__lowercase': [True, False],
+                'union__bag_of_words__transformer__token_form': ['text', 'IWNLP_lemma'],
+                'union__bag_of_words__normalizer__use_normalize': [True, False],
+                'union__embedding_centroid__transformer__embedding_length': [100],
+            }
+        },
 }
