@@ -55,8 +55,14 @@ Data_v1
 
 Data_v2
 ``` bash
-    qsub -v c=svm,subtask=A,embeddings_path=/scratch_gs/malie102/word_embeddings/word2vec_wiki-de_20161120_100,gridsearchstrategy=unigram hilbert_data_v2.job
     qsub -v c=svm,subtask=A,embeddings_path=/scratch_gs/malie102/word_embeddings/word2vec_wiki-de_20161120_100,gridsearchstrategy=unigram+embedding_centroid_100 hilbert_data_v2.job
-
+    qsub -v c=svm,subtask=A,embeddings_path=/scratch_gs/malie102/word_embeddings/word2vec_wiki-de_20161120_100,gridsearchstrategy=unigram hilbert_data_v2.job
+    qsub -v c=svm,subtask=A,embeddings_path=/scratch_gs/malie102/word_embeddings/word2vec_wiki-de_20161120_100,gridsearchstrategy=embedding_centroid_100 hilbert_data_v2.job
+    qsub -v c=rf,subtask=A,embeddings_path=/scratch_gs/malie102/word_embeddings/word2vec_wiki-de_20161120_100,gridsearchstrategy=unigram+embedding_centroid_100 hilbert_data_v2.job
+    qsub -v c=rf,subtask=A,embeddings_path=/scratch_gs/malie102/word_embeddings/word2vec_wiki-de_20161120_100,gridsearchstrategy=unigram hilbert_data_v2.job
+    qsub -v c=rf,subtask=A,embeddings_path=/scratch_gs/malie102/word_embeddings/word2vec_wiki-de_20161120_100,gridsearchstrategy=embedding_centroid_100 hilbert_data_v2.job
+    qsub -v c=knn,subtask=A,embeddings_path=/scratch_gs/malie102/word_embeddings/word2vec_wiki-de_20161120_100,gridsearchstrategy=unigram+embedding_centroid_100 hilbert_data_v2.job
+    qsub -v c=knn,subtask=A,embeddings_path=/scratch_gs/malie102/word_embeddings/word2vec_wiki-de_20161120_100,gridsearchstrategy=unigram hilbert_data_v2.job
+    qsub -v c=knn,subtask=A,embeddings_path=/scratch_gs/malie102/word_embeddings/word2vec_wiki-de_20161120_100,gridsearchstrategy=embedding_centroid_100 hilbert_data_v2.job
 
 ```
