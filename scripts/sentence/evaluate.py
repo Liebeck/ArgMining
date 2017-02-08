@@ -34,8 +34,8 @@ if __name__ == '__main__':
     X_train, y_train = load_dataset(file_path='data/THF/sentence/subtask{}_train.json'.format(settings['subtask']))
     X_test, y_test = load_dataset(file_path='data/THF/sentence/subtask{}_test.json'.format(settings['subtask']))
 
-    if settings['load_embeddings']:
-        word2vec = Word2Vec()
+    if settings['embeddings_path']:
+        word2vec = Word2Vec(model_path=settings['embeddings_path'])
         word2vec.load()
         word2vec.annotate_sentences(X_train)
         word2vec.annotate_sentences(X_test)
