@@ -102,6 +102,8 @@ if __name__ == '__main__':
     output_path = 'results/sentence/temp/{}_{}_{}_{}'.format(settings['subtask'], settings['classifier'],
                                                              settings['gridsearchstrategy'],
                                                              time.strftime('%Y%m%d_%H%M%S'))
+    if arguments.hilbert: # work around for absolute paths on the hilbert cluster
+        output_path = '/home/malie102/jobs/ArgMining/' + output_path
     with open(output_path, 'w') as outfile:
         json.dump(settings, outfile, indent=2)
 
