@@ -31,8 +31,20 @@ if __name__ == '__main__':
     with open(arguments.configfile) as data_file:
         settings = json.load(data_file)
     # 2) Read datasets
-    X_train, y_train = load_dataset(file_path='data/THF/sentence/subtask{}_train.json'.format(settings['subtask']))
-    X_test, y_test = load_dataset(file_path='data/THF/sentence/subtask{}_test.json'.format(settings['subtask']))
+    settings['data_version'] = arguments.data_version
+
+    if 'data_version' in settings: # backwards compability for old setting files
+        if settings['data_version'] == 'v1':
+            train_path = 'data/THF/sentence/subtask{}_train.json'.format(settings['subtask'])
+            test_path = 'data/THF/sentence/subtask{}_test.json'.format(settings['subtask'])
+        elif settings['data_version'] == 'v2':
+            train_path = 'data/THF/sentence/subtask{}_v2_train.json'.format(settings['subtask'])
+            test_path = 'data/THF/sentence/subtask{}_v2_test.json'.format(settings['subtask'])
+    else:
+        train_path = 'data/THF/sentence/subtask{}_train.json'.format(settings['subtask'])
+        test_path = 'data/THF/sentence/subtask{}_test.json'.format(settings['subtask'])
+    X_train, y_train = load_dataset(file_path=train_path)
+    X_test, y_test = load_dataset(file_path=test_path)
 
     if settings['embeddings_path']:
         word2vec = Word2Vec(model_path=settings['embeddings_path'])

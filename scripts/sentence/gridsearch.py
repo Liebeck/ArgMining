@@ -28,8 +28,8 @@ def config_argparser():
     argparser.add_argument('--trainingsize', type=int,
                            help='Amount of training data to be used, e.g. 50 for 50% of the data', default=100)
     argparser.add_argument('-embeddings_path', type=str, help='Path to the embeddingsfile', default=None)
-    argparser.add_argument('--train_file_path', type=int, help='Path to the training file',
-                           default='data/THF/sentence/subtask{}_train.json')
+    argparser.add_argument('--data_version', type=str, help='Version of the data',
+                           default='v1')
     return argparser.parse_args()
 
 
@@ -38,7 +38,11 @@ if __name__ == '__main__':
     logger = logging.getLogger()
     arguments = config_argparser()
     # 1) Load data sets
-    X_train, y_train = load_dataset(file_path=arguments.train_file_path.format(arguments.subtask))
+    if arguments.data_version == 'v1':
+        train_path = 'data/THF/sentence/subtask{}_train.json'.format(arguments.subtask)
+    elif arguments.data_version == 'v2':
+        train_path = 'data/THF/sentence/subtask{}_v2_train.json'.format(arguments.subtask)
+    X_train, y_train = load_dataset(file_path=train_path)
     if arguments.embeddings_path:
         word2vec = Word2Vec(model_path=arguments.embeddings_path)
         word2vec.load()
@@ -84,6 +88,7 @@ if __name__ == '__main__':
     settings['shuffle'] = arguments.shuffle
     settings['training_size'] = arguments.trainingsize
     settings['embeddings_path'] = arguments.embeddings_path
+    settings['data_version'] = arguments.data_version
     best_mean, best_std = best_cv_result(gridsearch.cv_results_)
     settings['gridsearch_best_mean'] = best_mean
     settings['gridsearch_best_std'] = best_std
