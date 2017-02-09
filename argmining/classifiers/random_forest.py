@@ -10,7 +10,7 @@ def param_grid(cross_validation=False):
         return {"classifier__n_estimators": [10, 20, 30, 40],
                 "classifier__max_depth": [5, 10, 20, 30, 50, 100, None],
                 "classifier__max_features": [1, 3, 10],
-                "classifier__min_samples_split": [1, 3, 10],
+                "classifier__min_samples_split": [2, 3, 10],
                 "classifier__min_samples_leaf": [1, 3, 10],
                 "classifier__bootstrap": [True, False],
                 "classifier__criterion": ["gini", "entropy"]}
