@@ -114,6 +114,26 @@ GRIDSEARCH_STRATEGIES = {
                 'union__embedding_centroid__transformer__embedding_length': [100],
             }
         },
+    'embedding_centroid_200':
+        {
+            'features':
+                OrderedDict([
+                    ('embedding_centroid', embedding_centroid.build)
+                ]),
+            'param_grid': {
+                'union__embedding_centroid__transformer__embedding_length': [200],
+            }
+        },
+    'embedding_centroid_300':
+        {
+            'features':
+                OrderedDict([
+                    ('embedding_centroid', embedding_centroid.build)
+                ]),
+            'param_grid': {
+                'union__embedding_centroid__transformer__embedding_length': [300],
+            }
+        },
     'unigram+embedding_centroid_100':
         {
             'features':
