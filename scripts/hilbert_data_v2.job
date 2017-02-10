@@ -15,7 +15,7 @@
 # Be sure to specify a reasonable value here.
 # If the job does not finish by the time reached,
 # the job is terminated.
-#PBS -l walltime=24:00:00
+#PBS -l walltime=36:00:00
 
 # Send mail when job is aborted
 #PBS -m abe
@@ -57,4 +57,4 @@ export PYTHONPATH=$PYTHONPATH:/home/malie102/jobs/ArgMining
 PRINTFILE=$PBS_O_WORKDIR/$PBS_JOBID".print"
 
 ###### EXECUTION ######
-python -u /home/malie102/jobs/ArgMining/scripts/sentence/gridsearch.py -c $c -subtask $subtask -embeddings_path $embeddings_path -gridsearchstrategy $gridsearchstrategy --data_version v2 -hilbert >> $PRINTFILE
+python -u /home/malie102/jobs/ArgMining/scripts/sentence/gridsearch.py -c $c -subtask $subtask -embeddings_path $embeddings_path -gridsearchstrategy $gridsearchstrategy --data_version v2 $nfold 10 -hilbert >> $PRINTFILE
