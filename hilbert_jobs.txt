@@ -24,4 +24,20 @@ qsub -v c=svm,subtask=B,embeddings_path=/scratch_gs/malie102/word_embeddings/wor
 
 
 
+## Evaluate script
+qsub -v configfile=/home/malie102/jobs/ArgMining/results/sentence/HMD/A_svm_unigram_20170211_171251 hilbert_evaluate.job
+qsub -v configfile=/home/malie102/jobs/ArgMining/results/sentence/HMD/A_svm_embedding_centroid_100_20170210_192552 hilbert_evaluate.job
+qsub -v configfile=/home/malie102/jobs/ArgMining/results/sentence/HMD/A_svm_embedding_centroid_200_20170210_194857 hilbert_evaluate.job
+qsub -v configfile=/home/malie102/jobs/ArgMining/results/sentence/HMD/A_svm_embedding_centroid_300_20170210_193824 hilbert_evaluate.job
+qsub -v configfile=/home/malie102/jobs/ArgMining/results/sentence/HMD/A_svm_unigram+embedding_centroid_100_20170211_101148 hilbert_evaluate.job
+qsub -v configfile=/home/malie102/jobs/ArgMining/results/sentence/HMD/A_svm_unigram+embedding_centroid_200_20170211_091042 hilbert_evaluate.job
+qsub -v configfile=/home/malie102/jobs/ArgMining/results/sentence/HMD/A_svm_unigram+embedding_centroid_300_20170211_083553 hilbert_evaluate.job
+qsub -v configfile=/home/malie102/jobs/ArgMining/results/sentence/HMD/B_svm_unigram_20170211_233311 hilbert_evaluate.job
+qsub -v configfile=/home/malie102/jobs/ArgMining/results/sentence/HMD/B_svm_embedding_centroid_100_20170210_192650 hilbert_evaluate.job
+qsub -v configfile=/home/malie102/jobs/ArgMining/results/sentence/HMD/B_svm_embedding_centroid_200_20170210_193232 hilbert_evaluate.job
+qsub -v configfile=/home/malie102/jobs/ArgMining/results/sentence/HMD/B_svm_embedding_centroid_300_20170210_193822 hilbert_evaluate.job
+qsub -v configfile=/home/malie102/jobs/ArgMining/results/sentence/HMD/B_svm_unigram+embedding_centroid_100_20170211_064624 hilbert_evaluate.job
+qsub -v configfile=/home/malie102/jobs/ArgMining/results/sentence/HMD/B_svm_unigram+embedding_centroid_200_20170211_070331 hilbert_evaluate.job
+qsub -v configfile=/home/malie102/jobs/ArgMining/results/sentence/HMD/B_svm_unigram+embedding_centroid_300_20170211_101709 hilbert_evaluate.job
+
 
