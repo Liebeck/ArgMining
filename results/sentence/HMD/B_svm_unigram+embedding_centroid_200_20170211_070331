@@ -1,0 +1,22 @@
+{
+  "classifier": "svm",
+  "gridsearchstrategy": "unigram+embedding_centroid_200",
+  "subtask": "B",
+  "nfold": 10,
+  "shuffle": null,
+  "training_size": 100,
+  "embeddings_path": "/scratch_gs/malie102/word_embeddings/word2vec_wiki-de_20161120_200",
+  "data_version": "v2",
+  "gridsearch_best_mean": 0.646415666042023,
+  "gridsearch_best_std": 0.03257675889862373,
+  "gridsearch_parameters": {
+    "union__bag_of_words__transformer__ngram": 1,
+    "classifier__C": 1000.0,
+    "classifier__random_state": 0,
+    "classifier__gamma": 0.0005,
+    "union__embedding_centroid__transformer__embedding_length": 200,
+    "union__bag_of_words__transformer__lowercase": true,
+    "union__bag_of_words__transformer__token_form": "text",
+    "union__bag_of_words__normalizer__use_normalize": true
+  }
+}

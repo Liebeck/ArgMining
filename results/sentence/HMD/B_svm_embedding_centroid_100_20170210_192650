@@ -1,0 +1,18 @@
+{
+  "classifier": "svm",
+  "gridsearchstrategy": "embedding_centroid_100",
+  "subtask": "B",
+  "nfold": 10,
+  "shuffle": null,
+  "training_size": 100,
+  "embeddings_path": "/scratch_gs/malie102/word_embeddings/word2vec_wiki-de_20161120_100",
+  "data_version": "v2",
+  "gridsearch_best_mean": 0.6006012093234967,
+  "gridsearch_best_std": 0.029291210242459904,
+  "gridsearch_parameters": {
+    "classifier__gamma": 0.001,
+    "classifier__C": 1000.0,
+    "union__embedding_centroid__transformer__embedding_length": 100,
+    "classifier__random_state": 0
+  }
+}
