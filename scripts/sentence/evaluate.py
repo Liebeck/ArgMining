@@ -19,6 +19,8 @@ NJOBS = 1
 def config_argparser():
     argparser = argparse.ArgumentParser(description='ArgMining')
     argparser.add_argument('-configfile', type=str, required=True, help='Name of the subtask')
+    argparser.add_argument('-hilbert', dest='hilbert', action='store_true')
+    argparser.set_defaults(hilbert=False)
     return argparser.parse_args()
 
 
@@ -43,6 +45,9 @@ if __name__ == '__main__':
     else:
         train_path = 'data/THF/sentence/subtask{}_train.json'.format(settings['subtask'])
         test_path = 'data/THF/sentence/subtask{}_test.json'.format(settings['subtask'])
+    if arguments.hilbert: # work around for absolute paths on the hilbert cluster
+        train_path = '/home/malie102/jobs/ArgMining/' + train_path
+        test_path = '/home/malie102/jobs/ArgMining/' + test_path
     X_train, y_train = load_dataset(file_path=train_path)
     X_test, y_test = load_dataset(file_path=test_path)
 
