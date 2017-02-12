@@ -33,9 +33,7 @@ if __name__ == '__main__':
     with open(arguments.configfile) as data_file:
         settings = json.load(data_file)
     # 2) Read datasets
-    settings['data_version'] = arguments.data_version
-
-    if 'data_version' in settings: # backwards compability for old setting files
+    if 'data_version' in settings:  # backwards compability for old setting files
         if settings['data_version'] == 'v1':
             train_path = 'data/THF/sentence/subtask{}_train.json'.format(settings['subtask'])
             test_path = 'data/THF/sentence/subtask{}_test.json'.format(settings['subtask'])
@@ -45,7 +43,7 @@ if __name__ == '__main__':
     else:
         train_path = 'data/THF/sentence/subtask{}_train.json'.format(settings['subtask'])
         test_path = 'data/THF/sentence/subtask{}_test.json'.format(settings['subtask'])
-    if arguments.hilbert: # work around for absolute paths on the hilbert cluster
+    if arguments.hilbert:  # work around for absolute paths on the hilbert cluster
         train_path = '/home/malie102/jobs/ArgMining/' + train_path
         test_path = '/home/malie102/jobs/ArgMining/' + test_path
     X_train, y_train = load_dataset(file_path=train_path)
