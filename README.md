@@ -68,3 +68,6 @@ qsub -v c=rf,subtask=A,embeddings_path=/scratch_gs/malie102/word_embeddings/word
 qsub -v c=rf,subtask=A,embeddings_path=/scratch_gs/malie102/word_embeddings/word2vec_wiki-de_20161120_100,gridsearchstrategy=embedding_centroid_100 hilbert_data_v2.job
 
 ```
+
+### Optional Setup
+- Download https://dbs.cs.uni-duesseldorf.de/datasets/argmining/THF_corpus_v1.0.zip and extract *public_Tempelhofer-Feld-2015-07-07T12_41_08.json* to */data/THF/public_Tempelhofer-Feld-2015-07-07T12_41_08.json*
