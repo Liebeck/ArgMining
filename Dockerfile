@@ -26,3 +26,6 @@ ADD . .
 RUN pip install -r requirements.txt
 RUN pip install -e .
 
+
+# Download the German spacy model for scripts/resources/train_lda_thf_corpus.py
+RUN python -m spacy download de
