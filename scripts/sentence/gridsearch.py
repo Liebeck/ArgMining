@@ -101,6 +101,7 @@ if __name__ == '__main__':
     settings['gridsearch_best_mean'] = best_mean
     settings['gridsearch_best_std'] = best_std
     settings['gridsearch_parameters'] = gridsearch.best_params_
+    settings['gridsearch__stratifiedkfold__random_state'] = arguments.gridsearch__stratifiedkfold__random_state
     if hasattr(classifier, 'random_state'):
         settings['gridsearch_parameters']['classifier__random_state'] = classifier.random_state
     output_path = 'results/sentence/temp/{}_{}_{}_{}'.format(settings['subtask'], settings['classifier'],
