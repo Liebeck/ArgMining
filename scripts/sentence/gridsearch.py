@@ -1,18 +1,18 @@
 import argparse
-from argmining.sentence.loaders.THF_sentence_corpus_loader import load_dataset
-import time
-from sklearn.model_selection import GridSearchCV
-import logging
-import json
-from argmining.pipelines.pipeline import pipeline
-from argmining.strategies.gridsearch import GRIDSEARCH_STRATEGIES
-from argmining.evaluation.gridsearch_report import report_best_results, best_cv_result
-from argmining.classifiers.classifier import get_classifier
-from collections import OrderedDict
 import copy
+import json
+import logging
+import time
+from collections import OrderedDict
+from sklearn.model_selection import GridSearchCV, StratifiedKFold
+from argmining.classifiers.classifier import get_classifier
+from argmining.evaluation.gridsearch_report import report_best_results, best_cv_result
 from argmining.evaluation.reduce_training_set import reduce_training_set
 from argmining.evaluation.shuffle import shuffle_training_Set
+from argmining.pipelines.pipeline import pipeline
 from argmining.resources.word2vec import Word2Vec
+from argmining.sentence.loaders.THF_sentence_corpus_loader import load_dataset
+from argmining.strategies.gridsearch import GRIDSEARCH_STRATEGIES
 
 NJOBS = 1
 TRAINING_SIZE = 100  # only used in predict.py
@@ -25,6 +25,8 @@ def config_argparser():
     argparser.add_argument('-gridsearchstrategy', type=str, required=True, help='Name of the gridsearch strategy')
     argparser.add_argument('-c', '--classifier', type=str, required=True, help='Name of the classifier')
     argparser.add_argument('--shuffle', type=int, help='Random state of the shuffle or None', default=None)
+    argparser.add_argument('--gridsearch__stratifiedkfold__random_state', type=int,
+                           help='Random state of the StratifiedKFold for the GridSearchCV', default=123)
     argparser.add_argument('--trainingsize', type=int,
                            help='Amount of training data to be used, e.g. 50 for 50% of the data', default=100)
     argparser.add_argument('-embeddings_path', type=str, help='Path to the embeddingsfile', default=None)
@@ -44,7 +46,7 @@ if __name__ == '__main__':
         train_path = 'data/THF/sentence/subtask{}_train.json'.format(arguments.subtask)
     elif arguments.data_version == 'v2':
         train_path = 'data/THF/sentence/subtask{}_v2_train.json'.format(arguments.subtask)
-    if arguments.hilbert: # work around for absolute paths on the hilbert cluster
+    if arguments.hilbert:  # work around for absolute paths on the hilbert cluster
         train_path = '/home/malie102/jobs/ArgMining/' + train_path
     X_train, y_train = load_dataset(file_path=train_path)
     if arguments.embeddings_path:
@@ -79,7 +81,9 @@ if __name__ == '__main__':
     pipe = pipeline(strategy=strategy_built, classifier=classifier)
     logger.info(pipe)
     logger.info("Start grid search")
-    gridsearch = GridSearchCV(pipe, param_grid, scoring='f1_macro', cv=arguments.nfold, n_jobs=NJOBS, verbose=2)
+    stratified_k_fold = StratifiedKFold(n_splits=arguments.nfold,
+                                        random_state=arguments.gridsearch__stratifiedkfold__random_state)
+    gridsearch = GridSearchCV(pipe, param_grid, scoring='f1_macro', cv=stratified_k_fold, n_jobs=NJOBS, verbose=2)
     gridsearch.fit(X_train, y_train)
     # 7) Report results
     report_best_results(gridsearch.cv_results_)
@@ -102,7 +106,7 @@ if __name__ == '__main__':
     output_path = 'results/sentence/temp/{}_{}_{}_{}'.format(settings['subtask'], settings['classifier'],
                                                              settings['gridsearchstrategy'],
                                                              time.strftime('%Y%m%d_%H%M%S'))
-    if arguments.hilbert: # work around for absolute paths on the hilbert cluster
+    if arguments.hilbert:  # work around for absolute paths on the hilbert cluster
         output_path = '/home/malie102/jobs/ArgMining/' + output_path
     with open(output_path, 'w') as outfile:
         json.dump(settings, outfile, indent=2)
