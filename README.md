@@ -2,7 +2,7 @@
 
 ## Requirements
 - Docker
-- Download the THF corpus in the following format from XX and place it into /data
+- Download a tagged version of the THF corpus from *http://lager.cs.uni-duesseldorf.de/NLP/argmining/THF.ZIP* and extract it into /data
 
 ## Sentence-level scripts
 ### cross_validation.py
