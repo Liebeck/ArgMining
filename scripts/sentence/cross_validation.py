@@ -1,7 +1,7 @@
 import argparse
 from argmining.sentence.loaders.THF_sentence_corpus_loader import load_dataset
 from time import time
-from sklearn.model_selection import GridSearchCV
+from sklearn.model_selection import GridSearchCV, StratifiedKFold
 import logging
 from argmining.pipelines.pipeline import pipeline
 from argmining.strategies.strategies import STRATEGIES
@@ -21,6 +21,8 @@ def config_argparser():
     argparser.add_argument('-strategy', type=str, required=True, help='Name of the strategy')
     argparser.add_argument('-c', '--classifier', type=str, required=True, help='Name of the classifier')
     argparser.add_argument('--shuffle', type=int, help='Random state of the shuffle or None', default=None)
+    argparser.add_argument('--gridsearch__stratifiedkfold__random_state', type=int,
+                           help='Random state of the StratifiedKFold for the GridSearchCV', default=123)
     argparser.add_argument('--trainingsize', type=int,
                            help='Amount of training data to be used, e.g. 50 for 50% of the data', default=100)
     argparser.add_argument('-embeddings', dest='load_embeddings', action='store_true')
@@ -51,7 +53,9 @@ if __name__ == '__main__':
     # 7) Start grid search
     pipe = pipeline(strategy=strategy, classifier=classifier)
     logger.info("Start grid search")
-    gridsearch = GridSearchCV(pipe, param_grid, scoring='f1_macro', cv=arguments.nfold, n_jobs=NJOBS, verbose=2)
+    stratified_k_fold = StratifiedKFold(n_splits=arguments.nfold,
+                                        random_state=arguments.gridsearch__stratifiedkfold__random_state)
+    gridsearch = GridSearchCV(pipe, param_grid, scoring='f1_macro', cv=stratified_k_fold, n_jobs=NJOBS, verbose=2)
     gridsearch.fit(X_train, y_train)
     # 8) Report results
     report_best_results(gridsearch.cv_results_)
