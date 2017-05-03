@@ -15,7 +15,6 @@ from argmining.sentence.loaders.THF_sentence_corpus_loader import load_dataset
 from argmining.strategies.gridsearch import GRIDSEARCH_STRATEGIES
 
 NJOBS = 1
-TRAINING_SIZE = 100  # only used in predict.py
 
 
 def config_argparser():
