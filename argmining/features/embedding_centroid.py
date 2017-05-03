@@ -17,7 +17,7 @@ def transform_sentence(thf_sentence, embedding_length, stopwords=None):
     for token in thf_sentence.tokens:
         if stopwords is not None:
             key = token.get_key('lowercase')
-            if not key in stopwords:
+            if key not in stopwords:
                 if token.embedding is not None:
                     values.append(token.embedding)
         else:
