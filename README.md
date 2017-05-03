@@ -1,5 +1,9 @@
 # ArgMining
 
+## Requirements
+- Docker
+- Download the THF corpus in the following format from XX and place it into /data
+
 ## Sentence-level scripts
 ### cross_validation.py
 Performs a cross-validation for a strategy with fixed feature parameters on the training set
