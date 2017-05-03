@@ -75,3 +75,4 @@ qsub -v c=rf,subtask=A,embeddings_path=/scratch_gs/malie102/word_embeddings/word
 
 ### Optional Setup
 - Download https://dbs.cs.uni-duesseldorf.de/datasets/argmining/THF_corpus_v1.0.zip and extract *public_Tempelhofer-Feld-2015-07-07T12_41_08.json* to */data/THF/public_Tempelhofer-Feld-2015-07-07T12_41_08.json*
+- German spacy Model: Download *http://lager.cs.uni-duesseldorf.de/NLP/spacy/german/de_core_news_md-1.0.0.tar.gz* to */data/spacy/*
