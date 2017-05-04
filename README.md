@@ -1,4 +1,5 @@
 # ArgMining
+[![license](https://img.shields.io/github/license/mashape/apistatus.svg?maxAge=2592000)](https://github.com/Liebeck/ArgMining/blob/master/LICENSE.md)
 
 ## Requirements
 - Docker
