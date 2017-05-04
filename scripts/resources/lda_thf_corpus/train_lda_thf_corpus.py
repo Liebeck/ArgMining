@@ -1,6 +1,7 @@
 import argparse
 import logging
-from scripts.resources.lda_thf_corpus.loader_flat import load_thf_corpus_flat
+from scripts.resources.lda_thf_corpus.loader_flat import LoaderFlat
+
 
 
 def config_argparser():
@@ -15,4 +16,5 @@ def config_argparser():
 if __name__ == '__main__':
     arguments = config_argparser()
     logger = logging.getLogger()
-    flat_corpus = load_thf_corpus_flat(arguments.corpuspath)
+    thf_loader = LoaderFlat()
+    tokenized_documents = thf_loader.load_thf_corpus_flat(arguments.corpuspath)
