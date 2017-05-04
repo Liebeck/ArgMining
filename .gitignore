@@ -69,5 +69,6 @@ target/
 
 
 data/word_embeddings/*
+data/THF/sentence/*
 data/THF/public_Tempelhofer-Feld-2015-07-07T12_41_08.json
 data/spacy/*
