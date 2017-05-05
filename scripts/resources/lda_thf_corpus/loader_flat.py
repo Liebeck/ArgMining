@@ -26,11 +26,17 @@ class LoaderFlat(object):
                 proposal_text = '{} {}'.format(proposal["title"], proposal["description"])
                 tokenized_documents.append(self.extract_tokens(proposal_text))
                 flattened_comments = self.flatten_comments(proposal["comments"])
+                for comment in flattened_comments:
+                    self.logger.info(comment)
+                    break
+                    tokenized_documents.append(self.extract_tokens(comment["text"]))
                 # self.logger.info('Proposal {} has {} comments'.format(proposal_id, len(flattened_comments)))
                 all_comments.extend(flattened_comments)
                 # self.logger.info(proposal_text.encode('utf-8'))
                 # break
             self.logger.info('Loaded {} proposals with {} comments'.format(len(proposals), len(all_comments)))
+            self.logger.info('Tokenized {} documents'.format(len(tokenized_documents)))
+            return tokenized_documents
 
     def flatten_comments(self, comments):
         all_comments = []
