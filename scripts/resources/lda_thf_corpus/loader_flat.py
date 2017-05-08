@@ -18,6 +18,7 @@ class LoaderFlat(object):
                 proposal['flat_comments'] = self.flatten_comments(proposal["comments"])
                 proposal.pop('comments', None)
                 proposal.pop('creator_badges', None)
+                proposal.pop('badges', None)
                 proposal.pop('tags', None)
                 comment_counter += len(proposal['flat_comments'])
                 proposals_flattened.append(proposal)
