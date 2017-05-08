@@ -15,13 +15,12 @@ class LoaderFlat(object):
             proposals_flattened = []
             comment_counter = 0
             for proposal_id, proposal in proposals.items():
-                proposal_object = {'title': proposal["title"],
-                                   'description': proposal["description"],
-                                   'proposal_id': proposal_id,
-                                   'flat_comments': self.flatten_comments(proposal["comments"])}
-                comment_counter += len(proposal_object['flat_comments'])
-                proposals_flattened.append(proposal_object)
-
+                proposal['flat_comments'] = self.flatten_comments(proposal["comments"])
+                proposal.pop('comments', None)
+                proposal.pop('creator_badges', None)
+                proposal.pop('tags', None)
+                comment_counter += len(proposal['flat_comments'])
+                proposals_flattened.append(proposal)
             self.logger.info('Loaded {} proposals with {} comments'.format(len(proposals), comment_counter))
             return proposals_flattened
 
