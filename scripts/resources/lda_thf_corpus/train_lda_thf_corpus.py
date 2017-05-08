@@ -16,7 +16,11 @@ def config_argparser():
 
 
 def extract_tokens(document, spacy_pipeline):
-    return None
+    tokens = []
+    for i, token in enumerate(spacy_pipeline(document)):
+        if not token.is_punct and not token.is_space and not '\r\n' in token.text:
+            tokens.append(token.text)
+    return tokens
 
 
 def load_thf_corpus_tokenized(path, spacy_pipeline):
@@ -36,7 +40,10 @@ def load_thf_corpus_tokenized(path, spacy_pipeline):
 if __name__ == '__main__':
     arguments = config_argparser()
     logger.info('Loading Spacy model')
-    # nlp = spacy.load('de')
-    nlp = None
+    nlp = spacy.load('de')
     logger.info('Spacy model loaded')
     tokenized_documents = load_thf_corpus_tokenized(arguments.corpuspath, nlp)
+    # with open('scripts/resources/lda_thf_corpus/testdump.txt', 'w') as outfile:
+    # import json
+    # a = {'foo': tokenized_documents}
+    # json.dump(a, outfile, indent=2)
