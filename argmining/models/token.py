@@ -1,7 +1,7 @@
 class Token:
     def __init__(self, token_index_in_sentence, text, pos_tag=None, mate_tools_pos_tag=None, mate_tools_lemma=None,
                  tree_tagger_lemma=None,
-                 iwnlp_lemma=None, polarity=None, pos_spacy_stts=None, pos_spacy_uts=None, spacy_ner_type=None,
+                 iwnlp_lemma=None, polarity=None, spacy_pos_stts=None, spacy_pos_uts=None, spacy_ner_type=None,
                  spacy_ner_iob=None):
         self.token_index_in_sentence = token_index_in_sentence
         self.text = text
@@ -12,8 +12,8 @@ class Token:
         self.iwnlp_lemma = iwnlp_lemma
         self.polarity = polarity
         self.embedding = None
-        self.pos_spacy_stts = pos_spacy_stts
-        self.pos_spacy_uts = pos_spacy_uts
+        self.spacy_pos_stts = spacy_pos_stts
+        self.spacy_pos_uts = spacy_pos_uts
         self.spacy_ner_type = spacy_ner_type
         self.spacy_ner_iob = spacy_ner_iob
 
