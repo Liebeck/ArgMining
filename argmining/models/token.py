@@ -1,7 +1,8 @@
 class Token:
     def __init__(self, token_index_in_sentence, text, pos_tag=None, mate_tools_pos_tag=None, mate_tools_lemma=None,
                  tree_tagger_lemma=None,
-                 iwnlp_lemma=None, polarity=None, pos_spacy_stts=None, pos_spacy_uts=None):
+                 iwnlp_lemma=None, polarity=None, pos_spacy_stts=None, pos_spacy_uts=None, spacy_ner_type=None,
+                 spacy_ner_iob=None):
         self.token_index_in_sentence = token_index_in_sentence
         self.text = text
         self.pos_tag = pos_tag
@@ -13,6 +14,8 @@ class Token:
         self.embedding = None
         self.pos_spacy_stts = pos_spacy_stts
         self.pos_spacy_uts = pos_spacy_uts
+        self.spacy_ner_type = spacy_ner_type
+        self.spacy_ner_iob = spacy_ner_iob
 
     def get_key(self, text_type):
         if text_type == 'lowercase':
