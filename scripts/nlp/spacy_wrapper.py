@@ -18,6 +18,7 @@ class SpacyWrapper(object):
     def process_sentence(self, sentence):
         result = self.nlp(sentence)
         tokens = []
+        dependencies = []
         for token in result:
             token_model = Token(token.i + 1,
                                 text=token.text,
@@ -32,13 +33,14 @@ class SpacyWrapper(object):
             # Todo: add IWNLP Lemma
             # Todo: Add SentiWS polarity
             tokens.append(token_model)
-            print(token_model.token_index_in_sentence, token_model.text.encode('utf-8'), token_model.spacy_pos_stts,
-                  token_model.spacy_pos_uts, token_model.spacy_ner_type, token_model.spacy_ner_iob)
-        dependencies = []
-        # Todo: Add dependencies
+            dependency_model = Dependency(token.i + 1, token.dep_, token.head.i + 1)
+            dependencies.append(dependency_model)
+            # print(token_model.token_index_in_sentence, token_model.text.encode('utf-8'), token_model.spacy_pos_stts,
+            # token_model.spacy_pos_uts, token_model.spacy_ner_type, token_model.spacy_ner_iob)
+            # print(token.i + 1, token.dep_, token.head.i + 1, token.head.text.encode('utf-8'))
         return {
             'tokens': tokens,
-            'dependencies': None
+            'dependencies': dependencies
         }
 
 
