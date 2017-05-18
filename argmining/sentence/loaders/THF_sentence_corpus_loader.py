@@ -33,7 +33,7 @@ def load(file_path='data/THF/sentence/subtaskA_train.json', group_claims=True):
             for token in sentence_tokens:
                 token_model = Token(token["TokenIndexInSentence"],
                                     token["Text"],
-                                    token["POSTag"],
+                                    pos_tag=token["POSTag"],
                                     mate_tools_pos_tag=token["MateToolsPPOS"],
                                     mate_tools_lemma=token["MateToolsPLemma"],
                                     tree_tagger_lemma=parse_tree_tagger_lemma(token.get("TreeTaggerLemma", None)),
