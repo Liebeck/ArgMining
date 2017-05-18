@@ -4,16 +4,11 @@ if [ -z "$1" ]
   then
     echo "No download directory specified"
 fi
-echo $1
-
-
 mkdir -p $1
 
 function download_and_unzip {
     # parameter 1: directory
     # parameter 2: download file
-    echo $1
-    echo $2
     mkdir -p $1
     wget -O $1/tmp.zip $2
     unzip $1/tmp.zip -d $1
