@@ -34,11 +34,11 @@ def load(file_path='data/THF/sentence/subtaskA_train.json', group_claims=True):
                 token_model = Token(token["TokenIndexInSentence"],
                                     token["Text"],
                                     token["POSTag"],
-                                    token["MateToolsPPOS"],
-                                    token["MateToolsPLemma"],
-                                    parse_tree_tagger_lemma(token.get("TreeTaggerLemma", None)),
-                                    parse_IWNLP_lemma(token.get("IWNLPLemma", None)),
-                                    parse_polarity((token.get("Polarity", None))))
+                                    mate_tools_pos_tag=token["MateToolsPPOS"],
+                                    mate_tools_lemma=token["MateToolsPLemma"],
+                                    tree_tagger_lemma=parse_tree_tagger_lemma(token.get("TreeTaggerLemma", None)),
+                                    iwnlp_lemma=parse_IWNLP_lemma(token.get("IWNLPLemma", None)),
+                                    polarity=parse_polarity((token.get("Polarity", None))))
                 tokens.append(token_model)
             dependency_tokens = sentence["NLP"]["Sentences"][0]["Dependencies"]
             for dependency in dependency_tokens:
