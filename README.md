@@ -4,7 +4,12 @@ This machine learning project contains the latest code version for the Argument 
 
 ## Requirements
 * [docker](https://www.docker.com/)
-* Download a tagged version of the THF corpus from *http://lager.cs.uni-duesseldorf.de/NLP/argmining/THF.ZIP* and extract it into /data
+* Execute the *data/download_resources.sh* script to download the models
+
+``` bash
+./data/download_resources.sh data
+
+```
 * Depending on whether you want to use our trained Wikipedia word2vec models, you also need to download all of the following files and move them to /data/word_embeddings/
 ** http://lager.cs.uni-duesseldorf.de/NLP/word-embeddings/german/de-wiki_20161120/100/
 ** http://lager.cs.uni-duesseldorf.de/NLP/word-embeddings/german/de-wiki_20161120/200/
