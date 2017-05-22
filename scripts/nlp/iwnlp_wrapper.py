@@ -57,13 +57,13 @@ class IWNLPWrapper(object):
         # self.logger.debug(lemmas)
         return lemmas
 
-    def lemmatize(self, word, spacy_pos):
+    def lemmatize(self, word, pos_universal_google):
         """
         Python port of the lemmatize method, see https://github.com/Liebeck/IWNLP.Lemmatizer/blob/master/IWNLP.Lemmatizer.Predictor/IWNLPSentenceProcessor.cs
 
         """
         key = word.lower().trim()
-        if spacy_pos == "NOUN":
+        if pos_universal_google == "NOUN":
             if self.contains_entry(word, "Noun"):
                 return self.get_lemmas(word, "Noun")
             elif self.contains_entry(word, "X"):
@@ -74,7 +74,7 @@ class IWNLPWrapper(object):
                 return self.get_lemmas(word, ["Noun", "X"], ignore_case=True)
             else:
                 return None
-        elif spacy_pos == "ADJ":
+        elif pos_universal_google == "ADJ":
             if self.contains_entry(word, "Adjective"):
                 return self.get_lemmas(word, "Adjective")
             elif self.contains_entry(word, "Adjective", ignore_case=True):
@@ -88,7 +88,7 @@ class IWNLPWrapper(object):
                 return self.get_lemmas(word, "Verb", ignore_case=True)
             else:
                 return None
-        elif spacy_pos == "VERB":
+        elif pos_universal_google == "VERB":
             if self.contains_entry(word, "Verb", ignore_case=True):
                 return self.get_lemmas(word, "Verb", ignore_case=True)
             else:
