@@ -7,10 +7,10 @@ class IWNLPWrapper(object):
         self.logger = logging.getLogger()
         self.logger.setLevel(logging.DEBUG)
         self.logger.debug('Loading IWNLP lemmatizer')
-        self.load_IWNLP(lemmatizer_path)
+        self.load(lemmatizer_path)
         self.logger.debug('IWNLP Lemmatizer loaded')
 
-    def load_IWNLP(self, lemmatizer_path):
+    def load(self, lemmatizer_path):
         """
         This methods load the IWNLP.Lemmatizer json file and creates a dictionary
          of lowercased forms which maps each form to its possible lemmas.
