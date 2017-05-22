@@ -67,6 +67,12 @@ class IWNLPWrapper(object):
         lemmas = list(set([entry["Lemma"] for entry in entries]))
         return lemmas
 
+    def lemmatize_plain(self, word, ignore_case=False):
+        if self.contains_entry(word, ignore_case=ignore_case):
+            return self.get_lemmas(word, ignore_case=ignore_case)
+        else:
+            return None
+
     def lemmatize(self, word, pos_universal_google):
         """
         Python port of the lemmatize method, see https://github.com/Liebeck/IWNLP.Lemmatizer/blob/master/IWNLP.Lemmatizer.Predictor/IWNLPSentenceProcessor.cs
@@ -110,9 +116,10 @@ if __name__ == '__main__':
     from argmining.loggers.config import config_logger
 
     iwnlp_wrapper = IWNLPWrapper()
-    # iwnlp_wrapper.test('Hallo')
-    # iwnlp_wrapper.test('Hallo', 'Noun', False)
-    # iwnlp_wrapper.test('Hallo', ['Noun'], False)
-    # logging.debug
-    # logging.debug(iwnlp_wrapper.contains_entry('Hallos', 'Noun', False))
-    # logging.debug(iwnlp_wrapper.get_lemmas('testen', 'Noun', ignore_case=True))
+    logging.debug(iwnlp_wrapper.lemmatize_plain('Hallos', ignore_case=False))
+    logging.debug(iwnlp_wrapper.lemmatize_plain('Hallos', ignore_case=True))
+    logging.debug(iwnlp_wrapper.lemmatize_plain('jlkjlkjsd', ignore_case=False))
+    logging.debug(iwnlp_wrapper.lemmatize_plain('geschichten', ignore_case=True))
+    logging.debug(iwnlp_wrapper.lemmatize_plain('gespielt', ignore_case=False))
+    logging.debug(iwnlp_wrapper.lemmatize_plain('schnell'))
+
