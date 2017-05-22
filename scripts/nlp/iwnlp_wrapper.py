@@ -37,24 +37,26 @@ class IWNLPWrapper(object):
                     return True
             return False
 
+    def get_entries(self, word, pos, ignore_case=False):
+        entries = []
+        if not isinstance(pos, list):
+            key = word.lower().strip()
+            if ignore_case:
+                entries = list(filter(lambda x: x["POS"] == pos, self.lemmatizer[key]))
+            else:
+                entries = list(filter(lambda x: x["POS"] == pos and x["Form"] == word, self.lemmatizer[key]))
+        else:
+            for pos_entry in pos:
+                entries.extend(self.get_lemmas(word, pos_entry, ignore_case))
+        return entries
+
     def get_lemmas(self, word, pos, ignore_case=False):
         """
         Return all lemmas for a given word. This method assumes that the specified word is present in the dictionary
         :param word: Word that is present in the IWNLP lemmatizer
         """
-        lemmas = []
-        if not isinstance(pos, list):
-            key = word.lower().strip()
-            if ignore_case:
-                lemmas = list(filter(lambda x: x["POS"] == pos, self.lemmatizer[key]))
-            else:
-                lemmas = list(filter(lambda x: x["POS"] == pos and x["Form"] == word, self.lemmatizer[key]))
-        else:
-            for pos_entry in pos:
-                lemmas.extend(self.get_lemmas(word, pos_entry, ignore_case))
-        # self.logger.debug(json.dumps(lemmas))
-        lemmas = list(set([entry["Lemma"] for entry in lemmas]))
-        # self.logger.debug(lemmas)
+        entries = self.get_entries(word, pos, ignore_case)
+        lemmas = list(set([entry["Lemma"] for entry in entries]))
         return lemmas
 
     def lemmatize(self, word, pos_universal_google):
