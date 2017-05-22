@@ -21,11 +21,6 @@ class IWNLPWrapper(object):
             for entry in raw:
                 self.lemmatizer[entry["Form"]] = entry["Lemmas"]
 
-    def lemmatize(self, word, spacy_pos):
-        key = word.lower().trim()
-        # IWNLP_pos = self.convert_pos(spacy_pos)
-        return None
-
     def contains_entry(self, word, pos, ignore_case=False):
         if not isinstance(pos, list):
             key = word.lower().strip()
@@ -41,6 +36,52 @@ class IWNLPWrapper(object):
                 if self.contains_entry(word, pos_entry, ignore_case):
                     return True
             return False
+
+    def get_lemmas(self, word, pos, ignore_case=False):
+        """
+        Return all lemmas for a given word. This method assumes that the specified word is present in the dictionary
+        :param word: Word that is present in the IWNLP lemmatizer
+        """
+        return None
+
+    def lemmatize(self, word, spacy_pos):
+        """
+        Python port of the lemmatize method, see https://github.com/Liebeck/IWNLP.Lemmatizer/blob/master/IWNLP.Lemmatizer.Predictor/IWNLPSentenceProcessor.cs
+
+        """
+        key = word.lower().trim()
+        if spacy_pos == "NOUN":
+            if self.contains_entry(word, "Noun"):
+                return self.get_lemmas(word, "Noun")
+            elif self.contains_entry(word, "X"):
+                return self.get_lemmas(word, "X")
+            elif self.contains_entry(word, "AdjectivalDeclension"):
+                return self.get_lemmas(word, "AdjectivalDeclension")
+            elif self.contains_entry(word, ["Noun", "X"], ignore_case=True):
+                return self.get_lemmas(word, ["Noun", "X"], ignore_case=True)
+            else:
+                return None
+        elif spacy_pos == "ADJ":
+            if self.contains_entry(word, "Adjective"):
+                return self.get_lemmas(word, "Adjective")
+            elif self.contains_entry(word, "Adjective", ignore_case=True):
+                return self.get_lemmas(word, "Adjective", ignore_case=True)
+            # Account for possible errors in the POS tagger. This order was fine-tuned in terms of accuracy
+            elif self.contains_entry(word, "Noun", ignore_case=True):
+                return self.get_lemmas(word, "Noun", ignore_case=True)
+            elif self.contains_entry(word, "X", ignore_case=True):
+                return self.get_lemmas(word, "X", ignore_case=True)
+            elif self.contains_entry(word, "Verb", ignore_case=True):
+                return self.get_lemmas(word, "Verb", ignore_case=True)
+            else:
+                return None
+        elif spacy_pos == "VERB":
+            if self.contains_entry(word, "Verb", ignore_case=True):
+                return self.get_lemmas(word, "Verb", ignore_case=True)
+            else:
+                return None
+        else:
+            return None
 
 
 if __name__ == '__main__':
