@@ -14,10 +14,10 @@ function download_embeddings {
     echo $1
     echo $2
     file="${2##*/}"
-    wget -O $1/$file $2
-    wget -O $1/$file_binary $2_binary
-    wget -O $1/$file_binary.syn0.npy $2_binary.syn0.npy
-    wget -O $1/$file_binary.syn1neg.npy $2_binary.syn1neg.npy
+    wget -O $1/{$file} $2
+    wget -O $1/{$file}_binary $2_binary
+    wget -O $1/{$file}_binary.syn0.npy $2_binary.syn0.npy
+    wget -O $1/{$file}_binary.syn1neg.npy $2_binary.syn1neg.npy
 }
 
 
