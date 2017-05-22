@@ -23,7 +23,7 @@ class SpacyWrapper(object):
             token_model = Token(token.i + 1,
                                 text=token.text,
                                 spacy_pos_stts=token.pos_,
-                                spacy_pos_uts=token.tag_,
+                                spacy_pos_universal_google=token.tag_,
                                 spacy_ner_type=token.ent_type_,
                                 spacy_ner_iob=token.ent_iob_,
                                 spacy_is_punct=token.is_punct,

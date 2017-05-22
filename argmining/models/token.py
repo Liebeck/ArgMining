@@ -1,7 +1,8 @@
 class Token:
     def __init__(self, token_index_in_sentence, text, pos_tag=None, mate_tools_pos_tag=None, mate_tools_lemma=None,
                  tree_tagger_lemma=None,
-                 iwnlp_lemma=None, polarity=None, spacy_pos_stts=None, spacy_pos_uts=None, spacy_ner_type=None,
+                 iwnlp_lemma=None, polarity=None, spacy_pos_stts=None, spacy_pos_universal_google=None,
+                 spacy_ner_type=None,
                  spacy_ner_iob=None, spacy_shape=None, spacy_is_punct=None, spacy_like_url=None, spacy_like_num=None):
         self.token_index_in_sentence = token_index_in_sentence
         self.text = text
@@ -13,7 +14,7 @@ class Token:
         self.polarity = polarity
         self.embedding = None
         self.spacy_pos_stts = spacy_pos_stts
-        self.spacy_pos_uts = spacy_pos_uts
+        self.spacy_pos_universal_google = spacy_pos_universal_google
         self.spacy_ner_type = spacy_ner_type
         self.spacy_ner_iob = spacy_ner_iob
         self.spacy_shape = spacy_shape
