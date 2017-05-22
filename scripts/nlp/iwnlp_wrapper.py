@@ -24,8 +24,8 @@ class IWNLPWrapper(object):
     def contains_entry(self, word, pos, ignore_case=False):
         if not isinstance(pos, list):
             key = word.lower().strip()
-            self.logger.debug(key)
-            self.logger.debug(json.dumps(self.lemmatizer[key]))
+            # self.logger.debug(key)
+            # self.logger.debug(json.dumps(self.lemmatizer[key]))
             if ignore_case:
                 return key in self.lemmatizer and any(filter(lambda x: x["POS"] == pos, self.lemmatizer[key]))
             else:
@@ -42,7 +42,20 @@ class IWNLPWrapper(object):
         Return all lemmas for a given word. This method assumes that the specified word is present in the dictionary
         :param word: Word that is present in the IWNLP lemmatizer
         """
-        return None
+        lemmas = []
+        if not isinstance(pos, list):
+            key = word.lower().strip()
+            if ignore_case:
+                lemmas = list(filter(lambda x: x["POS"] == pos, self.lemmatizer[key]))
+            else:
+                lemmas = list(filter(lambda x: x["POS"] == pos and x["Form"] == word, self.lemmatizer[key]))
+        else:
+            for pos_entry in pos:
+                lemmas.extend(self.get_lemmas(word, pos_entry, ignore_case))
+        # self.logger.debug(json.dumps(lemmas))
+        lemmas = list(set([entry["Lemma"] for entry in lemmas]))
+        # self.logger.debug(lemmas)
+        return lemmas
 
     def lemmatize(self, word, spacy_pos):
         """
@@ -88,4 +101,5 @@ if __name__ == '__main__':
     from argmining.loggers.config import config_logger
 
     iwnlp_wrapper = IWNLPWrapper()
-    logging.debug(iwnlp_wrapper.contains_entry('Hallos', 'Noun', False))
+    # logging.debug(iwnlp_wrapper.contains_entry('Hallos', 'Noun', False))
+    logging.debug(iwnlp_wrapper.get_lemmas('testen', 'Noun', ignore_case=True))
