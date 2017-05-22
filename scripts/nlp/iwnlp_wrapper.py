@@ -21,11 +21,14 @@ class IWNLPWrapper(object):
             for entry in raw:
                 self.lemmatizer[entry["Form"]] = entry["Lemmas"]
 
-    def contains_entry(self, word, pos, ignore_case=False):
-        if not isinstance(pos, list):
-            key = word.lower().strip()
-            # self.logger.debug(key)
-            # self.logger.debug(json.dumps(self.lemmatizer[key]))
+    def contains_entry(self, word, pos=None, ignore_case=False):
+        key = word.lower().strip()
+        if not pos:
+            if ignore_case:
+                entries = self.lemmatizer[key]
+            else:
+                entries = key in self.lemmatizer and any(filter(lambda x: x["Form"] == word, self.lemmatizer[key]))
+        elif not isinstance(pos, list):
             if ignore_case:
                 return key in self.lemmatizer and any(filter(lambda x: x["POS"] == pos, self.lemmatizer[key]))
             else:
@@ -37,10 +40,15 @@ class IWNLPWrapper(object):
                     return True
             return False
 
-    def get_entries(self, word, pos, ignore_case=False):
+    def get_entries(self, word, pos=None, ignore_case=False):
         entries = []
-        if not isinstance(pos, list):
-            key = word.lower().strip()
+        key = word.lower().strip()
+        if not pos:
+            if ignore_case:
+                entries = self.lemmatizer[key]
+            else:
+                entries = list(filter(lambda x: x["Form"] == word, self.lemmatizer[key]))
+        elif not isinstance(pos, list):
             if ignore_case:
                 entries = list(filter(lambda x: x["POS"] == pos, self.lemmatizer[key]))
             else:
@@ -50,7 +58,7 @@ class IWNLPWrapper(object):
                 entries.extend(self.get_lemmas(word, pos_entry, ignore_case))
         return entries
 
-    def get_lemmas(self, word, pos, ignore_case=False):
+    def get_lemmas(self, word, pos=None, ignore_case=False):
         """
         Return all lemmas for a given word. This method assumes that the specified word is present in the dictionary
         :param word: Word that is present in the IWNLP lemmatizer
@@ -102,5 +110,9 @@ if __name__ == '__main__':
     from argmining.loggers.config import config_logger
 
     iwnlp_wrapper = IWNLPWrapper()
+    # iwnlp_wrapper.test('Hallo')
+    # iwnlp_wrapper.test('Hallo', 'Noun', False)
+    # iwnlp_wrapper.test('Hallo', ['Noun'], False)
+    # logging.debug
     # logging.debug(iwnlp_wrapper.contains_entry('Hallos', 'Noun', False))
-    logging.debug(iwnlp_wrapper.get_lemmas('testen', 'Noun', ignore_case=True))
+    # logging.debug(iwnlp_wrapper.get_lemmas('testen', 'Noun', ignore_case=True))
