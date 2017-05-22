@@ -25,9 +25,9 @@ class IWNLPWrapper(object):
         key = word.lower().strip()
         if not pos:
             if ignore_case:
-                entries = self.lemmatizer[key]
+                return key in self.lemmatizer
             else:
-                entries = key in self.lemmatizer and any(filter(lambda x: x["Form"] == word, self.lemmatizer[key]))
+                return key in self.lemmatizer and any(filter(lambda x: x["Form"] == word, self.lemmatizer[key]))
         elif not isinstance(pos, list):
             if ignore_case:
                 return key in self.lemmatizer and any(filter(lambda x: x["POS"] == pos, self.lemmatizer[key]))
