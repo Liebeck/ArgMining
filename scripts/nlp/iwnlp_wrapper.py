@@ -62,7 +62,6 @@ class IWNLPWrapper(object):
         Python port of the lemmatize method, see https://github.com/Liebeck/IWNLP.Lemmatizer/blob/master/IWNLP.Lemmatizer.Predictor/IWNLPSentenceProcessor.cs
 
         """
-        key = word.lower().trim()
         if pos_universal_google == "NOUN":
             if self.contains_entry(word, "Noun"):
                 return self.get_lemmas(word, "Noun")
