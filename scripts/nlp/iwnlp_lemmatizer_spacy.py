@@ -15,5 +15,4 @@ class IWNLPLemmatizerSpacy(object):
             print(token.text.encode('utf-8'), token.pos_)
             lemmas = self._lemmatizer.lemmatize(token.text, pos_universal_google=token.pos_)
             print(lemmas)
-            #token.iwnlp_lemma = lemmas
-
+            # token.iwnlp_lemma = lemmas

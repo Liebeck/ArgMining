@@ -18,7 +18,7 @@ def config_argparser():
 def extract_tokens(document, spacy_pipeline):
     tokens = []
     for i, token in enumerate(spacy_pipeline(document)):
-        if not token.is_punct and not token.is_space and not '\r\n' in token.text:
+        if not token.is_punct and not token.is_space and '\r\n' not in token.text:
             tokens.append(token.text)
     return tokens
 
