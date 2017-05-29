@@ -25,8 +25,6 @@ class SpacyWrapper(object):
         self.nlp = spacy.load('de')
         self.logger.debug('Spacy model loaded')
 
-        # todo: load sentiws polarity
-
     def process_sentence(self, sentence):
         result = self.nlp(sentence)
         tokens = []
@@ -46,7 +44,6 @@ class SpacyWrapper(object):
                                 spacy_like_url=token.like_url,
                                 spacy_shape=token.shape_,
                                 polarity_sentiws=sentiws)
-            # Todo: Add SentiWS polarity
             tokens.append(token_model)
             dependency_model = Dependency(token.i + 1, token.dep_, token.head.i + 1)
             dependencies.append(dependency_model)
