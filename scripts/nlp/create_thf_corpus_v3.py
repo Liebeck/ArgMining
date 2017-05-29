@@ -4,6 +4,7 @@ import logging
 import json
 import io
 from argmining.models.token import Token
+from scripts.nlp.spacy_wrapper import SpacyWrapper
 
 logger = logging.getLogger()
 
@@ -21,6 +22,7 @@ def read_annotation_depths(file_path='scripts/nlp/annotation_depths.txt'):
 
 def load(file_path='data/THF/sentence/subtaskA_v2_train.json'):
     annotation_depths = read_annotation_depths()
+    spacy = SpacyWrapper()
     logger.debug(u'Parsing JSON File: {}'.format(file_path))
     sentences = []
     with open(file_path, encoding='utf-8') as data_file:
@@ -28,39 +30,11 @@ def load(file_path='data/THF/sentence/subtaskA_v2_train.json'):
         for sentence in data:
             sentence_v3 = {'UniqueID': sentence['UniqueID'],
                            'Label': sentence['Label'],
-                           #'Text': sentence['Text'],
+                           'Text': sentence['Text'],
                            'TextDepth': annotation_depths[sentence['UniqueID'].split('_')[0]],
-                           'NLP': None}
+                           'NLP': spacy.process_sentence(sentence['Text'])}
             sentences.append(sentence_v3)
-            #print(sentence_v3)
-
-
-            # }
-            # sentence_tokens = sentence["NLP"]["Sentences"][0]["Tokens"]
-            # tokens = []
-            # dependencies = []
-            # for token in sentence_tokens:
-            #     token_model = Token(token["TokenIndexInSentence"],
-            #                         token["Text"],
-            #                         pos_tag=token["POSTag"],
-            #                         mate_tools_pos_tag=token["MateToolsPPOS"],
-            #                         mate_tools_lemma=token["MateToolsPLemma"],
-            #                         tree_tagger_lemma=parse_tree_tagger_lemma(token.get("TreeTaggerLemma", None)),
-            #                         iwnlp_lemma=parse_IWNLP_lemma(token.get("IWNLPLemma", None)),
-            #                         polarity=parse_polarity((token.get("Polarity", None))))
-            #     tokens.append(token_model)
-            # dependency_tokens = sentence["NLP"]["Sentences"][0]["Dependencies"]
-            # for dependency in dependency_tokens:
-            #     dependency_model = Dependency(dependency["TokenID"], dependency["DependencyRelation"],
-            #                                   dependency["DependencyHeadTokenID"])
-            #     dependencies.append(dependency_model)
-            # label = sentence["Label"]
-            # if group_claims:
-            #     if label == 'ClaimContra' or label == 'ClaimPro':
-            #         label = 'Claim'
-            # sentence_model = THFSentenceExport(sentence["UniqueID"], label, sentence["Text"], tokens,
-            #                                    dependencies)
-            # sentences.append(sentence_model)
+            logger.debug('Sentence processes')
     logger.info('Parsed {} sentences'.format(len(sentences)))
     output_path = file_path.replace('v2', 'v3')
     logger.info('Saving output to {}'.format(output_path))
