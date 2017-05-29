@@ -3,6 +3,7 @@ import logging
 from argmining.models.token import Token
 from argmining.models.dependency import Dependency
 from iwnlp.iwnlp_wrapper import IWNLPWrapper
+from scripts.nlp.sentiws_wrapper import SentiWSWrapper
 
 logger = logging.getLogger()
 
@@ -19,6 +20,7 @@ class SpacyWrapper(object):
         self.logger = logging.getLogger()
         self.logger.setLevel(logging.DEBUG)
         self.lemmatizer = IWNLPWrapper(lemmatizer_path='data/IWNLP/IWNLP.Lemmatizer_20170501.json')
+        self.sentiws = SentiWSWrapper(sentiws_path='data/sentiws')
         self.logger.debug('Loading Spacy model')
         self.nlp = spacy.load('de')
         self.logger.debug('Spacy model loaded')
@@ -31,6 +33,7 @@ class SpacyWrapper(object):
         dependencies = []
         for token in result:
             iwnlp_lemma = self.lemmatizer.lemmatize(token.text, pos_universal_google=token.pos_)
+            sentiws = self.sentiws.determine(token.text)
             token_model = Token(token.i + 1,
                                 text=token.text,
                                 spacy_pos_stts=token.pos_,
@@ -41,7 +44,8 @@ class SpacyWrapper(object):
                                 spacy_is_punct=token.is_punct,
                                 spacy_like_num=token.like_num,
                                 spacy_like_url=token.like_url,
-                                spacy_shape=token.shape_)
+                                spacy_shape=token.shape_,
+                                polarity_sentiws=sentiws)
             # Todo: Add SentiWS polarity
             tokens.append(token_model)
             dependency_model = Dependency(token.i + 1, token.dep_, token.head.i + 1)

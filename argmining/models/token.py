@@ -3,7 +3,8 @@ class Token:
                  tree_tagger_lemma=None,
                  iwnlp_lemma=None, polarity=None, spacy_pos_stts=None, spacy_pos_universal_google=None,
                  spacy_ner_type=None,
-                 spacy_ner_iob=None, spacy_shape=None, spacy_is_punct=None, spacy_like_url=None, spacy_like_num=None):
+                 spacy_ner_iob=None, spacy_shape=None, spacy_is_punct=None, spacy_like_url=None, spacy_like_num=None,
+                 polarity_sentiws=None):
         self.token_index_in_sentence = token_index_in_sentence
         self.text = text
         self.pos_tag = pos_tag
@@ -21,6 +22,7 @@ class Token:
         self.spacy_is_punct = spacy_is_punct
         self.spacy_like_url = spacy_like_url
         self.spacy_like_num = spacy_like_num
+        self.polarity_sentiws = polarity_sentiws
 
     def get_key(self, text_type):
         if text_type == 'lowercase':
