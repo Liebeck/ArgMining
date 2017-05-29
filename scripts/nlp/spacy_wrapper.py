@@ -31,7 +31,7 @@ class SpacyWrapper(object):
         dependencies = []
         for token in result:
             iwnlp_lemma = self.lemmatizer.lemmatize(token.text, pos_universal_google=token.pos_)
-            sentiws = self.sentiws.determine(token.text)
+            sentiws = self.sentiws.determine(token.text, pos_universal_google=token.pos_)
             token_model = Token(token.i + 1,
                                 text=token.text,
                                 spacy_pos_stts=token.pos_,
