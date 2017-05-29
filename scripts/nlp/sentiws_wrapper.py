@@ -44,7 +44,7 @@ class SentiWSWrapper(object):
         key = SentiWSEntry(word, self.map_pos(pos_universal_google))
         return (key in self.entries)
 
-    def determine(self, word, pos_universal_google):
+    def determine(self, word, pos_universal_google, lemmas=None):
         pos = self.map_pos(pos_universal_google)
         key = SentiWSEntry(word, pos)
         if key in self.entries:
@@ -52,6 +52,11 @@ class SentiWSWrapper(object):
         key = SentiWSEntry(word.lower(), pos)
         if key in self.entries:
             return self.entries[key]
+        if lemmas is not None:
+            for lemma in lemmas:
+                key = SentiWSEntry(lemma, pos)
+                if key in self.entries:
+                    return self.entries[key]
         if pos == 'NN':
             key = SentiWSEntry(word[:1].upper() + word[1:], 'NN')
             if key in self.entries:
