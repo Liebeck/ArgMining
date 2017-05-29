@@ -9,12 +9,54 @@ class SentiWSEntry(object):
         self.form = form
         self.pos = pos
 
+    def __str__(self):
+        return '{}|{}'.format(self.form, self.pos)
+
+    def __hash__(self):
+        return hash((self.form, self.pos))
+
+    def __eq__(self, other):
+        return (self.form, self.pos) == (other.form, other.pos)
+
+    def __ne__(self, other):
+        return not(self == other)
+
 
 class SentiWSWrapper(object):
     def __init__(self, sentiws_path='data/sentiws'):
         self.logger = logging.getLogger()
         self.logger.setLevel(logging.DEBUG)
         self.load_files(sentiws_path)
+
+    def map_pos(self, pos_universal_google):
+        if pos_universal_google == 'VERB':
+            return 'VVINF'
+        elif pos_universal_google == 'ADJ':
+            return 'ADJX'
+        elif pos_universal_google == 'NOUN':
+            return 'NN'
+        elif pos_universal_google == 'ADV':
+            return 'ADV'
+        else:
+            return None
+
+    def contains(self, word, pos_universal_google):
+        key = SentiWSEntry(word, self.map_pos(pos_universal_google))
+        return (key in self.entries)
+
+    def determine(self, word, pos_universal_google):
+        pos = self.map_pos(pos_universal_google)
+        key = SentiWSEntry(word, pos)
+        if key in self.entries:
+            return self.entries[key]
+        key = SentiWSEntry(word.lower(), pos)
+        if key in self.entries:
+            return self.entries[key]
+        if pos == 'NN':
+            key = SentiWSEntry(word[:1].upper() + word[1:], 'NN')
+            if key in self.entries:
+                return self.entries[key]
+        return None
 
     def load_files(self, directory):
         self.entries = {}
