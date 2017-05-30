@@ -37,9 +37,9 @@ if __name__ == '__main__':
         if settings['data_version'] == 'v1':
             train_path = 'data/THF/sentence/subtask{}_train.json'.format(settings['subtask'])
             test_path = 'data/THF/sentence/subtask{}_test.json'.format(settings['subtask'])
-        elif settings['data_version'] == 'v2':
-            train_path = 'data/THF/sentence/subtask{}_v2_train.json'.format(settings['subtask'])
-            test_path = 'data/THF/sentence/subtask{}_v2_test.json'.format(settings['subtask'])
+        else:
+            train_path = 'data/THF/sentence/subtask{}_{}_train.json'.format(arguments.subtask, settings['subtask'])
+            test_path = 'data/THF/sentence/subtask{}_{}_test.json'.format(arguments.subtask, settings['subtask'])
     else:
         train_path = 'data/THF/sentence/subtask{}_train.json'.format(settings['subtask'])
         test_path = 'data/THF/sentence/subtask{}_test.json'.format(settings['subtask'])
