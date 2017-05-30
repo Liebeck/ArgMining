@@ -11,7 +11,7 @@ from sklearn.metrics import f1_score
 import numpy as np
 from argmining.evaluation.reduce_training_set import reduce_training_set
 from argmining.evaluation.shuffle import shuffle_training_Set
-from argmining.resources.word2vec import Word2Vec
+from argmining.representations.word2vec import Word2Vec
 
 NJOBS = 1
 

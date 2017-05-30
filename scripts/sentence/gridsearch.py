@@ -10,7 +10,7 @@ from argmining.evaluation.gridsearch_report import report_best_results, best_cv_
 from argmining.evaluation.reduce_training_set import reduce_training_set
 from argmining.evaluation.shuffle import shuffle_training_Set
 from argmining.pipelines.pipeline import pipeline
-from argmining.resources.word2vec import Word2Vec
+from argmining.representations.word2vec import Word2Vec
 from argmining.sentence.loaders.THF_sentence_corpus_loader import load_dataset
 from argmining.strategies.gridsearch import GRIDSEARCH_STRATEGIES
 
@@ -30,7 +30,7 @@ def config_argparser():
                            help='Amount of training data to be used, e.g. 50 for 50% of the data', default=100)
     argparser.add_argument('-embeddings_path', type=str, help='Path to the embeddingsfile', default=None)
     argparser.add_argument('--data_version', type=str, help='Version of the data',
-                           default='v1')
+                           default='v3')
     argparser.add_argument('-hilbert', dest='hilbert', action='store_true')
     argparser.set_defaults(hilbert=False)
     return argparser.parse_args()
@@ -43,8 +43,8 @@ if __name__ == '__main__':
     # 1) Load data sets
     if arguments.data_version == 'v1':
         train_path = 'data/THF/sentence/subtask{}_train.json'.format(arguments.subtask)
-    elif arguments.data_version == 'v2':
-        train_path = 'data/THF/sentence/subtask{}_v2_train.json'.format(arguments.subtask)
+    else:
+        train_path = 'data/THF/sentence/subtask{}_{}_train.json'.format(arguments.subtask, arguments.data_version)
     if arguments.hilbert:  # work around for absolute paths on the hilbert cluster
         train_path = '/home/malie102/jobs/ArgMining/' + train_path
     X_train, y_train = load_dataset(file_path=train_path)

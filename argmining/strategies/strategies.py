@@ -5,7 +5,7 @@ import argmining.features.structural_features as structural_features
 import argmining.features.sentiws_average_polarity_feature as sentiws_average_polarity_feature
 import argmining.features.sentiws_polarity_bearing_tokens_feature as sentiws_polarity_bearing_tokens_feature
 import argmining.features.sentiws_polarity_distribution as sentiws_polarity_distribution
-import argmining.resources.stopwords as stopwords
+import argmining.representations.stopwords as stopwords
 import argmining.features.embedding_centroid as embedding_centroid
 from argmining.features.tfidf import build_tfidf
 

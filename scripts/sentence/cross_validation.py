@@ -9,7 +9,7 @@ from argmining.evaluation.gridsearch_report import report_best_results
 from argmining.classifiers.classifier import get_classifier
 from argmining.evaluation.reduce_training_set import reduce_training_set
 from argmining.evaluation.shuffle import shuffle_training_Set
-from argmining.resources.word2vec import Word2Vec
+from argmining.representations.word2vec import Word2Vec
 
 NJOBS = 1
 
@@ -25,6 +25,8 @@ def config_argparser():
                            help='Random state of the StratifiedKFold for the GridSearchCV', default=123)
     argparser.add_argument('--trainingsize', type=int,
                            help='Amount of training data to be used, e.g. 50 for 50% of the data', default=100)
+    argparser.add_argument('--data_version', type=str, help='Version of the data',
+                           default='v3')
     argparser.add_argument('-embeddings', dest='load_embeddings', action='store_true')
     argparser.set_defaults(load_embeddings=False)
     return argparser.parse_args()
@@ -35,7 +37,8 @@ if __name__ == '__main__':
     logger = logging.getLogger()
     arguments = config_argparser()
     # 1) Load data sets
-    X_train, y_train = load_dataset(file_path='data/THF/sentence/subtask{}_train.json'.format(arguments.subtask))
+    X_train, y_train = load_dataset(file_path='data/THF/sentence/subtask{}_{}_train.json'.format(arguments.subtask, arguments.data_version),
+                                    data_version=arguments.data_version)
     if arguments.load_embeddings:
         word2vec = Word2Vec()
         word2vec.load()
