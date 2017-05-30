@@ -9,12 +9,44 @@ import json
 logger = logging.getLogger()
 
 
-def load_dataset(file_path):
-    dataset = load(file_path=file_path)
+def load_dataset(file_path, data_version='v2', group_claims=True):
+    if data_version == 'v3':
+        dataset = load_v3(file_path=file_path, group_claims=group_claims)
+    else:
+        dataset = load(file_path=file_path, group_claims=group_claims)
     X = dataset
     y = [item.label for item in dataset]
     return X, y
 
+
+def load_v3(file_path='data/THF/sentence/subtaskA_train.json', group_claims=True):
+    logger.debug(u'Parsing JSON File: {}'.format(file_path))
+    sentences = []
+    with open(file_path, encoding='utf-8') as data_file:
+        data = json.load(data_file)
+        for sentence in data:
+            sentence_tokens = sentence["NLP"]["tokens"]
+            tokens = []
+            for token in sentence_tokens:
+                #print(type(token))
+                token.pop("embedding")
+                token_model = Token(**token)
+                #print(token_model)
+                tokens.append(token_model)
+            dependencies = []
+            dependency_tokens = sentence["NLP"]["dependencies"]
+            for dependency in dependency_tokens:
+                dependency_model = Dependency(**dependency)
+                dependencies.append(dependency_model)
+            label = sentence["Label"]
+            if group_claims:
+                if label == 'ClaimContra' or label == 'ClaimPro':
+                    label = 'Claim'
+            sentence_model = THFSentenceExport(sentence["UniqueID"], label, sentence["Text"], tokens,
+                                               dependencies, textdepth=sentence["TextDepth"])
+            sentences.append(sentence_model)
+    logger.info('Parsed {} sentences'.format(len(sentences)))
+    return sentences
 
 def load(file_path='data/THF/sentence/subtaskA_train.json', group_claims=True):
     """
