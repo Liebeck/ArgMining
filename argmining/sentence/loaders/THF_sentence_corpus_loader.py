@@ -28,10 +28,8 @@ def load_v3(file_path='data/THF/sentence/subtaskA_train.json', group_claims=True
             sentence_tokens = sentence["NLP"]["tokens"]
             tokens = []
             for token in sentence_tokens:
-                #print(type(token))
                 token.pop("embedding")
                 token_model = Token(**token)
-                #print(token_model)
                 tokens.append(token_model)
             dependencies = []
             dependency_tokens = sentence["NLP"]["dependencies"]
