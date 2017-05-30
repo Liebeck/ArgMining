@@ -34,8 +34,8 @@ class SpacyWrapper(object):
             sentiws = self.sentiws.determine(token.text, pos_universal_google=token.pos_)
             token_model = Token(token.i + 1,
                                 text=token.text,
-                                spacy_pos_stts=token.pos_,
-                                spacy_pos_universal_google=token.tag_,
+                                spacy_pos_stts=token.tag_,
+                                spacy_pos_universal_google=token.pos_,
                                 iwnlp_lemma=iwnlp_lemma,
                                 spacy_ner_type=token.ent_type_,
                                 spacy_ner_iob=token.ent_iob_,
