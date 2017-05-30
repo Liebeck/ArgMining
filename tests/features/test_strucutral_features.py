@@ -15,7 +15,7 @@ class THFSentenceFeaturesStructural(unittest.TestCase):
         tokens.append(Token(5, 'Test', None, None, None, None, None, None))
         tokens.append(Token(6, '!', None, None, None, None, None, None))
         sentence_uniqueID = 'c0331_s003'
-        thf_sentence = THFSentenceExport(sentence_uniqueID, None, 'Das ist ein , Test!', tokens, None)
+        thf_sentence = THFSentenceExport(sentence_uniqueID, None, 'Das ist ein , Test!', tokens, None, 1)
         use_sentence_length = True
         feature_value = structural_features.transform_sentence(thf_sentence, use_sentence_length)
         expected_value = [3,
@@ -36,7 +36,7 @@ class THFSentenceFeaturesStructural(unittest.TestCase):
         tokens.append(Token(5, 'Test', None, None, None, None, None, None))
         tokens.append(Token(6, '!', None, None, None, None, None, None))
         sentence_uniqueID = 'p339_s003'
-        thf_sentence = THFSentenceExport(sentence_uniqueID, None, 'Das ist . , Test!', tokens, None)
+        thf_sentence = THFSentenceExport(sentence_uniqueID, None, 'Das ist . , Test!', tokens, None, 1)
         use_sentence_length = True
         feature_value = structural_features.transform_sentence(thf_sentence, use_sentence_length)
         expected_value = [3,
@@ -57,7 +57,7 @@ class THFSentenceFeaturesStructural(unittest.TestCase):
         tokens.append(Token(5, 'Test', None, None, None, None, None, None))
         tokens.append(Token(6, '!', None, None, None, None, None, None))
         sentence_uniqueID = 'p339_s021'
-        thf_sentence = THFSentenceExport(sentence_uniqueID, None, 'Das ist . , Test!', tokens, None)
+        thf_sentence = THFSentenceExport(sentence_uniqueID, None, 'Das ist . , Test!', tokens, None, 1)
         use_sentence_length = False
         feature_value = structural_features.transform_sentence(thf_sentence, use_sentence_length)
         expected_value = [21,
@@ -73,7 +73,7 @@ class THFSentenceFeaturesStructural(unittest.TestCase):
         tokens.append(Token(1, 'Test', None, None, None, None, None, None))
         tokens.append(Token(2, ',', None, None, None, None, None, None))
         sentence_uniqueID = 'p339_s005'
-        thf_sentence = THFSentenceExport(sentence_uniqueID, None, 'Test ,', tokens, None)
+        thf_sentence = THFSentenceExport(sentence_uniqueID, None, 'Test ,', tokens, None, 1)
         use_sentence_length = False
         feature_value = structural_features.transform_sentence(thf_sentence, use_sentence_length)
         expected_value = [5,
@@ -89,7 +89,7 @@ class THFSentenceFeaturesStructural(unittest.TestCase):
         tokens.append(Token(1, 'Test', None, None, None, None, None, None))
         tokens.append(Token(2, '.', None, None, None, None, None, None))
         sentence_uniqueID = 'p339_s002'
-        thf_sentence = THFSentenceExport(sentence_uniqueID, None, 'Test .', tokens, None)
+        thf_sentence = THFSentenceExport(sentence_uniqueID, None, 'Test .', tokens, None, 1)
         use_sentence_length = False
         feature_value = structural_features.transform_sentence(thf_sentence, use_sentence_length)
         expected_value = [2,
@@ -105,7 +105,7 @@ class THFSentenceFeaturesStructural(unittest.TestCase):
         tokens.append(Token(1, 'Test', None, None, None, None, None, None))
         tokens.append(Token(2, '!', None, None, None, None, None, None))
         sentence_uniqueID = 'p339_s007'
-        thf_sentence = THFSentenceExport(sentence_uniqueID, None, 'Test !', tokens, None)
+        thf_sentence = THFSentenceExport(sentence_uniqueID, None, 'Test !', tokens, None, 1)
         use_sentence_length = False
         feature_value = structural_features.transform_sentence(thf_sentence, use_sentence_length)
         expected_value = [7,
@@ -121,7 +121,7 @@ class THFSentenceFeaturesStructural(unittest.TestCase):
         tokens.append(Token(1, 'Test', None, None, None, None, None, None))
         tokens.append(Token(2, '?', None, None, None, None, None, None))
         sentence_uniqueID = 'p339_s007'
-        thf_sentence = THFSentenceExport(sentence_uniqueID, None, 'Test ?', tokens, None)
+        thf_sentence = THFSentenceExport(sentence_uniqueID, None, 'Test ?', tokens, None, 1)
         use_sentence_length = False
         feature_value = structural_features.transform_sentence(thf_sentence, use_sentence_length)
         expected_value = [7,
@@ -137,7 +137,7 @@ class THFSentenceFeaturesStructural(unittest.TestCase):
         tokens.append(Token(1, 'Test', None, None, None, None, None, None))
         tokens.append(Token(2, 'http://umap.openstreetmap.fr', None, None, None, None, None, None))
         sentence_uniqueID = 'p339_s021'
-        thf_sentence = THFSentenceExport(sentence_uniqueID, None, 'Test http://umap.openstreetmap.fr', tokens, None)
+        thf_sentence = THFSentenceExport(sentence_uniqueID, None, 'Test http://umap.openstreetmap.fr', tokens, None, 1)
         use_sentence_length = False
         feature_value = structural_features.transform_sentence(thf_sentence, use_sentence_length)
         expected_value = [21,

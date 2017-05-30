@@ -10,7 +10,7 @@ class THFSentenceSentiWSAveragePolarity(unittest.TestCase):
         tokens.append(Token(1, None, None, None, None, None, None, 0.5))
         tokens.append(Token(2, None, None, None, None, None, None, None))
         tokens.append(Token(3, None, None, None, None, None, None, 1.5))
-        thf_sentence = THFSentenceExport(None, None, None, tokens, None)
+        thf_sentence = THFSentenceExport(None, None, None, tokens, None, 1)
         feature_value = polarity_sentiws_feature.extract_average_polarity(thf_sentence)
         expected_value = [1.0]
         self.assertEqual(feature_value, expected_value)
@@ -20,7 +20,7 @@ class THFSentenceSentiWSAveragePolarity(unittest.TestCase):
         tokens.append(Token(1, None, None, None, None, None, None, None))
         tokens.append(Token(2, None, None, None, None, None, None, None))
         tokens.append(Token(3, None, None, None, None, None, None, None))
-        thf_sentence = THFSentenceExport(None, None, None, tokens, None)
+        thf_sentence = THFSentenceExport(None, None, None, tokens, None, 1)
         feature_value = polarity_sentiws_feature.extract_average_polarity(thf_sentence)
         expected_value = [0.0]
         self.assertEqual(feature_value, expected_value)
@@ -30,7 +30,7 @@ class THFSentenceSentiWSAveragePolarity(unittest.TestCase):
         tokens.append(Token(1, None, None, None, None, None, None, None))
         tokens.append(Token(2, None, None, None, None, None, None, -1))
         tokens.append(Token(3, None, None, None, None, None, None, -1.5))
-        thf_sentence = THFSentenceExport(None, None, None, tokens, None)
+        thf_sentence = THFSentenceExport(None, None, None, tokens, None, 1)
         feature_value = polarity_sentiws_feature.extract_average_polarity(thf_sentence)
         expected_value = [-1.25]
         self.assertEqual(feature_value, expected_value)
