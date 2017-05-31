@@ -58,4 +58,4 @@ class SpacyWrapper(object):
 
 if __name__ == '__main__':
     spacy_wrapper = SpacyWrapper()
-    spacy_wrapper.process_sentence('Das ist ein guter, schöner Testsatz mit schlechter Bewertung.')
+    spacy_wrapper.process_sentence('Gerne privat, aber nicht auf öffentlichem Gelände.')
