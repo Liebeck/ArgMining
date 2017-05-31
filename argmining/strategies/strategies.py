@@ -9,6 +9,7 @@ import argmining.representations.stopwords as stopwords
 import argmining.features.embedding_centroid as embedding_centroid
 from argmining.features.tfidf import build_tfidf
 import argmining.features.pos_distribution_spacy as pos_distribution_spacy
+import argmining.features.textdepth_feature as textdepth_feature
 
 STRATEGIES = {'unigram': [bag_of_words.build(ngram=1)],
               'unigram_stopwords': [bag_of_words.build(ngram=1, stopwords=stopwords.german_stopwords_nltk())],
@@ -60,4 +61,5 @@ STRATEGIES = {'unigram': [bag_of_words.build(ngram=1)],
                   embedding_centroid.build(embedding_length=100, stopwords=stopwords.german_stopwords_nltk())],
               'pos_distribution_spacy': [pos_distribution_spacy.build()],
               'pos_distribution_spacy_universal': [pos_distribution_spacy.build(coarse_grained=False)],
+              'textdepth_feature': [textdepth_feature.build()]
               }
