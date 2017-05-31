@@ -36,7 +36,6 @@ def load(file_path='data/THF/sentence/subtaskA_v2_train.json'):
                            'TextDepth': annotation_depths[sentence['UniqueID'].split('_')[0]],
                            'NLP': spacy.process_sentence(sentence['Text'])}
             sentences.append(sentence_v3)
-            logger.debug('Sentence processes')
     logger.info('Parsed {} sentences'.format(len(sentences)))
     output_path = file_path.replace('v2', 'v3')
     logger.info('Saving output to {}'.format(output_path))
@@ -46,3 +45,6 @@ def load(file_path='data/THF/sentence/subtaskA_v2_train.json'):
 
 if __name__ == '__main__':
     load(file_path='data/THF/sentence/subtaskA_v2_train.json')
+    load(file_path='data/THF/sentence/subtaskA_v2_test.json')
+    load(file_path='data/THF/sentence/subtaskB_v2_train.json')
+    load(file_path='data/THF/sentence/subtaskB_v2_test.json')
