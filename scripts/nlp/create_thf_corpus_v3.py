@@ -19,8 +19,10 @@ def read_annotation_depths(file_path='scripts/nlp/annotation_depths.txt'):
             annotation_depths[items[0]] = int(items[1])
     return annotation_depths
 
+
 def jdefault(o):
     return o.__dict__
+
 
 def load(file_path='data/THF/sentence/subtaskA_v2_train.json'):
     annotation_depths = read_annotation_depths()
@@ -41,6 +43,18 @@ def load(file_path='data/THF/sentence/subtaskA_v2_train.json'):
     logger.info('Saving output to {}'.format(output_path))
     with open(output_path, 'w') as outfile:
         json.dump(sentences, outfile, indent=2, default=jdefault)
+
+
+def debug_print_sentence(tokens):
+    for token in tokens:
+        print(
+            'tokens.append(Token({}, {}, spacy_pos_universal_google=\'{}\', spacy_ner_type=\'{}\', spacy_ner_iob=\'{}\'))'.format(
+                token.token_index_in_sentence,
+                token.text.encode('utf-8'),
+                token.spacy_pos_universal_google,
+                token.spacy_ner_type,
+                token.spacy_ner_iob
+            ))
 
 
 if __name__ == '__main__':
