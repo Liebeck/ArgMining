@@ -47,9 +47,9 @@ class SpacyWrapper(object):
             tokens.append(token_model)
             dependency_model = Dependency(token.i + 1, token.dep_, token.head.i + 1)
             dependencies.append(dependency_model)
-            #print(token_model.token_index_in_sentence, token_model.text.encode('utf-8'),
-                  #format_iwnlp_lemma(token_model.iwnlp_lemma), token_model.spacy_pos_stts,
-                  #token_model.spacy_pos_universal_google, token_model.spacy_ner_type, token_model.spacy_ner_iob)
+            # print(token_model.token_index_in_sentence, token_model.text.encode('utf-8'),
+            # format_iwnlp_lemma(token_model.iwnlp_lemma), token_model.spacy_pos_stts,
+            # token_model.spacy_pos_universal_google, token_model.spacy_ner_type, token_model.spacy_ner_iob)
         return {
             'tokens': tokens,
             'dependencies': dependencies

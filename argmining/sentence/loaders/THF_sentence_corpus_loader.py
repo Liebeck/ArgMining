@@ -46,6 +46,7 @@ def load_v3(file_path='data/THF/sentence/subtaskA_train.json', group_claims=True
     logger.info('Parsed {} sentences'.format(len(sentences)))
     return sentences
 
+
 def load(file_path='data/THF/sentence/subtaskA_train.json', group_claims=True):
     """
     Loads the THF corpus from an JSON file

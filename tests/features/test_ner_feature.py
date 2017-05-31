@@ -25,7 +25,7 @@ class THFSentenceSentiWSAveragePolarity(unittest.TestCase):
         tokens.append(Token(15, b'stark', spacy_pos_universal_google='ADJ', spacy_ner_type='', spacy_ner_iob='O'))
         tokens.append(Token(16, b'vom', spacy_pos_universal_google='ADP', spacy_ner_type='', spacy_ner_iob='O'))
         tokens.append(Token(17, b'angrenzenden', spacy_pos_universal_google='ADJ', spacy_ner_type='', spacy_ner_iob='O'))
-        tokens.append(Token(18, b'S\xc3\xbcdgel\xc3\xa4nde', spacy_pos_universal_google='NOUN', spacy_ner_type='',spacy_ner_iob='O'))
+        tokens.append(Token(18, b'S\xc3\xbcdgel\xc3\xa4nde', spacy_pos_universal_google='NOUN', spacy_ner_type='', spacy_ner_iob='O'))
         tokens.append(Token(19, b'nach', spacy_pos_universal_google='ADP', spacy_ner_type='', spacy_ner_iob='O'))
         tokens.append(Token(20, b'Farbd\xc3\xbcnsten', spacy_pos_universal_google='NOUN', spacy_ner_type='', spacy_ner_iob='O'))
         tokens.append(Token(21, b'und', spacy_pos_universal_google='CONJ', spacy_ner_type='', spacy_ner_iob='O'))
