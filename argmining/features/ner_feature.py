@@ -21,7 +21,7 @@ def count_different_ner_labels(tokens):
         if token.spacy_ner_type in ner_filter:
             inner_index = token_index + 1
             while (inner_index < len(tokens) and tokens[inner_index].spacy_ner_type == token.spacy_ner_type and
-                           tokens[inner_index].spacy_ner_iob in ner_inner_labels):
+                   tokens[inner_index].spacy_ner_iob in ner_inner_labels):
                 inner_index += 1
                 token_index += 1
             ner_counts[token.spacy_ner_type] += 1

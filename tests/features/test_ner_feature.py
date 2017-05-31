@@ -97,7 +97,6 @@ class THFSentenceSentiWSAveragePolarity(unittest.TestCase):
         expected_value = np.array([0, 1, 0], dtype=np.float64)
         self.assertEqual(np.array_equal(feature_value, expected_value), True)
 
-
     def test_count_different_ner_labels_example4(self):
         tokens = []
         tokens.append(Token(1, b'Oder', spacy_pos_universal_google='CONJ', spacy_ner_type='', spacy_ner_iob='O'))
@@ -137,7 +136,6 @@ class THFSentenceSentiWSAveragePolarity(unittest.TestCase):
         feature_value = ner_feature.count_different_ner_labels(thf_sentence.tokens)
         expected_value = np.array([0, 1, 0], dtype=np.float64)
         self.assertEqual(np.array_equal(feature_value, expected_value), True)
-
 
 
 if __name__ == '__main__':
