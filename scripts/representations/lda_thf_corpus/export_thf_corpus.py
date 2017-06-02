@@ -1,8 +1,9 @@
 import argparse
-import logging
-from scripts.representations.lda_thf_corpus.loader_flat import LoaderFlat
-import spacy
 import json
+import logging
+import spacy
+
+from scripts.representations.lda_thf_corpus.loader_flat import LoaderFlat
 
 logger = logging.getLogger()
 
