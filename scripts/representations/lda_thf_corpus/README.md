@@ -1,0 +1,2 @@
+# export_thf_corpus.py
+This script loads the complete THF corpus, tokenizes the corpus with spaCy and exports it to a JSON file with can be read with [NLP-Representations](https://github.com/Liebeck/NLP-Representations in order to train an LDA model
