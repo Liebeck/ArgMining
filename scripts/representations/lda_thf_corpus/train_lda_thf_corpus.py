@@ -2,6 +2,7 @@ import argparse
 import logging
 from scripts.resources.lda_thf_corpus.loader_flat import LoaderFlat
 import spacy
+import json
 
 logger = logging.getLogger()
 
@@ -23,16 +24,30 @@ def extract_tokens(document, spacy_pipeline):
     return tokens
 
 
+def tokens_to_json(tokens):
+    tokens = []
+    for token in tokens:
+        tokens.append({'Text': token.text,
+                       'POS': token.pos_,
+                       'NER_type': token._ner_type,
+                       'NER_IOB': token.ner_iob
+                       })
+    return tokens
+
+
 def load_thf_corpus_tokenized(path, spacy_pipeline):
-    tokenized_documents = []
+    documents = []
     thf_loader = LoaderFlat()
     proposals = thf_loader.load_thf_corpus_flat(path)
     for proposal in proposals:
         proposal_text = '{} {}'.format(proposal["title"], proposal["description"])
-        tokenized_documents.append(extract_tokens(proposal_text, spacy_pipeline))
+        documents.append({'Text': proposal_text,
+                          'Tokens': tokens_to_json(extract_tokens(proposal_text, spacy_pipeline))
+                          })
         for comment in proposal["flat_comments"]:
-            tokenized_documents.append(extract_tokens(comment["text"], spacy_pipeline))
-
+            documents.append({'Text': comment["text"],
+                              'Tokens': tokens_to_json(extract_tokens(extract_tokens(comment["text"], spacy_pipeline)))
+                              })
     logger.info('Tokenized {} documents'.format(len(tokenized_documents)))
     return tokenized_documents
 
@@ -43,7 +58,5 @@ if __name__ == '__main__':
     nlp = spacy.load('de')
     logger.info('Spacy model loaded')
     tokenized_documents = load_thf_corpus_tokenized(arguments.corpuspath, nlp)
-    # with open('scripts/resources/lda_thf_corpus/testdump.txt', 'w') as outfile:
-    # import json
-    # a = {'foo': tokenized_documents}
-    # json.dump(a, outfile, indent=2)
+    with open('scripts/resources/lda_thf_corpus/testdump.json', 'w') as outfile:
+        json.dump(tokenized_documents, outfile, indent=2)
