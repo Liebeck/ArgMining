@@ -1,6 +1,6 @@
 import argparse
 import logging
-from scripts.resources.lda_thf_corpus.loader_flat import LoaderFlat
+from scripts.representations.lda_thf_corpus.loader_flat import LoaderFlat
 import spacy
 import json
 
@@ -46,10 +46,10 @@ def load_thf_corpus_tokenized(path, spacy_pipeline):
                           })
         for comment in proposal["flat_comments"]:
             documents.append({'Text': comment["text"],
-                              'Tokens': tokens_to_json(extract_tokens(extract_tokens(comment["text"], spacy_pipeline)))
+                              'Tokens': tokens_to_json(extract_tokens(comment["text"], spacy_pipeline))
                               })
-    logger.info('Tokenized {} documents'.format(len(tokenized_documents)))
-    return tokenized_documents
+    logger.info('Tokenized {} documents'.format(len(documents)))
+    return documents
 
 
 if __name__ == '__main__':
