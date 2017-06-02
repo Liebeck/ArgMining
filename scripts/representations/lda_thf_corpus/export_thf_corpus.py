@@ -58,5 +58,7 @@ if __name__ == '__main__':
     nlp = spacy.load('de')
     logger.info('Spacy model loaded')
     tokenized_documents = load_thf_corpus_tokenized(arguments.corpuspath, nlp)
-    with open('data/THF/corpus_tokenized-2015-07-07.json', 'w') as outfile:
+    output_path = 'data/THF/corpus_tokenized-2015-07-07.json'
+    logger.info('Writing tokenized corpus to: {}'.format(output_path))
+    with open(output_path, 'w') as outfile:
         json.dump(tokenized_documents, outfile, indent=2)
