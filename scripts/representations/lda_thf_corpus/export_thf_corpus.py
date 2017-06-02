@@ -21,19 +21,19 @@ def extract_tokens(document, spacy_pipeline):
     tokens = []
     for i, token in enumerate(spacy_pipeline(document)):
         if not token.is_punct and not token.is_space and '\r\n' not in token.text:
-            tokens.append(token.text)
+            tokens.append(token)
     return tokens
 
 
 def tokens_to_json(tokens):
-    tokens = []
+    json_tokens = []
     for token in tokens:
-        tokens.append({'Text': token.text,
-                       'POS': token.pos_,
-                       'NER_type': token._ner_type,
-                       'NER_IOB': token.ner_iob
-                       })
-    return tokens
+        json_tokens.append({'Text': token.text,
+                            'POS': token.pos_,
+                            'NER_type': token.ent_type_,
+                            'NER_IOB': token.ent_iob_
+                            })
+    return json_tokens
 
 
 def load_thf_corpus_tokenized(path, spacy_pipeline):
