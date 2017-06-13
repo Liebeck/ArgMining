@@ -6,3 +6,4 @@ class THFSentenceExport:
         self.tokens = tokens
         self.dependencies = dependencies
         self.textdepth = textdepth
+        self.lda_embedding = None
