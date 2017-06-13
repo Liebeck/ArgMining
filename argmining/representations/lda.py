@@ -15,10 +15,8 @@ class LDA:
         self.logger = logging.getLogger()
 
     def load(self):
-        self.logger.info("Loading LDA model: {}".format(self.model_path))
         self.lda_model = LdaModel.load(self.model_path)
         self.vocab = corpora.Dictionary.load_from_text(bz2.BZ2File(self.vocab_path))
-        self.logger.info("Model loaded")
 
     def infer_topics(self, tokens):
         # print([x.encode('utf-8') for x in tokens])
@@ -42,3 +40,4 @@ class LDA:
     def annotate_sentences(self, sentences):
         for sentence in sentences:
             self.annotate_sentence(sentence)
+        self.logger.info("Annotated all sentences with LDA probabilities")
