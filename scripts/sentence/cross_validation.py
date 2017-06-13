@@ -10,6 +10,7 @@ from argmining.classifiers.classifier import get_classifier
 from argmining.evaluation.reduce_training_set import reduce_training_set
 from argmining.evaluation.shuffle import shuffle_training_Set
 from argmining.representations.word2vec import Word2Vec
+from argmining.representations.lda import LDA
 
 NJOBS = 1
 
@@ -29,6 +30,9 @@ def config_argparser():
                            default='v3')
     argparser.add_argument('-embeddings', dest='load_embeddings', action='store_true')
     argparser.set_defaults(load_embeddings=False)
+    argparser.add_argument('-lda', type=str, default=None, help='Path to LDA topic model')
+    argparser.add_argument('-lda_all_words', dest='lda_nouns_only', action='store_false')
+    argparser.set_defaults(lda_nouns_only=True)
     return argparser.parse_args()
 
 
@@ -43,6 +47,10 @@ if __name__ == '__main__':
         word2vec = Word2Vec()
         word2vec.load()
         word2vec.annotate_sentences(X_train)
+    if arguments.lda:
+        lda = LDA(model_path=arguments.lda, nouns_only=arguments.lda_nouns_only)
+        lda.load()
+        lda.annotate_sentences(X_train)
     # 2) Shuffle if desired
     X_train, y_train = shuffle_training_Set(X_train, y_train, arguments.shuffle)
     # 4) Reduce training size
