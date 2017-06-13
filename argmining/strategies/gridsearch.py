@@ -5,6 +5,7 @@ import argmining.features.structural_features as structural_features
 import argmining.features.sentiws_polarity_distribution as sentiws_polarity_distribution
 from collections import OrderedDict
 import argmining.features.embedding_centroid as embedding_centroid
+import argmining.features.lda_distribution as lda_distribution
 
 GRIDSEARCH_STRATEGIES = {
     'unigram':
@@ -177,6 +178,28 @@ GRIDSEARCH_STRATEGIES = {
                 'union__bag_of_words__transformer__token_form': ['text', 'IWNLP_lemma'],
                 'union__bag_of_words__normalizer__use_normalize': [True, False],
                 'union__embedding_centroid__transformer__embedding_length': [300],
+            }
+        },
+    'lda_distribution':
+        {
+            'features':
+                OrderedDict([
+                    ('lda_distribution', lda_distribution.build)
+                ]),
+            'param_grid': {}
+        },
+    'unigram+lda_distribution':
+        {
+            'features':
+                OrderedDict([
+                    ('bag_of_words', bag_of_words.build),
+                    ('lda_distribution', lda_distribution.build)
+                ]),
+            'param_grid': {
+                'union__bag_of_words__transformer__ngram': [1],
+                'union__bag_of_words__transformer__lowercase': [True],
+                'union__bag_of_words__transformer__token_form': ['text', 'IWNLP_lemma'],
+                'union__bag_of_words__normalizer__use_normalize': [True, False],
             }
         },
 }

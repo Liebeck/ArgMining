@@ -66,5 +66,8 @@ STRATEGIES = {'unigram': [bag_of_words.build(ngram=1)],
               'pos_distribution_spacy': [pos_distribution_spacy.build()],
               'pos_distribution_spacy_universal': [pos_distribution_spacy.build(coarse_grained=False)],
               'textdepth_feature': [textdepth_feature.build()],
-              'lda_distribution': [lda_distribution.build()]
+              'lda_distribution': [lda_distribution.build()],
+              'n_unigram+lda_distribution': [
+                  bag_of_words.build(ngram=1, normalize=True, stopwords=stopwords.german_stopwords_nltk()),
+                  lda_distribution.build()],
               }
