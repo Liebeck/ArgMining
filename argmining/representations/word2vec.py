@@ -1,5 +1,4 @@
 import gensim
-from gensim.models import word2vec
 import logging
 
 
