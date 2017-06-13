@@ -75,3 +75,4 @@ data/THF/corpus_tokenized*
 data/spacy/*
 data/sentiws/*
 data/IWNLP/*
+data/lda/*
