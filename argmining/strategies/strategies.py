@@ -12,6 +12,7 @@ from argmining.features.tfidf import build_tfidf
 import argmining.features.pos_distribution_spacy as pos_distribution_spacy
 import argmining.features.textdepth_feature as textdepth_feature
 import argmining.features.lda_distribution as lda_distribution
+import argmining.features.long_word_count as long_word_count
 
 STRATEGIES = {'unigram': [bag_of_words.build(ngram=1)],
               'unigram_stopwords': [bag_of_words.build(ngram=1, stopwords=stopwords.german_stopwords_nltk())],
@@ -72,4 +73,5 @@ STRATEGIES = {'unigram': [bag_of_words.build(ngram=1)],
                   lda_distribution.build()],
               'n_unigram_shape': [bag_of_words.build(ngram=1, token_form='shape', normalize=True)],
               'n_unigram_shape_lemma': [bag_of_words.build(ngram=1, token_form='shape_lemma', normalize=True)],
+              'long_word_count': [long_word_count.build(length=3)],
               }
