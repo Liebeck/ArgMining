@@ -28,8 +28,6 @@ def config_argparser():
                            help='Amount of training data to be used, e.g. 50 for 50% of the data', default=100)
     argparser.add_argument('--data_version', type=str, help='Version of the data',
                            default='v3')
-    #argparser.add_argument('-embeddings', dest='load_embeddings', action='store_true')
-    #argparser.set_defaults(load_embeddings=False)
     argparser.add_argument('-embeddings_path', type=str, help='Path to the embeddingsfile', default=None)
     argparser.add_argument('-lda', type=str, default=None, help='Path to LDA topic model')
     argparser.add_argument('-lda_all_words', dest='lda_nouns_only', action='store_false')
@@ -42,14 +40,14 @@ if __name__ == '__main__':
     logger = logging.getLogger()
     arguments = config_argparser()
     # 1) Load data sets
-    X_train, y_train = load_dataset(file_path='data/THF/sentence/subtask{}_{}_train.json'.format(arguments.subtask, arguments.data_version),
-                                    data_version=arguments.data_version)
+    X_train, y_train = load_dataset(
+        file_path='data/THF/sentence/subtask{}_{}_train.json'.format(arguments.subtask, arguments.data_version),
+        data_version=arguments.data_version)
     if arguments.embeddings_path:
         word2vec = Word2Vec(model_path=arguments.embeddings_path)
         word2vec.load()
         word2vec.annotate_sentences(X_train)
     if arguments.lda:
-        lda = LDA(model_path=arguments.lda, nouns_only=arguments.lda_nouns_only)
         lda.load()
         lda.annotate_sentences(X_train)
     # 2) Shuffle if desired
