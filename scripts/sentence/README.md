@@ -10,6 +10,8 @@ Performs a cross-validation for a strategy with fixed feature parameters on the 
   python scripts/sentence/cross_validation.py -subtask A -embeddings_path data/word_embeddings/word2vec_wiki-de_20161120_100_binary -strategy embedding_centroid_stopwords_100 -c svm
   python scripts/sentence/cross_validation.py -subtask A -embeddings_path data/word_embeddings/word2vec_wiki-de_20161120_100_binary -strategy n_unigram+pos_distribution+embedding_centroid -c svm
   python scripts/sentence/cross_validation.py -subtask A -strategy unigram_lowercase_tfidf -c svm
+  python scripts/sentence/cross_validation.py -subtask A -strategy n_unigram_shape -c svm
+  python scripts/sentence/cross_validation.py -subtask A -strategy n_unigram_shape_lemma -c svm
 
 
 ```
