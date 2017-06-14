@@ -13,7 +13,7 @@ class Word2Vec:
     def load(self):
         self.logger.info("Loading model: {}".format(self.model_path))
         self.logger.info("text_type: {}".format(self.text_type))
-        self.model = gensim.models.Word2Vec.load_word2vec_format(self.model_path)
+        self.model = gensim.models.KeyedVectors.load(self.model_path)
         self.logger.info("Model loaded")
 
     def annotate_sentence(self, sentence):
@@ -22,7 +22,6 @@ class Word2Vec:
             key = token.get_key(self.text_type)
             if key in self.model.wv.vocab:
                 self.coverage = self.coverage + 1
-                # self.logger.debug(type(self.model[key]))
                 token.embedding = self.model[key]
 
     def annotate_sentences(self, sentences):
