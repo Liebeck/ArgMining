@@ -25,7 +25,7 @@ def tokenizer_THF_words_lowercase(thf_sentence):
     return list(map(lambda token: token.text.lower(), thf_sentence.tokens))
 
 def tokenizer_shape(thf_sentence):
-    return list(map(lambda token: token.shape, thf_sentence.tokens))
+    return list(map(lambda token: token.spacy_shape, thf_sentence.tokens))
 
 def tokenizer_shape_lemma(thf_sentence):
     words = []
