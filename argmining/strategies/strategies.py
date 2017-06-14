@@ -70,4 +70,6 @@ STRATEGIES = {'unigram': [bag_of_words.build(ngram=1)],
               'n_unigram+lda_distribution': [
                   bag_of_words.build(ngram=1, normalize=True, stopwords=stopwords.german_stopwords_nltk()),
                   lda_distribution.build()],
+              'n_unigram_shape': [bag_of_words.build(ngram=1, token_form='shape', normalize=True)],
+              'n_unigram_shape_lemma': [bag_of_words.build(ngram=1, token_form='shape_lemma', normalize=True)],
               }
