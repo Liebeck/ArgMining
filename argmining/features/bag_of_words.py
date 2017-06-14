@@ -4,6 +4,7 @@ from sklearn.feature_extraction.text import CountVectorizer
 import logging
 import numpy as np
 from argmining.transformers.normalizer_toggle import NormalizerToggle
+from spacy.orth import word_shape
 
 
 def build(feature_name='bag_of_words', ngram=1, token_form='text', lowercase=False, normalize=False, min_df=1,
@@ -22,6 +23,18 @@ def tokenizer_THF_words(thf_sentence):
 
 def tokenizer_THF_words_lowercase(thf_sentence):
     return list(map(lambda token: token.text.lower(), thf_sentence.tokens))
+
+def tokenizer_shape(thf_sentence):
+    return list(map(lambda token: token.shape, thf_sentence.tokens))
+
+def tokenizer_shape_lemma(thf_sentence):
+    words = []
+    for token in thf_sentence.tokens:
+        if token.iwnlp_lemma is not None and len(token.iwnlp_lemma) == 1:
+            words.append(word_shape(token.iwnlp_lemma[0]))
+        else:
+            words.append(token.shape)
+    return words
 
 
 def tokenizer_THF_lemma(thf_sentence):
@@ -63,6 +76,10 @@ class BagOfWords(BaseEstimator):
             return tokenizer_THF_lemma
         elif self.token_form == 'IWNLP_lemma' and self.lowercase:
             return tokenizer_THF_lemma_lowercase
+        elif self.token_form == 'shape':
+            return tokenizer_shape
+        elif self.token_form == 'shape_lemma':
+            return tokenizer_shape_lemma
 
     def fit(self, X, y):
         tokenizer = self.get_tokenizer()
