@@ -33,7 +33,7 @@ def tokenizer_shape_lemma(thf_sentence):
         if token.iwnlp_lemma is not None and len(token.iwnlp_lemma) == 1:
             words.append(word_shape(token.iwnlp_lemma[0]))
         else:
-            words.append(token.shape)
+            words.append(token.spacy_shape)
     return words
 
 
