@@ -51,7 +51,7 @@ if __name__ == '__main__':
         train_path = 'data/THF/sentence/subtask{}_{}_train.json'.format(arguments.subtask, arguments.data_version)
     if arguments.hilbert:  # work around for absolute paths on the hilbert cluster
         train_path = '/home/malie102/jobs/ArgMining/' + train_path
-    X_train, y_train = load_dataset(file_path=train_path)
+    X_train, y_train = load_dataset(file_path=train_path, data_version=arguments.data_version)
     if arguments.embeddings_path:
         word2vec = Word2Vec(model_path=arguments.embeddings_path)
         word2vec.load()

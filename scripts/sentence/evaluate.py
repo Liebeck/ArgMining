@@ -47,8 +47,8 @@ if __name__ == '__main__':
     if arguments.hilbert:  # work around for absolute paths on the hilbert cluster
         train_path = '/home/malie102/jobs/ArgMining/' + train_path
         test_path = '/home/malie102/jobs/ArgMining/' + test_path
-    X_train, y_train = load_dataset(file_path=train_path)
-    X_test, y_test = load_dataset(file_path=test_path)
+    X_train, y_train = load_dataset(file_path=train_path, data_version=settings['data_version'])
+    X_test, y_test = load_dataset(file_path=test_path, data_version=settings['data_version'])
 
     if settings['embeddings_path']:
         word2vec = Word2Vec(model_path=settings['embeddings_path'])
