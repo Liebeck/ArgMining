@@ -57,7 +57,7 @@ GRIDSEARCH_STRATEGIES = {
                     ('pos_distribution_spacy', pos_distribution_spacy.build)
                 ]),
             'param_grid': {
-                'union__pos_distribution_spacy__transformer__use_STTS': [True, False],
+                'union__pos_distribution_spacy__transformer__coarse_grained': [True, False],
             }
         },
     'pos_distribution_feature_selection':
@@ -68,11 +68,11 @@ GRIDSEARCH_STRATEGIES = {
                 ]),
             'param_grid': [
                 {
-                    'union__pos_distribution_spacy__transformer__use_STTS': [True],
+                    'union__pos_distribution_spacy__transformer__coarse_grained': [True],
                     'union__pos_distribution_spacy__feature_selection__k': [5, 10, 15, 20, 30, 'all'],
                 },
                 {
-                    'union__pos_distribution_spacy__transformer__use_STTS': [False],
+                    'union__pos_distribution_spacy__transformer__coarse_grained': [False],
                     'union__pos_distribution_spacy__feature_selection__k': [6, 7, 8, 9, 10, 11, 'all'],
                 }
 
@@ -92,7 +92,7 @@ GRIDSEARCH_STRATEGIES = {
                 'union__bag_of_words__transformer__lowercase': [True, False],
                 'union__bag_of_words__transformer__token_form': ['text', 'IWNLP_lemma'],
                 'union__bag_of_words__normalizer__use_normalize': [True, False],
-                'union__pos_distribution_spacy__transformer__use_STTS': [True, False],
+                'union__pos_distribution_spacy__transformer__coarse_grained': [True, False],
             }
         },
     'sentiws_distribution':
