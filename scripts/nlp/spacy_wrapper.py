@@ -40,6 +40,7 @@ class SpacyWrapper(object):
                                 spacy_ner_type=token.ent_type_,
                                 spacy_ner_iob=token.ent_iob_,
                                 spacy_is_punct=token.is_punct,
+                                spacy_is_space = token.is_space,
                                 spacy_like_num=token.like_num,
                                 spacy_like_url=token.like_url,
                                 spacy_shape=token.shape_,
