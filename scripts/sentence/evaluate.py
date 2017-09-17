@@ -12,6 +12,7 @@ import numpy as np
 from argmining.evaluation.reduce_training_set import reduce_training_set
 from argmining.evaluation.shuffle import shuffle_training_Set
 from argmining.representations.word2vec import Word2Vec
+from argmining.representations.lda import LDA
 
 NJOBS = 1
 
@@ -54,6 +55,12 @@ if __name__ == '__main__':
         word2vec.load()
         word2vec.annotate_sentences(X_train)
         word2vec.annotate_sentences(X_test)
+    if settings['lda_path']:
+        lda = LDA(model_path=settings['lda_path'], vocab_path=settings['lda_vocab_path'],
+                  nouns_only=settings['lda_all_words'])
+        lda.load()
+        lda.annotate_sentences(X_train)
+        lda.annotate_sentences(X_test)
     # 4) Shuffle if desired
     X_train, y_train = shuffle_training_Set(X_train, y_train, settings['shuffle'])
     # 5) Reduce training size

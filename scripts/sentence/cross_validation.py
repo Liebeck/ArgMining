@@ -29,7 +29,8 @@ def config_argparser():
     argparser.add_argument('--data_version', type=str, help='Version of the data',
                            default='v3')
     argparser.add_argument('-embeddings_path', type=str, help='Path to the embeddingsfile', default=None)
-    argparser.add_argument('-lda', type=str, default=None, help='Path to LDA topic model')
+    argparser.add_argument('-lda_path', type=str, default=None, help='Path to LDA topic model')
+    argparser.add_argument('-lda_vocab_path', type=str, default=None, help='Path to LDA vocab')
     argparser.add_argument('-lda_all_words', dest='lda_nouns_only', action='store_false')
     argparser.set_defaults(lda_nouns_only=True)
     return argparser.parse_args()
@@ -47,7 +48,9 @@ if __name__ == '__main__':
         word2vec = Word2Vec(model_path=arguments.embeddings_path)
         word2vec.load()
         word2vec.annotate_sentences(X_train)
-    if arguments.lda:
+    if arguments.lda_path:
+        lda = LDA(model_path=arguments.lda_path, vocab_path=arguments.lda_vocab_path,
+                  nouns_only=arguments.lda_all_words)
         lda.load()
         lda.annotate_sentences(X_train)
     # 2) Shuffle if desired

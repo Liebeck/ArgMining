@@ -13,6 +13,7 @@ from argmining.pipelines.pipeline import pipeline
 from argmining.representations.word2vec import Word2Vec
 from argmining.sentence.loaders.THF_sentence_corpus_loader import load_dataset
 from argmining.strategies.gridsearch import GRIDSEARCH_STRATEGIES
+from argmining.representations.lda import LDA
 
 NJOBS = 1
 
@@ -31,6 +32,9 @@ def config_argparser():
     argparser.add_argument('-embeddings_path', type=str, help='Path to the embeddingsfile', default=None)
     argparser.add_argument('--data_version', type=str, help='Version of the data',
                            default='v3')
+    argparser.add_argument('-lda_path', type=str, default=None, help='Path to LDA topic model')
+    argparser.add_argument('-lda_vocab_path', type=str, default=None, help='Path to LDA vocab')
+    argparser.add_argument('-lda_all_words', dest='lda_nouns_only', action='store_false')
     argparser.add_argument('-hilbert', dest='hilbert', action='store_true')
     argparser.set_defaults(hilbert=False)
     return argparser.parse_args()
@@ -52,6 +56,11 @@ if __name__ == '__main__':
         word2vec = Word2Vec(model_path=arguments.embeddings_path)
         word2vec.load()
         word2vec.annotate_sentences(X_train)
+    if arguments.lda_path:
+        lda = LDA(model_path=arguments.lda_path, vocab_path=arguments.lda_vocab_path,
+                  nouns_only=arguments.lda_all_words)
+        lda.load()
+        lda.annotate_sentences(X_train)
     # 2) Shuffle if desired
     X_train, y_train = shuffle_training_Set(X_train, y_train, arguments.shuffle)
     # 3) Reduce training size
@@ -95,6 +104,9 @@ if __name__ == '__main__':
     settings['shuffle'] = arguments.shuffle
     settings['training_size'] = arguments.trainingsize
     settings['embeddings_path'] = arguments.embeddings_path
+    settings['lda_path'] = arguments.lda_path
+    settings['lda_vocab_path'] = arguments.lda_vocab_path
+    settings['lda_all_words'] = arguments.lda_all_words
     settings['data_version'] = arguments.data_version
     best_mean, best_std = best_cv_result(gridsearch.cv_results_)
     settings['gridsearch_best_mean'] = best_mean
