@@ -1,11 +1,12 @@
 import argmining.features.bag_of_words as bag_of_words
-import argmining.features.pos_distribution as pos_distribution
+# import argmining.features.pos_distribution as pos_distribution
 import argmining.features.dependency_distribution as dependency_distribution
 import argmining.features.structural_features as structural_features
 import argmining.features.sentiws_polarity_distribution as sentiws_polarity_distribution
 from collections import OrderedDict
 import argmining.features.embedding_centroid as embedding_centroid
 import argmining.features.lda_distribution as lda_distribution
+import argmining.features.pos_distribution_spacy as pos_distribution_spacy
 
 GRIDSEARCH_STRATEGIES = {
     'unigram':
@@ -49,30 +50,30 @@ GRIDSEARCH_STRATEGIES = {
                 'union__bag_of_words__normalizer__use_normalize': [True, False],
             }
         },
-    'pos_distribution':
+    'pos_distribution_spacy':
         {
             'features':
                 OrderedDict([
-                    ('pos_distribution', pos_distribution.build)
+                    ('pos_distribution_spacy', pos_distribution_spacy.build)
                 ]),
             'param_grid': {
-                'union__pos_distribution__transformer__use_STTS': [True, False],
+                'union__pos_distribution_spacy__transformer__use_STTS': [True, False],
             }
         },
     'pos_distribution_feature_selection':
         {
             'features':
                 OrderedDict([
-                    ('pos_distribution', pos_distribution.build_feature_selection)
+                    ('pos_distribution', pos_distribution_spacy.build_feature_selection)
                 ]),
             'param_grid': [
                 {
-                    'union__pos_distribution__transformer__use_STTS': [True],
-                    'union__pos_distribution__feature_selection__k': [5, 10, 15, 20, 30, 'all'],
+                    'union__pos_distribution_spacy__transformer__use_STTS': [True],
+                    'union__pos_distribution_spacy__feature_selection__k': [5, 10, 15, 20, 30, 'all'],
                 },
                 {
-                    'union__pos_distribution__transformer__use_STTS': [False],
-                    'union__pos_distribution__feature_selection__k': [6, 7, 8, 9, 10, 11, 'all'],
+                    'union__pos_distribution_spacy__transformer__use_STTS': [False],
+                    'union__pos_distribution_spacy__feature_selection__k': [6, 7, 8, 9, 10, 11, 'all'],
                 }
 
             ]
@@ -83,7 +84,7 @@ GRIDSEARCH_STRATEGIES = {
             'features':
                 OrderedDict([
                     ('bag_of_words', bag_of_words.build),
-                    ('pos_distribution', pos_distribution.build),
+                    ('pos_distribution_spacy', pos_distribution_spacy.build),
                     ('dependency_distribution', dependency_distribution.build),
                 ]),
             'param_grid': {
@@ -91,7 +92,7 @@ GRIDSEARCH_STRATEGIES = {
                 'union__bag_of_words__transformer__lowercase': [True, False],
                 'union__bag_of_words__transformer__token_form': ['text', 'IWNLP_lemma'],
                 'union__bag_of_words__normalizer__use_normalize': [True, False],
-                'union__pos_distribution__transformer__use_STTS': [True, False],
+                'union__pos_distribution_spacy__transformer__use_STTS': [True, False],
             }
         },
     'sentiws_distribution':
