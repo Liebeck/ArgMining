@@ -35,6 +35,7 @@ def config_argparser():
     argparser.add_argument('-lda_path', type=str, default=None, help='Path to LDA topic model')
     argparser.add_argument('-lda_vocab_path', type=str, default=None, help='Path to LDA vocab')
     argparser.add_argument('-lda_all_words', dest='lda_nouns_only', action='store_false')
+    argparser.set_defaults(lda_all_words=False)
     argparser.add_argument('-hilbert', dest='hilbert', action='store_true')
     argparser.set_defaults(hilbert=False)
     return argparser.parse_args()
