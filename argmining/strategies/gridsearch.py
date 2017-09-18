@@ -18,7 +18,7 @@ GRIDSEARCH_STRATEGIES = {
                     ('bag_of_words', bag_of_words.build)
                 ]),
             'param_grid': {
-                'union__bag_of_words__transformer__ngram': [(1, 1)],
+                'union__bag_of_words__transformer__ngram_range': [(1, 1)],
                 'union__bag_of_words__transformer__lowercase': [True, False],
                 'union__bag_of_words__transformer__token_form': ['text', 'IWNLP_lemma'],
                 'union__bag_of_words__normalizer__use_normalize': [True, False],
@@ -31,7 +31,7 @@ GRIDSEARCH_STRATEGIES = {
                     ('bag_of_words', bag_of_words.build)
                 ]),
             'param_grid': {
-                'union__bag_of_words__transformer__ngram': [(1, 1)],
+                'union__bag_of_words__transformer__ngram_range': [(1, 1)],
                 'union__bag_of_words__transformer__lowercase': [True, False],
                 'union__bag_of_words__transformer__token_form': ['text'],
                 'union__bag_of_words__transformer__min_df': [1, 2, 3, 4, 5, 10, 20],
@@ -46,7 +46,7 @@ GRIDSEARCH_STRATEGIES = {
                     ('bag_of_words', bag_of_words.build)
                 ]),
             'param_grid': {
-                'union__bag_of_words__transformer__ngram': [(2, 2)],
+                'union__bag_of_words__transformer__ngram_range_range': [(2, 2)],
                 'union__bag_of_words__transformer__lowercase': [True, False],
                 'union__bag_of_words__transformer__token_form': ['text', 'IWNLP_lemma'],
                 'union__bag_of_words__normalizer__use_normalize': [True, False],
@@ -103,7 +103,7 @@ GRIDSEARCH_STRATEGIES = {
                     ('dependency_distribution', dependency_distribution.build),
                 ]),
             'param_grid': {
-                'union__bag_of_words__transformer__ngram': [(1, 1)],
+                'union__bag_of_words__transformer__ngram_range': [(1, 1)],
                 'union__bag_of_words__transformer__lowercase': [True, False],
                 'union__bag_of_words__transformer__token_form': ['text', 'IWNLP_lemma'],
                 'union__bag_of_words__normalizer__use_normalize': [True, False],
@@ -117,7 +117,7 @@ GRIDSEARCH_STRATEGIES = {
                     ('bag_of_words', bag_of_words.build)
                 ]),
             'param_grid': {
-                'union__bag_of_words__transformer__ngram': [(1, 1)],
+                'union__bag_of_words__transformer__ngram_range': [(1, 1)],
                 'union__bag_of_words__normalizer__use_normalize': [True],
                 'union__bag_of_words__transformer__token_form': ['shape'],
             }
@@ -139,7 +139,7 @@ GRIDSEARCH_STRATEGIES = {
                     ('dependency_distribution_spacy', dependency_distribution_spacy.build),
                 ]),
             'param_grid': {
-                'union__bag_of_words__transformer__ngram': [(1, 1)],
+                'union__bag_of_words__transformer__ngram_range': [(1, 1)],
                 'union__bag_of_words__transformer__lowercase': [True, False],
                 'union__bag_of_words__transformer__token_form': ['text', 'IWNLP_lemma'],
                 'union__bag_of_words__normalizer__use_normalize': [True, False],
@@ -195,7 +195,7 @@ GRIDSEARCH_STRATEGIES = {
                     ('embedding_centroid', embedding_centroid.build),
                 ]),
             'param_grid': {
-                'union__bag_of_words__transformer__ngram': [(1, 1)],
+                'union__bag_of_words__transformer__ngram_range': [(1, 1)],
                 'union__bag_of_words__transformer__lowercase': [True],
                 'union__bag_of_words__transformer__token_form': ['text', 'IWNLP_lemma'],
                 'union__bag_of_words__normalizer__use_normalize': [True, False],
@@ -210,7 +210,7 @@ GRIDSEARCH_STRATEGIES = {
                     ('embedding_centroid', embedding_centroid.build),
                 ]),
             'param_grid': {
-                'union__bag_of_words__transformer__ngram': [(1, 1)],
+                'union__bag_of_words__transformer__ngram_range': [(1, 1)],
                 'union__bag_of_words__transformer__lowercase': [True],
                 'union__bag_of_words__transformer__token_form': ['text', 'IWNLP_lemma'],
                 'union__bag_of_words__normalizer__use_normalize': [True, False],
@@ -225,7 +225,7 @@ GRIDSEARCH_STRATEGIES = {
                     ('embedding_centroid', embedding_centroid.build),
                 ]),
             'param_grid': {
-                'union__bag_of_words__transformer__ngram': [(1, 1)],
+                'union__bag_of_words__transformer__ngram_range': [(1, 1)],
                 'union__bag_of_words__transformer__lowercase': [True],
                 'union__bag_of_words__transformer__token_form': ['text', 'IWNLP_lemma'],
                 'union__bag_of_words__normalizer__use_normalize': [True, False],
@@ -248,7 +248,7 @@ GRIDSEARCH_STRATEGIES = {
                     ('lda_distribution', lda_distribution.build)
                 ]),
             'param_grid': {
-                'union__bag_of_words__transformer__ngram': [(1, 1)],
+                'union__bag_of_words__transformer__ngram_range': [(1, 1)],
                 'union__bag_of_words__transformer__lowercase': [True],
                 'union__bag_of_words__transformer__token_form': ['text', 'IWNLP_lemma'],
                 'union__bag_of_words__normalizer__use_normalize': [True, False],
