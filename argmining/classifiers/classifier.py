@@ -18,7 +18,7 @@ def create_classifier(name, classifier_params):
     if name == 'svm':
         return svm.build(**classifier_params)
     elif name == 'knn':
-        return knn.build(**classifier_params),
+        return knn.build(**classifier_params)
     elif name == 'rf':
         return random_forest.build(**classifier_params)
     else:
