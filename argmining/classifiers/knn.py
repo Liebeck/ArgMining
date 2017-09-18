@@ -14,5 +14,5 @@ def param_grid(cross_validation=False):
                 }
 
 
-def build():
-    return KNeighborsClassifier()
+def build(n_neighbors=5, leaf_size=30, weights='uniform'):
+    return KNeighborsClassifier(n_neighbors=n_neighbors, leaf_size=leaf_size, weights=weights)
