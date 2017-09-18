@@ -1,6 +1,7 @@
 import argmining.features.bag_of_words as bag_of_words
 # import argmining.features.pos_distribution as pos_distribution
 import argmining.features.dependency_distribution as dependency_distribution
+import argmining.features.character_ngrams as character_ngrams
 import argmining.features.dependency_distribution_spacy as dependency_distribution_spacy
 import argmining.features.structural_features as structural_features
 import argmining.features.sentiws_polarity_distribution as sentiws_polarity_distribution
@@ -49,6 +50,19 @@ GRIDSEARCH_STRATEGIES = {
                 'union__bag_of_words__transformer__lowercase': [True, False],
                 'union__bag_of_words__transformer__token_form': ['text', 'IWNLP_lemma'],
                 'union__bag_of_words__normalizer__use_normalize': [True, False],
+            }
+        },
+    'character_ngrams':
+        {
+            'features':
+                OrderedDict([
+                    ('character_ngrams', character_ngrams.build)
+                ]),
+            'param_grid': {
+                'union__character_ngram__transformer__min_df': [1, 5, 10, 20, 30, 40],
+                'union__character_ngram__transformer__ngram_range': [(1, 1), (2, 2), (3, 3), (4, 4), (5, 5), (6, 6),
+                                                                     (7, 7), (1, 2), (1, 3), (1, 4), (1, 5), (1, 6),
+                                                                     (1, 7)]
             }
         },
     'pos_distribution_spacy':
