@@ -27,6 +27,7 @@ def build(use_TIGER=True):
 
 dependency_black_list = ['ROOT', 'punct']
 
+
 def get_dependency_histogram(pos_list, tag_set):
     histogram = OrderedDict.fromkeys(tag_set, 0)
     for entry in pos_list:
