@@ -1,6 +1,7 @@
 import argmining.features.bag_of_words as bag_of_words
 # import argmining.features.pos_distribution as pos_distribution
 import argmining.features.dependency_distribution as dependency_distribution
+import argmining.features.dependency_distribution_spacy as dependency_distribution_spacy
 import argmining.features.structural_features as structural_features
 import argmining.features.sentiws_polarity_distribution as sentiws_polarity_distribution
 from collections import OrderedDict
@@ -94,6 +95,14 @@ GRIDSEARCH_STRATEGIES = {
                 'union__bag_of_words__normalizer__use_normalize': [True, False],
                 'union__pos_distribution_spacy__transformer__coarse_grained': [True, False],
             }
+        },
+    'dependency_distribution_spacy':
+        {
+            'features':
+                OrderedDict([
+                    ('dependency_distribution_spacy', dependency_distribution_spacy.build),
+                ]),
+            'param_grid': {}
         },
     'sentiws_distribution':
         {

@@ -1,6 +1,7 @@
 import argmining.features.bag_of_words as bag_of_words
 import argmining.features.pos_distribution as pos_distribution
 import argmining.features.dependency_distribution as dependency_distribution
+import argmining.features.dependency_distribution_spacy as dependency_distribution_spacy
 import argmining.features.structural_features as structural_features
 import argmining.features.structural_features_spacy as structural_features_spacy
 import argmining.features.sentiws_average_polarity_feature as sentiws_average_polarity_feature
@@ -46,6 +47,7 @@ STRATEGIES = {'unigram': [bag_of_words.build(ngram=1)],
                                              pos_distribution.build()],
               'dependency_distribution': [dependency_distribution.build()],
               'dependency_distribution_fs10': [dependency_distribution.build_feature_selection(k=10)],
+              'dependency_distribution_spacy': [dependency_distribution_spacy.build()],
               'pos+dep_distribution': [pos_distribution.build(),
                                        structural_features.build()],
               'pos+dep_distribution_fs': [pos_distribution.build_feature_selection(k=35),
