@@ -96,6 +96,18 @@ GRIDSEARCH_STRATEGIES = {
                 'union__pos_distribution_spacy__transformer__coarse_grained': [True, False],
             }
         },
+    'n_unigram+shape':
+        {
+            'features':
+                OrderedDict([
+                    ('bag_of_words', bag_of_words.build)
+                ]),
+            'param_grid': {
+                'union__bag_of_words__transformer__ngram': [1],
+                'union__bag_of_words__normalizer__use_normalize': [True],
+                'union__bag_of_words__transformer__token_form': ['shape'],
+            }
+        },
     'dependency_distribution_spacy':
         {
             'features':
