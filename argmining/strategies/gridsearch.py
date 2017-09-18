@@ -104,6 +104,22 @@ GRIDSEARCH_STRATEGIES = {
                 ]),
             'param_grid': {}
         },
+    'unigram+grammatical_spacy':
+        {
+            'features':
+                OrderedDict([
+                    ('bag_of_words', bag_of_words.build),
+                    ('pos_distribution_spacy', pos_distribution_spacy.build),
+                    ('dependency_distribution_spacy', dependency_distribution_spacy.build),
+                ]),
+            'param_grid': {
+                'union__bag_of_words__transformer__ngram': [1],
+                'union__bag_of_words__transformer__lowercase': [True, False],
+                'union__bag_of_words__transformer__token_form': ['text', 'IWNLP_lemma'],
+                'union__bag_of_words__normalizer__use_normalize': [True, False],
+                'union__pos_distribution_spacy__transformer__coarse_grained': [True, False],
+            }
+        },
     'sentiws_distribution':
         {
             'features':
