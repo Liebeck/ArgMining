@@ -8,11 +8,10 @@ from spacy.orth import word_shape
 
 
 def build(feature_name='bag_of_words', ngram_range=(1, 1), token_form='text', lowercase=False, normalize=False,
-          min_df=1,
-          max_features=None, stopwords=None, analyzer='word'):
+          min_df=1, max_features=None, stopwords=None):
     pipeline = Pipeline(
         [('transformer',
-          BagOfWords(ngram_range=ngram_range, token_form=token_form, analyzer=analyzer, lowercase=lowercase,
+          BagOfWords(ngram_range=ngram_range, token_form=token_form, lowercase=lowercase,
                      min_df=min_df,
                      max_features=max_features, stopwords=stopwords)),
          ('normalizer', NormalizerToggle(use_normalize=normalize))
@@ -63,11 +62,10 @@ def tokenizer_THF_lemma_lowercase(thf_sentence):
 
 
 class BagOfWords(BaseEstimator):
-    def __init__(self, ngram_range=(1, 1), analyzer='word', token_form='text', lowercase=False, min_df=1,
+    def __init__(self, ngram_range=(1, 1), token_form='text', lowercase=False, min_df=1,
                  max_features=None, stopwords=None):
         self.ngram_range = ngram_range
         self.token_form = token_form
-        self.analyzer = analyzer
         self.logger = logging.getLogger()
         self.lowercase = lowercase
         self.min_df = min_df
@@ -92,7 +90,6 @@ class BagOfWords(BaseEstimator):
         tokenizer = self.get_tokenizer()
         self.vectorizer = CountVectorizer(tokenizer=tokenizer,
                                           ngram_range=self.ngram_range,
-                                          analyzer=self.analyzer,
                                           min_df=self.min_df,
                                           max_features=self.max_features,
                                           stop_words=self.stopwords,
