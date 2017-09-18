@@ -29,5 +29,20 @@ class THFSentenceSentiWSAveragePolarity(unittest.TestCase):
                            'rweh', 'wehr']
         self.assertEqual(ngrams_result, ngrams_expected)
 
+    def test_get_ngrams_example12(self):
+        tokens = ['Dies', 'ist']
+        ngrams_result = get_ngrams(tokens=tokens, min_n=1, max_n=2)
+        ngrams_expected = ['D', 'i', 'e', 's', 'i', 's', 't', 'Di', 'ie', 'es', 'is', 'st']
+        self.assertCountEqual(ngrams_result, ngrams_expected)
+
+    def test_get_ngrams_example34(self):
+        tokens = ['Regenbogen', 'Feuerwehr']
+        ngrams_result = get_ngrams(tokens=tokens, min_n=3, max_n=4)
+        ngrams_expected = ['Rege', 'egen', 'genb', 'enbo', 'nbog', 'boge', 'ogen', 'Feue', 'euer', 'uerw', 'erwe',
+                           'rweh', 'wehr', 'Reg', 'ege', 'gen', 'enb', 'nbo', 'bog', 'oge', 'gen', 'Feu', 'eue', 'uer',
+                           'erw', 'rwe',
+                           'weh', 'ehr']
+        self.assertCountEqual(ngrams_result, ngrams_expected)
+
     if __name__ == '__main__':
         unittest.main()
