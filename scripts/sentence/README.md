@@ -4,6 +4,7 @@
 Performs a cross-validation for a strategy with fixed feature parameters on the training set
 ``` bash
   python scripts/sentence/cross_validation.py -subtask A -strategy unigram -c svm
+  python scripts/sentence/cross_validation.py -subtask A -strategy character_ngrams -c svm
   python scripts/sentence/cross_validation.py -subtask A -strategy pos_distribution_spacy -c svm
   python scripts/sentence/cross_validation.py -subtask A -strategy sentiws_polarity -c svm
   python scripts/sentence/cross_validation.py -subtask A -embeddings_path data/word_embeddings/word2vec_wiki-de_20161120_100_binary -strategy embedding_centroid_100 -c svm

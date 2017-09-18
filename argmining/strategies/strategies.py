@@ -1,4 +1,5 @@
 import argmining.features.bag_of_words as bag_of_words
+import argmining.features.character_ngrams as character_ngrams
 import argmining.features.pos_distribution as pos_distribution
 import argmining.features.dependency_distribution as dependency_distribution
 import argmining.features.dependency_distribution_spacy as dependency_distribution_spacy
@@ -22,6 +23,7 @@ STRATEGIES = {'unigram': [bag_of_words.build(ngram_range=(1, 1))],
               'unigram_iwnlp_lowercase': [bag_of_words.build(ngram_range=(1, 1), token_form='IWNLP_lemma', lowercase=True)],
               'unigram_frequency_test': [bag_of_words.build(ngram_range=1, min_df=3, max_features=None,
                                                             stopwords=stopwords.german_stopwords_nltk())],
+              'character_ngrams': [character_ngrams.build(min_n=2, max_n=3, min_df=20)],
               'n_unigram': [bag_of_words.build(ngram_range=(1, 1), normalize=True)],
               'n_unigram_lowercase': [bag_of_words.build(ngram_range=(1, 1), lowercase=True, normalize=True)],
               'n_unigram_iwnlp': [bag_of_words.build(ngram_range=(1, 1), token_form='IWNLP_lemma', normalize=True)],
