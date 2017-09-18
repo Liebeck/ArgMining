@@ -4,7 +4,6 @@ from sklearn.feature_extraction.text import CountVectorizer
 import logging
 import numpy as np
 from argmining.transformers.normalizer_toggle import NormalizerToggle
-from spacy.orth import word_shape
 
 
 def build(feature_name='character_ngram', min_n=1, max_n=1, normalize=False,
