@@ -41,9 +41,12 @@ if __name__ == '__main__':
     logger = logging.getLogger()
     arguments = config_argparser()
     # 1) Load data sets
+    group_claims = True
+    if arguments.subtask == "C":
+        group_claims = False
     X_train, y_train = load_dataset(
         file_path='data/THF/sentence/subtask{}_{}_train.json'.format(arguments.subtask, arguments.data_version),
-        data_version=arguments.data_version)
+        data_version=arguments.data_version, group_claims=group_claims)
     if arguments.embeddings_path:
         word2vec = Word2Vec(model_path=arguments.embeddings_path)
         word2vec.load()
