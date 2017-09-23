@@ -76,3 +76,4 @@ data/spacy/*
 data/sentiws/*
 data/IWNLP/*
 data/lda/*
+data/fasttext/*
