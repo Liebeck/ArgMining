@@ -15,6 +15,7 @@ import argmining.features.pos_distribution_spacy as pos_distribution_spacy
 import argmining.features.textdepth_feature as textdepth_feature
 import argmining.features.lda_distribution as lda_distribution
 import argmining.features.long_word_count as long_word_count
+import argmining.features.character_embeddings as character_embeddings
 
 STRATEGIES = {'unigram': [bag_of_words.build(ngram_range=(1, 1))],
               'unigram_stopwords': [bag_of_words.build(ngram_range=(1, 1), stopwords=stopwords.german_stopwords_nltk())],
@@ -61,6 +62,7 @@ STRATEGIES = {'unigram': [bag_of_words.build(ngram_range=(1, 1))],
               'sentiws_polarity': [sentiws_average_polarity_feature.build(),
                                    sentiws_polarity_bearing_tokens_feature.build()],
               'sentiws_distribution': [sentiws_polarity_distribution.build(bins='auto')],
+              'character_embeddings_centroid_100': [character_embeddings.build(embedding_length=100)],
               'embedding_centroid_100': [embedding_centroid.build(embedding_length=100)],
               'embedding_centroid_stopwords_100': [
                   embedding_centroid.build(embedding_length=100, stopwords=stopwords.german_stopwords_nltk())],
