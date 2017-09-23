@@ -46,8 +46,8 @@ if __name__ == '__main__':
         train_path = 'data/THF/sentence/subtask{}_train.json'.format(settings['subtask'])
         test_path = 'data/THF/sentence/subtask{}_test.json'.format(settings['subtask'])
     if arguments.hilbert:  # work around for absolute paths on the hilbert cluster
-        train_path = '/home/malie102/jobs/ArgMining/' + train_path
-        test_path = '/home/malie102/jobs/ArgMining/' + test_path
+        train_path = '/scratch_gs/malie102/jobs/ArgMining/' + train_path
+        test_path = '/scratch_gs/malie102/jobs/ArgMining/' + test_path
 
     group_claims = True
     if settings['subtask'] == "C":
