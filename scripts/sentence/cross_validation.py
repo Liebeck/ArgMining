@@ -11,6 +11,7 @@ from argmining.evaluation.reduce_training_set import reduce_training_set
 from argmining.evaluation.shuffle import shuffle_training_Set
 from argmining.representations.word2vec import Word2Vec
 from argmining.representations.lda import LDA
+from argmining.representations.fasttext import FastText
 
 NJOBS = 1
 
@@ -33,6 +34,7 @@ def config_argparser():
     argparser.add_argument('-lda_vocab_path', type=str, default=None, help='Path to LDA vocab')
     argparser.add_argument('-lda_all_words', dest='lda_nouns_only', action='store_false')
     argparser.set_defaults(lda_nouns_only=True)
+    argparser.add_argument('-fasttext_path', type=str, default=None, help='Path to fastText model')
     return argparser.parse_args()
 
 
@@ -56,6 +58,10 @@ if __name__ == '__main__':
                   nouns_only=arguments.lda_all_words)
         lda.load()
         lda.annotate_sentences(X_train)
+    if arguments.fasttext_path:
+        fasttext = FastText(model_path=arguments.fasttext_path)
+        fasttext.load()
+        fasttext.annotate_sentences(X_train)
     # 2) Shuffle if desired
     X_train, y_train = shuffle_training_Set(X_train, y_train, arguments.shuffle)
     # 4) Reduce training size

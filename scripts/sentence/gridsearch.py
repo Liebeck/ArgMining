@@ -14,6 +14,7 @@ from argmining.representations.word2vec import Word2Vec
 from argmining.sentence.loaders.THF_sentence_corpus_loader import load_dataset
 from argmining.strategies.gridsearch import GRIDSEARCH_STRATEGIES
 from argmining.representations.lda import LDA
+from argmining.representations.fasttext import FastText
 
 NJOBS = 1
 
@@ -38,6 +39,7 @@ def config_argparser():
     argparser.set_defaults(lda_all_words=False)
     argparser.add_argument('-hilbert', dest='hilbert', action='store_true')
     argparser.set_defaults(hilbert=False)
+    argparser.add_argument('-fasttext_path', type=str, default=None, help='Path to fastText model')
     return argparser.parse_args()
 
 
@@ -66,6 +68,10 @@ if __name__ == '__main__':
                   nouns_only=arguments.lda_all_words)
         lda.load()
         lda.annotate_sentences(X_train)
+    if arguments.fasttext_path:
+        fasttext = FastText(model_path=arguments.fasttext_path)
+        fasttext.load()
+        fasttext.annotate_sentences(X_train)
     # 2) Shuffle if desired
     X_train, y_train = shuffle_training_Set(X_train, y_train, arguments.shuffle)
     # 3) Reduce training size
@@ -109,6 +115,7 @@ if __name__ == '__main__':
     settings['shuffle'] = arguments.shuffle
     settings['training_size'] = arguments.trainingsize
     settings['embeddings_path'] = arguments.embeddings_path
+    settings['fasttext_path'] = arguments.fasttext_path
     settings['lda_path'] = arguments.lda_path
     settings['lda_vocab_path'] = arguments.lda_vocab_path
     settings['lda_all_words'] = arguments.lda_all_words

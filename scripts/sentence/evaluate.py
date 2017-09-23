@@ -13,6 +13,7 @@ from argmining.evaluation.reduce_training_set import reduce_training_set
 from argmining.evaluation.shuffle import shuffle_training_Set
 from argmining.representations.word2vec import Word2Vec
 from argmining.representations.lda import LDA
+from argmining.representations.fasttext import FastText
 
 NJOBS = 1
 
@@ -67,6 +68,11 @@ if __name__ == '__main__':
         lda.load()
         lda.annotate_sentences(X_train)
         lda.annotate_sentences(X_test)
+    if settings['fasttext_path']:
+        fasttext = FastText(model_path=settings['fasttext_path'])
+        fasttext.load()
+        fasttext.annotate_sentences(X_train)
+        fasttext.annotate_sentences(X_test)
     # 4) Shuffle if desired
     X_train, y_train = shuffle_training_Set(X_train, y_train, settings['shuffle'])
     # 5) Reduce training size
