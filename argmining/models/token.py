@@ -25,6 +25,7 @@ class Token:
         self.spacy_like_num = spacy_like_num
         self.spacy_is_space = spacy_is_space
         self.polarity_sentiws = polarity_sentiws
+        self.character_embedding = None
 
     def get_key(self, text_type):
         if text_type == 'lowercase':
