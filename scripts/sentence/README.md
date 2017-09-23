@@ -31,6 +31,8 @@ Performs a cross-validation on the training set with a feature combination and e
     python scripts/sentence/gridsearch.py -subtask A -embeddings_path data/word_embeddings/word2vec_wiki-de_20161120_100_binary -gridsearchstrategy embedding_centroid_100 -c svm
     python scripts/sentence/gridsearch.py -subtask A -embeddings_path data/word_embeddings/word2vec_wiki-de_20161120_100_binary -nfold 10 -gridsearchstrategy embedding_centroid_100 -c svm
     python scripts/sentence/gridsearch.py -subtask A -embeddings_path data/word_embeddings/word2vec_wiki-de_20161120_100_binary -nfold 10 -gridsearchstrategy unigram+embedding_centroid_100 -c svm
+    
+    python scripts/sentence/gridsearch.py -subtask C -gridsearchstrategy pos_distribution_spacy -c svm
 
 ```
 
