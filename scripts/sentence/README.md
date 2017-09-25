@@ -79,8 +79,8 @@ lda_vocab_path=/scratch_gs/malie102/data/lda/wikipedia/_wordids.txt.bz2
 
 LDA THF
 ``` bash
-lda_path=/scratch_gs/malie102/data/lda/wikipedia/lda_10
-lda_vocab_path=/scratch_gs/malie102/data/lda/wikipedia/lda_10_wordids.txt.bz2
+lda_path=/scratch_gs/malie102/data/lda/thf/lda_10
+lda_vocab_path=/scratch_gs/malie102/data/lda/thf/lda_10_wordids.txt.bz2
 ```
 
 fastText character embeddings
