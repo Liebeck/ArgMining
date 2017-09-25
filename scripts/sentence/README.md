@@ -50,16 +50,16 @@ Given a path to a settings file, the evaluate script trains the specified classi
 
 Data_v2
 ``` bash
-qsub -v c=svm,subtask=A,embeddings_path=/scratch_gs/malie102/word_embeddings/word2vec_wiki-de_20161120_100_binary,gridsearchstrategy=unigram+embedding_centroid_100 hilbert_data_v2.job
-qsub -v c=svm,subtask=A,embeddings_path=/scratch_gs/malie102/word_embeddings/word2vec_wiki-de_20161120_100_binary,gridsearchstrategy=unigram hilbert_data_v2.job
-qsub -v c=svm,subtask=A,embeddings_path=/scratch_gs/malie102/word_embeddings/word2vec_wiki-de_20161120_100_binary,gridsearchstrategy=embedding_centroid_100 hilbert_data_v2.job
-qsub -v c=knn,subtask=A,embeddings_path=/scratch_gs/malie102/word_embeddings/word2vec_wiki-de_20161120_100_binary,gridsearchstrategy=unigram+embedding_centroid_100 hilbert_data_v2.job
-qsub -v c=knn,subtask=A,embeddings_path=/scratch_gs/malie102/word_embeddings/word2vec_wiki-de_20161120_100_binary,gridsearchstrategy=unigram hilbert_data_v2.job
-qsub -v c=knn,subtask=A,embeddings_path=/scratch_gs/malie102/word_embeddings/word2vec_wiki-de_20161120_100_binary,gridsearchstrategy=embedding_centroid_100 hilbert_data_v2.job
+#qsub -v c=svm,subtask=A,embeddings_path=/scratch_gs/malie102/word_embeddings/word2vec_wiki-de_20161120_100_binary,gridsearchstrategy=unigram+embedding_centroid_100 hilbert_data_v2.job
+#qsub -v c=svm,subtask=A,embeddings_path=/scratch_gs/malie102/word_embeddings/word2vec_wiki-de_20161120_100_binary,gridsearchstrategy=unigram hilbert_data_v2.job
+#qsub -v c=svm,subtask=A,embeddings_path=/scratch_gs/malie102/word_embeddings/word2vec_wiki-de_20161120_100_binary,gridsearchstrategy=embedding_centroid_100 hilbert_data_v2.job
+#qsub -v c=knn,subtask=A,embeddings_path=/scratch_gs/malie102/word_embeddings/word2vec_wiki-de_20161120_100_binary,gridsearchstrategy=unigram+embedding_centroid_100 hilbert_data_v2.job
+#qsub -v c=knn,subtask=A,embeddings_path=/scratch_gs/malie102/word_embeddings/word2vec_wiki-de_20161120_100_binary,gridsearchstrategy=unigram hilbert_data_v2.job
+#qsub -v c=knn,subtask=A,embeddings_path=/scratch_gs/malie102/word_embeddings/word2vec_wiki-de_20161120_100_binary,gridsearchstrategy=embedding_centroid_100 hilbert_data_v2.job
 
-qsub -v c=rf,subtask=A,embeddings_path=/scratch_gs/malie102/word_embeddings/word2vec_wiki-de_20161120_100_binary,gridsearchstrategy=unigram+embedding_centroid_100 hilbert_data_v2.job
-qsub -v c=rf,subtask=A,embeddings_path=/scratch_gs/malie102/word_embeddings/word2vec_wiki-de_20161120_100_binary,gridsearchstrategy=unigram hilbert_data_v2.job
-qsub -v c=rf,subtask=A,embeddings_path=/scratch_gs/malie102/word_embeddings/word2vec_wiki-de_20161120_100_binary,gridsearchstrategy=embedding_centroid_100 hilbert_data_v2.job
+#qsub -v c=rf,subtask=A,embeddings_path=/scratch_gs/malie102/word_embeddings/word2vec_wiki-de_20161120_100_binary,gridsearchstrategy=unigram+embedding_centroid_100 hilbert_data_v2.job
+#qsub -v c=rf,subtask=A,embeddings_path=/scratch_gs/malie102/word_embeddings/word2vec_wiki-de_20161120_100_binary,gridsearchstrategy=unigram hilbert_data_v2.job
+#qsub -v c=rf,subtask=A,embeddings_path=/scratch_gs/malie102/word_embeddings/word2vec_wiki-de_20161120_100_binary,gridsearchstrategy=embedding_centroid_100 hilbert_data_v2.job
 
 ```
 
@@ -68,7 +68,7 @@ qsub -v c=rf,subtask=A,embeddings_path=/scratch_gs/malie102/word_embeddings/word
 
 Paths to word embeddings representations
 ``` bash
-embeddings_path=/scratch_gs/malie102/word_embeddings/word2vec_wiki-de_20161120_100_binary
+embeddings_path=/scratch_gs/malie102/data/wikipedia-de/word2vec_wiki-de_20170501_100_binary
 ```
 
 LDA wikipedia
@@ -76,6 +76,8 @@ LDA wikipedia
 lda_path=/scratch_gs/malie102/data/lda/wikipedia/lda_100.lda
 lda_vocab_path=/scratch_gs/malie102/data/lda/wikipedia/_wordids.txt.bz2
 ```
+
+word2vec_wiki-de_20170501_100_binary
 
 LDA THF
 ``` bash
