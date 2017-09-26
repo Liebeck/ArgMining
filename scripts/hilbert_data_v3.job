@@ -15,7 +15,7 @@
 # Be sure to specify a reasonable value here.
 # If the job does not finish by the time reached,
 # the job is terminated.
-#PBS -l walltime=36:00:00
+#PBS -l walltime=70:00:00
 
 # Send mail when job is aborted
 #PBS -m abe
