@@ -9,6 +9,7 @@ from collections import OrderedDict
 import argmining.features.embedding_centroid as embedding_centroid
 import argmining.features.lda_distribution as lda_distribution
 import argmining.features.pos_distribution_spacy as pos_distribution_spacy
+import argmining.features.character_embeddings as character_embeddings
 
 GRIDSEARCH_STRATEGIES = {
     'unigram':
@@ -62,7 +63,7 @@ GRIDSEARCH_STRATEGIES = {
                 'union__character_ngram__transformer__min_df': [1, 5, 10, 20, 30, 40],
                 'union__character_ngram__transformer__ngram_range': [(1, 1), (2, 2), (3, 3), (4, 4), (5, 5), (6, 6),
                                                                      (7, 7), (1, 2), (1, 3), (1, 4), (1, 5), (1, 6),
-                                                                     (1, 7)]
+                                                                     (1, 7), (3, 5)]
             }
         },
     'pos_distribution_spacy':
@@ -165,6 +166,16 @@ GRIDSEARCH_STRATEGIES = {
                 ]),
             'param_grid': {
                 'union__embedding_centroid__transformer__embedding_length': [100],
+            }
+        },
+    'character_embeddings_centroid_100':
+        {
+            'features':
+                OrderedDict([
+                    ('character_embedding_centroid', character_embeddings.build)
+                ]),
+            'param_grid': {
+                'union__character_embedding_centroid__transformer__embedding_length': [100],
             }
         },
     'embedding_centroid_200':
