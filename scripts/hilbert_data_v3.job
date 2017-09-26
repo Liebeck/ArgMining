@@ -48,10 +48,11 @@ echo PBS: PATH = $PBS_O_PATH
 echo ------------------------------------------------------
 
 module load Python/3.4.5
+module load spaCy/1.9.0
+
 
 # Exports
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/home/malie102/lib
-# export PYTHONPATH=$PYTHONPATH:/software/python/3.4.5/login/bin/python
 export PYTHONPATH=$PYTHONPATH:/scratch_gs/malie102/jobs/ArgMining
 
 PRINTFILE=$PBS_O_WORKDIR/$PBS_JOBID".print"
