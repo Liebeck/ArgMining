@@ -13,7 +13,7 @@ This machine learning project contains the latest code version for the Argument 
 ./data/download_embeddings.sh data
 ```
 
-* If you want to use character embeddings from fasttext, you can download the specific model here: http://lager.cs.uni-duesseldorf.de/NLP/fasttext/german/wikipedia/de-wiki_20170501/
+* If you want to use character embeddings from fasttext, you can download the specific model here: http://lager.cs.uni-duesseldorf.de/NLP/fasttext/german/wikipedia/de-wiki_20170501/  
 With the following script, you can download chracter (3, 3)-grams that were trained with 5 and with 50 iterations:
 
 ``` bash
