@@ -77,8 +77,6 @@ lda_path=/scratch_gs/malie102/data/lda/wikipedia/lda_100.lda
 lda_vocab_path=/scratch_gs/malie102/data/lda/wikipedia/_wordids.txt.bz2
 ```
 
-word2vec_wiki-de_20170501_100_binary
-
 LDA THF
 ``` bash
 lda_path=/scratch_gs/malie102/data/lda/thf/lda_10
