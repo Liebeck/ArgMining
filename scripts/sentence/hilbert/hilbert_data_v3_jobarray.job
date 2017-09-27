@@ -663,3 +663,6 @@ job_parameter[621]="python -u /scratch_gs/malie102/jobs/ArgMining/scripts/senten
 job_parameter[622]="python -u /scratch_gs/malie102/jobs/ArgMining/scripts/sentence/gridsearch.py -c svm-linear -subtask C -gridsearchstrategy unigram+lda_distribution -lda_path /scratch_gs/malie102/data/lda/thf/lda_20 -lda_vocab_path /scratch_gs/malie102/data/lda/thf/lda_20_wordids.txt.bz2 --data_version v3 -nfold 10 -hilbert >> $PRINTFILE"
 job_parameter[623]="python -u /scratch_gs/malie102/jobs/ArgMining/scripts/sentence/gridsearch.py -c knn -subtask C -gridsearchstrategy unigram+lda_distribution -lda_path /scratch_gs/malie102/data/lda/thf/lda_20 -lda_vocab_path /scratch_gs/malie102/data/lda/thf/lda_20_wordids.txt.bz2 --data_version v3 -nfold 10 -hilbert >> $PRINTFILE"
 job_parameter[624]="python -u /scratch_gs/malie102/jobs/ArgMining/scripts/sentence/gridsearch.py -c rf -subtask C -gridsearchstrategy unigram+lda_distribution -lda_path /scratch_gs/malie102/data/lda/thf/lda_20 -lda_vocab_path /scratch_gs/malie102/data/lda/thf/lda_20_wordids.txt.bz2 --data_version v3 -nfold 10 -hilbert >> $PRINTFILE"
+
+echo "subjob: $PBS_ARRAY_INDEX"
+eval ${job_parameter[$PBS_ARRAY_INDEX]}

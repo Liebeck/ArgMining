@@ -117,3 +117,8 @@ if __name__ == '__main__':
                                                                       create_python_call(classifier, subtask,
                                                                                          job_parameter)))
                     counter += 1
+        handler.write("\n")
+        handler.write("echo \"subjob: $PBS_ARRAY_INDEX\"\n")
+        handler.write("eval ${job_parameter[$PBS_ARRAY_INDEX]}\n")
+
+
