@@ -7,15 +7,15 @@ def param_grid(cross_validation=False):
         return {'classifier__C': [1e3],
                 'classifier__gamma': [0.005, 0.01]}
     else:
-        return {'classifier__C': [1e3, 5e3, 1e4, 5e4, 1e5],
-                'classifier__gamma': [0.0001, 0.0005, 0.001, 0.005, 0.01, 0.1]}
+        return {'classifier__C': [1e2, 1e3, 5e3, 1e4, 5e4, 1e5, 1e6],
+                'classifier__gamma': [1e-4, 1e-5, 1e-3, 5e-3, 1e-2, 1e-1, 1e0, 1e1]}
 
 
 def param_grid_linear(cross_validation=False):
     if cross_validation:
         return {'classifier__C': [1e3]}
     else:
-        return {'classifier__C': [1e3, 5e3, 1e4, 5e4, 1e5]}
+        return {'classifier__C': [1e2, 1e3, 5e3, 1e4, 5e4, 1e5, 1e6]}
 
 
 def build(kernel='rbf', random_state=0, C=1.0, gamma='auto'):
