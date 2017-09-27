@@ -6,6 +6,7 @@
 #PBS -M liebeck@cs.uni-duesseldorf.de
 #PBS -l select=1:mem=5gb:ncpus=1
 #PBS -A OP-NLP
+#PBS -r y
 {JOBARRAY}
 
 ##########################################
@@ -36,3 +37,5 @@ export PYTHONPATH=$PYTHONPATH:/scratch_gs/malie102/jobs/ArgMining
 
 PRINTFILE=$PBS_O_WORKDIR/$PBS_JOBID".print"
 
+
+declare -A job_parameter

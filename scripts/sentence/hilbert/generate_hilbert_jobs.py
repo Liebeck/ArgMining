@@ -113,7 +113,7 @@ if __name__ == '__main__':
         for job_parameter in job_parameters:
             for subtask in subtasks:
                 for classifier in classifiers:
-                    handler.write("job_parameter[{}] = \"{}\"\n".format(counter,
-                                                                         create_python_call(classifier, subtask,
-                                                                                            job_parameter)))
+                    handler.write("job_parameter[{}]=\"{}\"\n".format(counter,
+                                                                      create_python_call(classifier, subtask,
+                                                                                         job_parameter)))
                     counter += 1

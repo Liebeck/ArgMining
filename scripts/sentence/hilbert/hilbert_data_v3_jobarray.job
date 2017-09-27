@@ -36,6 +36,8 @@ export PYTHONPATH=$PYTHONPATH:/scratch_gs/malie102/jobs/ArgMining
 
 PRINTFILE=$PBS_O_WORKDIR/$PBS_JOBID".print"
 
+
+declare -A job_parameter
 job_parameter[1] = "python -u /scratch_gs/malie102/jobs/ArgMining/scripts/sentence/gridsearch.py -c svm -subtask A -gridsearchstrategy unigram --data_version v3 -nfold 10 -hilbert >> $PRINTFILE"
 job_parameter[2] = "python -u /scratch_gs/malie102/jobs/ArgMining/scripts/sentence/gridsearch.py -c svm-linear -subtask A -gridsearchstrategy unigram --data_version v3 -nfold 10 -hilbert >> $PRINTFILE"
 job_parameter[3] = "python -u /scratch_gs/malie102/jobs/ArgMining/scripts/sentence/gridsearch.py -c knn -subtask A -gridsearchstrategy unigram --data_version v3 -nfold 10 -hilbert >> $PRINTFILE"
