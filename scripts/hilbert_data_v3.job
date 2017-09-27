@@ -47,6 +47,22 @@ echo PBS: current home directory is $PBS_O_HOME
 echo PBS: PATH = $PBS_O_PATH
 echo ------------------------------------------------------
 
+
+# Set parameters for the Python script if the values are passed as parameters to the bash script
+
+if [ -n "${fasttext_path}" ]; then
+    fasttext='-fasttext_path '${fasttext_path}
+fi
+
+
+if [ -n "${embeddings_path}" ]; then
+    embedding='-embeddings_path '${embeddings_path}
+fi
+
+if [ -n "${lda_path}" ]; then
+    lda='-lda_path '${lda_path}' -lda_vocab_path '${lda_vocab_path}
+fi
+
 module load Python/3.4.5
 module load spaCy/1.9.0
 
@@ -58,4 +74,4 @@ export PYTHONPATH=$PYTHONPATH:/scratch_gs/malie102/jobs/ArgMining
 PRINTFILE=$PBS_O_WORKDIR/$PBS_JOBID".print"
 
 ###### EXECUTION ######
-python -u /scratch_gs/malie102/jobs/ArgMining/scripts/sentence/gridsearch.py -c $c -subtask $subtask -embeddings_path $embeddings_path -lda_path $lda_path -lda_vocab_path $lda_vocab_path -fasttext_path $fasttext_path -gridsearchstrategy $gridsearchstrategy --data_version v3 -nfold 10 -hilbert >> $PRINTFILE
+python -u /scratch_gs/malie102/jobs/ArgMining/scripts/sentence/gridsearch.py -c $c -subtask $subtask ${embedding} ${lda} ${fasttext} -gridsearchstrategy $gridsearchstrategy --data_version v3 -nfold 10 -hilbert >> $PRINTFILE
