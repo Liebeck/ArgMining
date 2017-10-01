@@ -32,7 +32,6 @@ def get_qsub_jobid():
     process_output = subprocess.check_output(['qstat', '-u', 'malie102'])
     for line in process_output.split(b'\n'):
         if b'[]' in line:
-            print(line)
             jobid = line[0:line.find(b"]") + 1]
             print('Jobid: {}'.format(jobid))
             return jobid
