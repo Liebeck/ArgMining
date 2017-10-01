@@ -10,7 +10,7 @@ classifiers = ['svm', 'svm-linear', 'knn', 'rf']
 word_embeddings = {
     '100': 'embedding_centroid_100 -embeddings_path /scratch_gs/malie102/data/wikipedia-de/word2vec_wiki-de_20170501_100_binary',
     '200': 'embedding_centroid_200 -embeddings_path /scratch_gs/malie102/data/wikipedia-de/word2vec_wiki-de_20170501_200_binary',
-    '300': 'embedding_centroid_200 -embeddings_path /scratch_gs/malie102/data/wikipedia-de/word2vec_wiki-de_20170501_300_binary'}
+    '300': 'embedding_centroid_300 -embeddings_path /scratch_gs/malie102/data/wikipedia-de/word2vec_wiki-de_20170501_300_binary'}
 
 lda_wikipedia = {
     '100': '-lda_path /scratch_gs/malie102/data/lda/wikipedia/lda_100.lda -lda_vocab_path /scratch_gs/malie102/data/lda/wikipedia/_wordids.txt.bz2',
