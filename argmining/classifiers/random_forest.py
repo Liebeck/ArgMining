@@ -9,7 +9,7 @@ def param_grid(cross_validation=False):
     else:
         return {"classifier__n_estimators": [10, 20, 30, 40, 100],
                 "classifier__max_depth": [5, 25, 50, 100, None],
-                "classifier__max_features": [1, 3, 10, "auto", "log2"],
+                "classifier__max_features": [1, 0.2, 0.5, "auto", "log2"],
                 "classifier__min_samples_split": [2, 5],
                 "classifier__min_samples_leaf": [1, 5],
                 "classifier__bootstrap": [True],
