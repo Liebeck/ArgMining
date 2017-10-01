@@ -1,0 +1,48 @@
+Job Id: 269640[].hpc-batch14
+    Job_Name = ArgMining-MultiJob
+    Job_Owner = malie102@hpclogin7
+    job_state = B
+    queue = workq
+    server = hpc-batch14
+    Account_Name = OP-NLP
+    Checkpoint = u
+    ctime = Wed Sep 27 16:22:11 2017
+    Error_Path = hpclogin7:/scratch_gs/malie102/jobs/ArgMining/scripts/sentence
+	/hilbert/ArgMining-MultiJob.e269640.^array_index^
+    Hold_Types = n
+    Join_Path = n
+    Keep_Files = n
+    Mail_Points = abe
+    Mail_Users = liebeck@cs.uni-duesseldorf.de
+    mtime = Sat Sep 30 09:04:27 2017
+    Output_Path = hpclogin7:/scratch_gs/malie102/jobs/ArgMining/scripts/sentenc
+	e/hilbert/ArgMining-MultiJob.o269640.^array_index^
+    Priority = 0
+    qtime = Wed Sep 27 16:22:12 2017
+    Rerunable = True
+    Resource_List.mem = 5gb
+    Resource_List.ncpus = 1
+    Resource_List.ngpus = 0
+    Resource_List.nodect = 1
+    Resource_List.place = free
+    Resource_List.select = 1:mem=5gb:ncpus=1
+    Resource_List.walltime = 70:00:00
+    substate = 70
+    Variable_List = PBS_O_SYSTEM=Linux,PBS_O_SHELL=/bin/bash,
+	PBS_O_HOME=/home/malie102,PBS_O_LOGNAME=malie102,
+	PBS_O_WORKDIR=/scratch_gs/malie102/jobs/ArgMining/scripts/sentence/hil
+	bert,PBS_O_LANG=en_US.UTF-8,
+	PBS_O_PATH=/home/malie102/miniconda2/bin:/home/malie102/miniconda2/bin
+	:/usr/lib64/qt-3.3/bin:/usr/local/bin:/usr/bin:/opt/pbs/bin:/opt/pbs/bi
+	n,PBS_O_MAIL=/var/mail/malie102,PBS_O_QUEUE=default,PBS_O_HOST=hpclogin7
+    comment = Subjob finished
+    etime = Wed Sep 27 16:22:12 2017
+    eligible_time = 04:37:20
+    Submit_arguments = hilbert_data_v3_jobarray.job
+    array = True
+    array_state_count = Queued:0 Running:79 Exiting:0 Expired:545 
+    array_indices_submitted = 1-624
+    estimated.exec_vnode = (hilbert85:mem=5242880kb:ncpus=1:ngpus=0)
+    estimated.start_time = Wed Sep 27 20:58:06 2017
+    project = _pbs_project_default
+
