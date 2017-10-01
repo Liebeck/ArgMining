@@ -129,9 +129,15 @@ if __name__ == '__main__':
     settings['jobid'] = arguments.jobid
     if hasattr(classifier, 'random_state'):
         settings['gridsearch_parameters']['classifier__random_state'] = classifier.random_state
-    output_path = 'results/sentence/temp/{}_{}_{}_{}'.format(settings['subtask'], settings['classifier'],
-                                                             settings['gridsearchstrategy'],
-                                                             time.strftime('%Y%m%d_%H%M%S'))
+    if arguments.jobid:
+        output_path = 'results/sentence/temp/{}_{}_{}_{}_{}'.format(settings['subtask'], settings['classifier'],
+                                                                    settings['gridsearchstrategy'],
+                                                                    arguments.jobid,
+                                                                    time.strftime('%Y%m%d_%H%M%S'))
+    else:
+        output_path = 'results/sentence/temp/{}_{}_{}_{}'.format(settings['subtask'], settings['classifier'],
+                                                                 settings['gridsearchstrategy'],
+                                                                 time.strftime('%Y%m%d_%H%M%S'))
     if arguments.hilbert:  # work around for absolute paths on the hilbert cluster
         output_path = '/scratch_gs/malie102/jobs/ArgMining/' + output_path
     with open(output_path, 'w') as outfile:
