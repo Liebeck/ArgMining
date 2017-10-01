@@ -87,9 +87,9 @@ def get_lda_features():
     return parameters
 
 
-def create_python_call(classifier, subtask, parameters):
-    return 'python -u /scratch_gs/malie102/jobs/ArgMining/scripts/sentence/gridsearch.py -c {} -subtask {} {} --data_version v3 -nfold 10 -hilbert >> $PRINTFILE'.format(
-        classifier, subtask, parameters)
+def create_python_call(classifier, subtask, parameters, jobid):
+    return 'python -u /scratch_gs/malie102/jobs/ArgMining/scripts/sentence/gridsearch.py -c {} -subtask {} {} -jobid {} --data_version v3 -nfold 10 -hilbert >> $PRINTFILE'.format(
+        classifier, subtask, parameters, jobid)
 
 
 # python -u /scratch_gs/malie102/jobs/ArgMining/scripts/sentence/gridsearch.py -c $c -subtask $subtask ${embedding} ${lda} ${fasttext} -gridsearchstrategy $gridsearchstrategy --data_version v3 -nfold 10 -hilbert >> $PRINTFILE
@@ -115,10 +115,8 @@ if __name__ == '__main__':
                 for classifier in classifiers:
                     handler.write("job_parameter[{}]=\"{}\"\n".format(counter,
                                                                       create_python_call(classifier, subtask,
-                                                                                         job_parameter)))
+                                                                                         job_parameter, counter)))
                     counter += 1
         handler.write("\n")
         handler.write("echo \"subjob: $PBS_ARRAY_INDEX\"\n")
         handler.write("eval ${job_parameter[$PBS_ARRAY_INDEX]}\n")
-
-

@@ -40,6 +40,7 @@ def config_argparser():
     argparser.add_argument('-hilbert', dest='hilbert', action='store_true')
     argparser.set_defaults(hilbert=False)
     argparser.add_argument('-fasttext_path', type=str, default=None, help='Path to fastText model')
+    argparser.add_argument('-jobid', type=str, default=None, help='Hilbert job ID')
     return argparser.parse_args()
 
 
@@ -125,6 +126,7 @@ if __name__ == '__main__':
     settings['gridsearch_best_std'] = best_std
     settings['gridsearch_parameters'] = gridsearch.best_params_
     settings['gridsearch__stratifiedkfold__random_state'] = arguments.gridsearch__stratifiedkfold__random_state
+    settings['jobid'] = arguments.jobid
     if hasattr(classifier, 'random_state'):
         settings['gridsearch_parameters']['classifier__random_state'] = classifier.random_state
     output_path = 'results/sentence/temp/{}_{}_{}_{}'.format(settings['subtask'], settings['classifier'],
