@@ -10,8 +10,8 @@ class NormalizerToggle(Normalizer):
     def fit(self, X, y=None):
         return self
 
-    def transform(self, X, y=None, copy=None):
+    def transform(self, X, copy=None):
         if self.use_normalize:
-            return super().transform(X, y, copy)
+            return super().transform(X, copy=copy)
         else:
             return X
