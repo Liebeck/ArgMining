@@ -60,7 +60,7 @@ GRIDSEARCH_STRATEGIES = {
                     ('character_ngrams', character_ngrams.build)
                 ]),
             'param_grid': {
-                'union__character_ngram__transformer__min_df': [1, 5, 10, 20, 30, 40],
+                'union__character_ngram__transformer__min_df': [1, 5, 10],
                 'union__character_ngram__transformer__ngram_range': [(1, 1), (2, 2), (3, 3), (4, 4), (5, 5), (6, 6),
                                                                      (7, 7), (1, 2), (1, 3), (1, 4), (1, 5), (1, 6),
                                                                      (1, 7), (3, 5)]
