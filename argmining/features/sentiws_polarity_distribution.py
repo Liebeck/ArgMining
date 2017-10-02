@@ -4,9 +4,9 @@ import logging
 import numpy as np
 
 
-def build(bins=10):
+def build(bins=10, density=None):
     pipeline = Pipeline([('transformer',
-                          SentiWSPolarityDistribution(bins=bins)),
+                          SentiWSPolarityDistribution(bins=bins, density=density)),
                          ])
     return ('polarity_sentiws_distribution', pipeline)
 
