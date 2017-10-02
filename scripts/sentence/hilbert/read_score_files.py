@@ -1,16 +1,17 @@
 import os
 
 
-def read_all_score_files():
+def read_all_score_files(jobarray):
     finished_evaluations = []
     basepath = '/scratch_gs/malie102/jobs/ArgMining/results/sentence/temp'
     completed_evaluation_files = [f for f in os.listdir(basepath) if f.endswith('.score')]
     for file in completed_evaluation_files:
-        stripped_file_name = file[0:-26]
+        stripped_file_name = file[0:-22]
         split = stripped_file_name.split('_')
         subtask = split[0]
         classifier = split[1]
-        strategy = '_'.join(split[2:])
+        strategy = '_'.join(split[2:-1])
+        jobid = split[-1]
         complete_path = os.path.join(basepath, file)
         with open(complete_path) as file_handler:
             f1_mean = 0
@@ -30,10 +31,34 @@ def read_all_score_files():
                                                  'classifier': classifier,
                                                  'strategy': strategy,
                                                  'f1_mean': f1_mean,
-                                                 'f1_scores': f1_scores})
+                                                 'f1_scores': f1_scores,
+                                                 'jobid': jobid,
+                                                 'other_params': jobarray[int(jobid)]['other_params']})
                 else:
                     continue
     return finished_evaluations
+
+
+def read_jobarray():
+    '''
+    Reads all job definitions from the job array
+    '''
+    parameters_all_jobs = {}
+    with open('/scratch_gs/malie102/jobs/ArgMining/scripts/sentence/hilbert/hilbert_data_v3_jobarray.job') as file:
+        for line in file:
+            if line.startswith('job_parameter['):
+                job_id = int(line[len('job_parameter['):line.find("]")])
+                parameters_raw = line[
+                                 line.find('gridsearch.py ') + len('gridsearch.py '):line.find(" --data_version")]
+                parameters_split = parameters_raw.split(' ')
+                params = {'classifier': parameters_split[1],
+                          'subtask': parameters_split[3],
+                          'jobID': job_id,
+                          'gridsearchstrategy': parameters_split[5],
+                          'other_params': parameters_split[6:-2]}
+                parameters_all_jobs[job_id] = params
+    return parameters_all_jobs
+
 
 def group_results_by_subtask(finished_evaluations):
     subtask_A = []
@@ -56,9 +81,9 @@ def print_sorted_results(subtask):
     print('\n\n\n\n\n\n')
 
 
-
 if __name__ == '__main__':
-    finished_evaluations = read_all_score_files()
+    jobarray = read_jobarray()
+    finished_evaluations = read_all_score_files(jobarray)
     subtask_A, subtask_B, subtask_C = group_results_by_subtask(finished_evaluations)
     print('Subtask A: {} jobs finished'.format(len(subtask_A)))
     print_sorted_results(subtask_A)
@@ -66,6 +91,3 @@ if __name__ == '__main__':
     print_sorted_results(subtask_B)
     print('Subtask C: {} jobs finished'.format(len(subtask_C)))
     print_sorted_results(subtask_C)
-
-
-
