@@ -57,7 +57,8 @@ def get_finished_jobs_json():
     '''
     finished_jobs_json_ids = []
     basepath = '/scratch_gs/malie102/jobs/ArgMining/results/sentence/temp'
-    completed_job_files = [f for f in os.listdir(basepath) if f != '.gitignore']
+    completed_job_files = [f for f in os.listdir(basepath) if
+                           f != '.gitignore' and not f.endswith('.predictions') and not f.endswith('.score')]
     for json_file in completed_job_files:
         json_file_path = os.path.join(basepath, json_file)
         with open(json_file_path) as data_file:
