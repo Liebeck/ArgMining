@@ -158,7 +158,7 @@ def print_table_subtask(all_rows, best_subtask_1, best_subtask_2=None):
             key = '{}_{}'.format(classifier, row)
             cell = "X".ljust(column_ljust)
             if best_subtask_1[key]:
-                cell = "{:.2f}".format(best_subtask_1[key]['f1_mean']).ljust(column_ljust)
+                cell = "{:.2f}".format(best_subtask_1[key]['f1_mean'] * 100).ljust(column_ljust)
             columns.append(cell)
         if best_subtask_2:
             columns.append('&')
@@ -166,7 +166,7 @@ def print_table_subtask(all_rows, best_subtask_1, best_subtask_2=None):
                 key = '{}_{}'.format(classifier, row)
                 cell = "X".ljust(column_ljust)
                 if best_subtask_2[key]:
-                    cell = "{:.2f}".format(best_subtask_2[key]['f1_mean']).ljust(column_ljust)
+                    cell = "{:.2f}".format(best_subtask_2[key]['f1_mean'] * 100).ljust(column_ljust)
                 columns.append(cell)
         print('\t& '.join(columns) + '\\\\')
 
