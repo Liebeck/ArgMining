@@ -223,7 +223,6 @@ def filter_fasttext_results(finished_evaluations, subtask, classifier, ngram_siz
         if result['subtask'] == subtask and result['classifier'] == classifier and result[
             'strategy'] == 'character_embeddings_centroid_100' and ngram_size in result['other_params'][2]:
             filtered.append(result)
-    # print('Subtask {}: {} results'.format(subtask, len(filtered)))
     filtered = sorted(filtered, key=lambda k: k['f1_mean'], reverse=True)
     return filtered
 
@@ -233,6 +232,6 @@ if __name__ == '__main__':
     finished_evaluations = read_all_score_files(jobarray)
     subtask_A, subtask_B, subtask_C = group_results_by_subtask(finished_evaluations)
     print_tables(subtask_A, subtask_B, subtask_C)
-    print('\n\n\n\n')
-    print_fasttext_results(finished_evaluations)
+    # print('\n\n\n\n')
+    # print_fasttext_results(finished_evaluations)
     # print_results_all_subtasks(subtask_A, subtask_B, subtask_C)
