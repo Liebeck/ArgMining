@@ -189,10 +189,50 @@ def print_tables(subtask_A, subtask_B, subtask_C):
     print_table_subtask(all_rows, best_subtask_C)
 
 
+def print_fasttext_results(finished_evaluations):
+    print('Fasttext results')
+    subtasks = ['A', 'B', 'C']
+    classifiers = ['svm', 'svm-linear', 'knn', 'rf']
+    ngram_sizes = ['3_3', '4_4', '5_5', '6_6', '3_6']
+
+    for subtask in subtasks:
+        for classifier in classifiers:
+            for ngram_size in ngram_sizes:
+                results = filter_fasttext_results(finished_evaluations, subtask, classifier, ngram_size)
+                if len(results) == 5:
+                    best_f1 = results[0]['f1_mean']
+                    worst_f1 = results[-1]['f1_mean']
+                    scores = []
+                    for result in results:
+                        scores.append((int(result['other_params'][2].split('-')[-1]), result['f1_mean']))
+                    scores = sorted(scores, key=lambda k: k[0])
+                    print(
+                        'Subtask {}, Classifier {}, Ngram {} : {}, {}, {}'.format(subtask, classifier, ngram_size,
+                                                                                  best_f1,
+                                                                                  worst_f1, scores))
+                else:
+                    print(
+                        'Subtask {}, Classifier {}, Ngram {} : Only {} evaluations yet'.format(subtask, classifier,
+                                                                                               ngram_size,
+                                                                                               len(results)))
+
+
+def filter_fasttext_results(finished_evaluations, subtask, classifier, ngram_size):
+    filtered = []
+    for result in finished_evaluations:
+        if result['subtask'] == subtask and result['classifier'] == classifier and result[
+            'strategy'] == 'character_embeddings_centroid_100' and ngram_size in result['other_params'][2]:
+            filtered.append(result)
+    # print('Subtask {}: {} results'.format(subtask, len(filtered)))
+    filtered = sorted(filtered, key=lambda k: k['f1_mean'], reverse=True)
+    return filtered
+
+
 if __name__ == '__main__':
     jobarray = read_jobarray()
     finished_evaluations = read_all_score_files(jobarray)
     subtask_A, subtask_B, subtask_C = group_results_by_subtask(finished_evaluations)
     print_tables(subtask_A, subtask_B, subtask_C)
     print('\n\n\n\n')
-    print_results_all_subtasks(subtask_A, subtask_B, subtask_C)
+    print_fasttext_results(finished_evaluations)
+    # print_results_all_subtasks(subtask_A, subtask_B, subtask_C)
