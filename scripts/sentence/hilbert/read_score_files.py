@@ -217,6 +217,27 @@ def print_fasttext_results(finished_evaluations):
                                                                                                len(results)))
 
 
+def print_fasttext_results_latex(finished_evaluations):
+    print('Fasttext results')
+    subtasks = ['A', 'B']
+    classifiers = ['svm', 'rf', 'knn']
+    ngram_sizes = ['3_3', '4_4', '5_5', '6_6', '3_6']
+    for subtask in subtasks:
+        for classifier in classifiers:
+            for ngram_size in ngram_sizes:
+                results = filter_fasttext_results(finished_evaluations, subtask, classifier, ngram_size)
+                best_f1 = results[0]['f1_mean']
+                worst_f1 = results[-1]['f1_mean']
+                scores = []
+                for result in results:
+                    scores.append((int(result['other_params'][2].split('-')[-1]), result['f1_mean']))
+                scores = sorted(scores, key=lambda k: k[0])
+                print(
+                    'Subtask {}, Classifier {}, Ngram {} : {:.2f}, {}, {}'.format(subtask, classifier, ngram_size,
+                                                                                  best_f1 * 100,
+                                                                                  worst_f1, scores))
+
+
 def filter_fasttext_results(finished_evaluations, subtask, classifier, ngram_size):
     filtered = []
     for result in finished_evaluations:
@@ -235,3 +256,4 @@ if __name__ == '__main__':
     # print('\n\n\n\n')
     # print_fasttext_results(finished_evaluations)
     # print_results_all_subtasks(subtask_A, subtask_B, subtask_C)
+    print_fasttext_results_latex(finished_evaluations)
