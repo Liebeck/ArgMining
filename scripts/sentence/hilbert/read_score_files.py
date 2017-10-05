@@ -148,7 +148,6 @@ def print_table_subtask(all_rows, best_subtask_1, best_subtask_2=None):
     for classifier in classifiers:
         header_row.append(classifier.ljust(column_ljust))
     if best_subtask_2:
-        header_row.extend('&')
         for classifier in classifiers:
             header_row.append(classifier.ljust(column_ljust))
     print('\t& '.join(header_row) + '\\\\')
@@ -161,7 +160,6 @@ def print_table_subtask(all_rows, best_subtask_1, best_subtask_2=None):
                 cell = "{:.2f}".format(best_subtask_1[key]['f1_mean'] * 100).ljust(column_ljust)
             columns.append(cell)
         if best_subtask_2:
-            columns.append('&')
             for classifier in classifiers:
                 key = '{}_{}'.format(classifier, row)
                 cell = "X".ljust(column_ljust)
@@ -256,4 +254,4 @@ if __name__ == '__main__':
     # print('\n\n\n\n')
     # print_fasttext_results(finished_evaluations)
     # print_results_all_subtasks(subtask_A, subtask_B, subtask_C)
-    print_fasttext_results_latex(finished_evaluations)
+    # print_fasttext_results_latex(finished_evaluations)
