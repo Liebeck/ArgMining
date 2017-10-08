@@ -264,7 +264,7 @@ GRIDSEARCH_STRATEGIES = {
                 'union__bag_of_words__normalizer__use_normalize': [True, False],
             }
         },
-    'unigram+embedding_centroid_100_thesis':
+    'unigram+embedding_centroid_thesis_100':
         {
             'features':
                 OrderedDict([
@@ -279,7 +279,7 @@ GRIDSEARCH_STRATEGIES = {
                 'union__embedding_centroid__transformer__embedding_length': [100],
             }
         },
-    'unigram+embedding_centroid_200_thesis':
+    'unigram+embedding_centroid_thesis_200':
         {
             'features':
                 OrderedDict([
@@ -294,7 +294,7 @@ GRIDSEARCH_STRATEGIES = {
                 'union__embedding_centroid__transformer__embedding_length': [200],
             }
         },
-    'unigram+embedding_centroid_300_thesis':
+    'unigram+embedding_centroid_thesis_300':
         {
             'features':
                 OrderedDict([
@@ -396,7 +396,7 @@ GRIDSEARCH_STRATEGIES = {
                 'union__character_embedding_centroid__transformer__embedding_length': [100],
             }
         },
-    'unigram+grammatical+character_embeddings+embeddings_centroid_100_thesis':
+    'unigram+grammatical+character_embeddings+embeddings_centroid_thesis_100':
         {
             'features':
                 OrderedDict([
@@ -416,7 +416,7 @@ GRIDSEARCH_STRATEGIES = {
                 'union__character_embedding_centroid__transformer__embedding_length': [100],
             }
         },
-    'unigram+grammatical+character_embeddings+embeddings_centroid_200_thesis':
+    'unigram+grammatical+character_embeddings+embeddings_centroid_thesis_200':
         {
             'features':
                 OrderedDict([
@@ -436,7 +436,7 @@ GRIDSEARCH_STRATEGIES = {
                 'union__character_embedding_centroid__transformer__embedding_length': [100],
             }
         },
-    'unigram+grammatical+character_embeddings+embeddings_centroid_300_thesis':
+    'unigram+grammatical+character_embeddings+embeddings_centroid_thesis_300':
         {
             'features':
                 OrderedDict([
