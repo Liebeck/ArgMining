@@ -102,7 +102,7 @@ def append_header(handler, job_array_length):
 
 
 if __name__ == '__main__':
-    with open('hilbert_data_v3_jobarray.job', 'w') as handler:
+    with open('hilbert_data_v3_jobarray_batch2.job', 'w') as handler:
         job_parameters = []
         job_parameters.extend(get_basic_features())
         job_parameters.extend(get_word_embedding_features())
