@@ -329,12 +329,12 @@ GRIDSEARCH_STRATEGIES = {
                 OrderedDict([
                     ('bag_of_words', bag_of_words.build),
                     ('pos_distribution_spacy', pos_distribution_spacy.build),
-                    ('dependency_distribution', dependency_distribution.build),
+                    ('dependency_distribution_spacy', dependency_distribution_spacy.build),
                     ('embedding_centroid', embedding_centroid.build),
                 ]),
             'param_grid': {
                 'union__bag_of_words__transformer__ngram_range': [(1, 1)],
-                'union__bag_of_words__transformer__lowercase': [True, False],
+                'union__bag_of_words__transformer__lowercase': [True],
                 'union__bag_of_words__transformer__token_form': ['text'],
                 'union__bag_of_words__normalizer__use_normalize': [True, False],
                 'union__pos_distribution_spacy__transformer__coarse_grained': [True, False],
@@ -347,12 +347,12 @@ GRIDSEARCH_STRATEGIES = {
                 OrderedDict([
                     ('bag_of_words', bag_of_words.build),
                     ('pos_distribution_spacy', pos_distribution_spacy.build),
-                    ('dependency_distribution', dependency_distribution.build),
+                    ('dependency_distribution_spacy', dependency_distribution_spacy.build),
                     ('embedding_centroid', embedding_centroid.build),
                 ]),
             'param_grid': {
                 'union__bag_of_words__transformer__ngram_range': [(1, 1)],
-                'union__bag_of_words__transformer__lowercase': [True, False],
+                'union__bag_of_words__transformer__lowercase': [True],
                 'union__bag_of_words__transformer__token_form': ['text'],
                 'union__bag_of_words__normalizer__use_normalize': [True, False],
                 'union__pos_distribution_spacy__transformer__coarse_grained': [True, False],
@@ -365,12 +365,12 @@ GRIDSEARCH_STRATEGIES = {
                 OrderedDict([
                     ('bag_of_words', bag_of_words.build),
                     ('pos_distribution_spacy', pos_distribution_spacy.build),
-                    ('dependency_distribution', dependency_distribution.build),
+                    ('dependency_distribution_spacy', dependency_distribution_spacy.build),
                     ('embedding_centroid', embedding_centroid.build),
                 ]),
             'param_grid': {
                 'union__bag_of_words__transformer__ngram_range': [(1, 1)],
-                'union__bag_of_words__transformer__lowercase': [True, False],
+                'union__bag_of_words__transformer__lowercase': [True],
                 'union__bag_of_words__transformer__token_form': ['text'],
                 'union__bag_of_words__normalizer__use_normalize': [True, False],
                 'union__pos_distribution_spacy__transformer__coarse_grained': [True, False],
@@ -382,8 +382,8 @@ GRIDSEARCH_STRATEGIES = {
             'features':
                 OrderedDict([
                     ('bag_of_words', bag_of_words.build),
-                    ('character_embedding_centroid', character_embeddings.build),
-                    ('dependency_distribution', dependency_distribution.build),
+                    ('pos_distribution_spacy', pos_distribution_spacy.build),
+                    ('dependency_distribution_spacy', dependency_distribution_spacy.build),
                     ('character_embedding_centroid', character_embeddings.build)
                 ]),
             'param_grid': {
@@ -400,8 +400,8 @@ GRIDSEARCH_STRATEGIES = {
             'features':
                 OrderedDict([
                     ('bag_of_words', bag_of_words.build),
-                    ('character_embedding_centroid', character_embeddings.build),
-                    ('dependency_distribution', dependency_distribution.build),
+                    ('pos_distribution_spacy', pos_distribution_spacy.build),
+                    ('dependency_distribution_spacy', dependency_distribution_spacy.build),
                     ('embedding_centroid', embedding_centroid.build),
                     ('character_embedding_centroid', character_embeddings.build)
                 ]),
@@ -420,8 +420,8 @@ GRIDSEARCH_STRATEGIES = {
             'features':
                 OrderedDict([
                     ('bag_of_words', bag_of_words.build),
-                    ('character_embedding_centroid', character_embeddings.build),
-                    ('dependency_distribution', dependency_distribution.build),
+                    ('pos_distribution_spacy', pos_distribution_spacy.build),
+                    ('dependency_distribution_spacy', dependency_distribution_spacy.build),
                     ('embedding_centroid', embedding_centroid.build),
                     ('character_embedding_centroid', character_embeddings.build)
                 ]),
@@ -440,8 +440,8 @@ GRIDSEARCH_STRATEGIES = {
             'features':
                 OrderedDict([
                     ('bag_of_words', bag_of_words.build),
-                    ('character_embedding_centroid', character_embeddings.build),
-                    ('dependency_distribution', dependency_distribution.build),
+                    ('pos_distribution_spacy', pos_distribution_spacy.build),
+                    ('dependency_distribution_spacy', dependency_distribution_spacy.build),
                     ('embedding_centroid', embedding_centroid.build),
                     ('character_embedding_centroid', character_embeddings.build)
                 ]),
