@@ -87,8 +87,7 @@ def get_both_embedding_features_combination():
     word_embedding_dimensions = ['100', '200', '300']
     for dimension in word_embedding_dimensions:
         word_embeddings_parameter = ' '.join(word_embeddings[dimension].split(' ')[1:])
-        print(word_embeddings_parameter)
-        feature = 'unigram+grammatical+character_embeddings+embeddings_centroid_{}'.format(dimension)
+        feature = 'unigram+grammatical+character_embeddings+embeddings_centroid_thesis_{}'.format(dimension)
         iterations = [5]
         for iteration in iterations:
             for key, fasttextpath in fasttext[str(iteration)].items():
