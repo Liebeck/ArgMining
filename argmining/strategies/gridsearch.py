@@ -61,8 +61,7 @@ GRIDSEARCH_STRATEGIES = {
                 ]),
             'param_grid': {
                 'union__character_ngram__transformer__min_df': [1, 5, 10],
-                'union__character_ngram__transformer__ngram_range': [((3, 3), (4, 4), (5, 5), (6, 6),
-                                                                     (7, 7), (3, 5)]
+                'union__character_ngram__transformer__ngram_range': [(3, 3), (4, 4), (5, 5), (6, 6), (7, 7), (3, 5)]
             }
         },
     'pos_distribution_spacy':
