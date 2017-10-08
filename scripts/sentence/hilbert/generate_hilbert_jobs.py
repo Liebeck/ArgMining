@@ -52,27 +52,43 @@ fasttext = {'5': {'3_3': ' -fasttext_path /scratch_gs/malie102/data/fasttext/dew
             }
 
 
-def get_basic_features():
+def get_basic_features(featurez=features):
     parameters = []
-    for feature in features:
+    for feature in featurez:
         parameters.append('-gridsearchstrategy {}'.format(feature))
     return parameters
 
 
-def get_word_embedding_features():
+def get_word_embedding_features(featurez=word_embeeding_features):
     parameters = []
-    for feature in word_embeeding_features:
+    for feature in featurez:
         dimension = feature[-3:]
-        parameters.append('-gridsearchstrategy {}'.format(word_embeddings[dimension]))
+        parameters.append('-gridsearchstrategy {} {}'.format(feature, word_embeddings[dimension]))
     return parameters
 
 
-def get_character_embedding_features():
+def get_character_embedding_features(featurez=['character_embeddings_centroid_100']):
     parameters = []
-    iterations = [5, 10, 20, 50, 100]
+    # iterations = [5, 10, 20, 50, 100]
+    iterations = [5]
     for iteration in iterations:
         for key, fasttextpath in fasttext[str(iteration)].items():
-            parameters.append('-gridsearchstrategy character_embeddings_centroid_100 {}'.format(fasttextpath))
+            for feature in featurez:
+                parameters.append('-gridsearchstrategy {}{}'.format(feature, fasttextpath))
+    return parameters
+
+
+def get_both_embedding_features_combination():
+    parameters = []
+    word_embedding_dimensions = ['100', '200', '300']
+    for dimension in word_embedding_dimensions:
+        word_embeddings_parameter = ' '.join(word_embeddings[dimension].split(' ')[1:])
+        print(word_embeddings_parameter)
+        feature = 'unigram+grammatical+character_embeddings+embeddings_centroid_{}'.format(dimension)
+        iterations = [5]
+        for iteration in iterations:
+            for key, fasttextpath in fasttext[str(iteration)].items():
+                parameters.append('-gridsearchstrategy {}{} {}'.format(feature, fasttextpath, word_embeddings_parameter))
     return parameters
 
 
@@ -104,10 +120,18 @@ def append_header(handler, job_array_length):
 if __name__ == '__main__':
     with open('hilbert_data_v3_jobarray_batch2.job', 'w') as handler:
         job_parameters = []
-        job_parameters.extend(get_basic_features())
-        job_parameters.extend(get_word_embedding_features())
-        job_parameters.extend(get_character_embedding_features())
-        job_parameters.extend(get_lda_features())
+        # job_parameters.extend(get_basic_features())
+        # job_parameters.extend(get_word_embedding_features())
+        # job_parameters.extend(get_character_embedding_features())
+        # job_parameters.extend(get_lda_features())
+        job_parameters.extend(get_basic_features(['character_ngrams']))
+        job_parameters.extend(get_word_embedding_features(
+            ['unigram+embedding_centroid_thesis_100', 'unigram+embedding_centroid_thesis_200',
+             'unigram+embedding_centroid_thesis_300', 'unigram+grammatical+embeddings_centroid_100',
+             'unigram+grammatical+embeddings_centroid_200', 'unigram+grammatical+embeddings_centroid_300']))
+        job_parameters.extend(get_character_embedding_features(
+            ['unigram+character_embeddings_thesis', 'unigram+grammatical+character_embeddings_thesis']))
+        job_parameters.extend(get_both_embedding_features_combination())
         append_header(handler, len(job_parameters) * len(subtasks) * len(classifiers))
         counter = 1
         for job_parameter in job_parameters:
