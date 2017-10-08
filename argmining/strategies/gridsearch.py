@@ -61,9 +61,8 @@ GRIDSEARCH_STRATEGIES = {
                 ]),
             'param_grid': {
                 'union__character_ngram__transformer__min_df': [1, 5, 10],
-                'union__character_ngram__transformer__ngram_range': [(1, 1), (2, 2), (3, 3), (4, 4), (5, 5), (6, 6),
-                                                                     (7, 7), (1, 2), (1, 3), (1, 4), (1, 5), (1, 6),
-                                                                     (1, 7), (3, 5)]
+                'union__character_ngram__transformer__ngram_range': [((3, 3), (4, 4), (5, 5), (6, 6),
+                                                                     (7, 7), (3, 5)]
             }
         },
     'pos_distribution_spacy':
@@ -263,6 +262,198 @@ GRIDSEARCH_STRATEGIES = {
                 'union__bag_of_words__transformer__lowercase': [True],
                 'union__bag_of_words__transformer__token_form': ['text', 'IWNLP_lemma'],
                 'union__bag_of_words__normalizer__use_normalize': [True, False],
+            }
+        },
+    'unigram+embedding_centroid_100_thesis':
+        {
+            'features':
+                OrderedDict([
+                    ('bag_of_words', bag_of_words.build),
+                    ('embedding_centroid', embedding_centroid.build),
+                ]),
+            'param_grid': {
+                'union__bag_of_words__transformer__ngram_range': [(1, 1)],
+                'union__bag_of_words__transformer__lowercase': [True],
+                'union__bag_of_words__transformer__token_form': ['text'],
+                'union__bag_of_words__normalizer__use_normalize': [True, False],
+                'union__embedding_centroid__transformer__embedding_length': [100],
+            }
+        },
+    'unigram+embedding_centroid_200_thesis':
+        {
+            'features':
+                OrderedDict([
+                    ('bag_of_words', bag_of_words.build),
+                    ('embedding_centroid', embedding_centroid.build),
+                ]),
+            'param_grid': {
+                'union__bag_of_words__transformer__ngram_range': [(1, 1)],
+                'union__bag_of_words__transformer__lowercase': [True],
+                'union__bag_of_words__transformer__token_form': ['text'],
+                'union__bag_of_words__normalizer__use_normalize': [True, False],
+                'union__embedding_centroid__transformer__embedding_length': [200],
+            }
+        },
+    'unigram+embedding_centroid_300_thesis':
+        {
+            'features':
+                OrderedDict([
+                    ('bag_of_words', bag_of_words.build),
+                    ('embedding_centroid', embedding_centroid.build),
+                ]),
+            'param_grid': {
+                'union__bag_of_words__transformer__ngram_range': [(1, 1)],
+                'union__bag_of_words__transformer__lowercase': [True],
+                'union__bag_of_words__transformer__token_form': ['text'],
+                'union__bag_of_words__normalizer__use_normalize': [True, False],
+                'union__embedding_centroid__transformer__embedding_length': [300],
+            }
+        },
+    'unigram+character_embeddings_thesis':
+        {
+            'features':
+                OrderedDict([
+                    ('bag_of_words', bag_of_words.build),
+                    ('character_embedding_centroid', character_embeddings.build)
+                ]),
+            'param_grid': {
+                'union__bag_of_words__transformer__ngram_range': [(1, 1)],
+                'union__bag_of_words__transformer__lowercase': [True],
+                'union__bag_of_words__transformer__token_form': ['text'],
+                'union__bag_of_words__normalizer__use_normalize': [True, False],
+                'union__character_embedding_centroid__transformer__embedding_length': [100],
+            }
+        },
+    'unigram+grammatical+embeddings_centroid_100':
+        {
+            'features':
+                OrderedDict([
+                    ('bag_of_words', bag_of_words.build),
+                    ('pos_distribution_spacy', pos_distribution_spacy.build),
+                    ('dependency_distribution', dependency_distribution.build),
+                    ('embedding_centroid', embedding_centroid.build),
+                ]),
+            'param_grid': {
+                'union__bag_of_words__transformer__ngram_range': [(1, 1)],
+                'union__bag_of_words__transformer__lowercase': [True, False],
+                'union__bag_of_words__transformer__token_form': ['text'],
+                'union__bag_of_words__normalizer__use_normalize': [True, False],
+                'union__pos_distribution_spacy__transformer__coarse_grained': [True, False],
+                'union__embedding_centroid__transformer__embedding_length': [100],
+            }
+        },
+    'unigram+grammatical+embeddings_centroid_200':
+        {
+            'features':
+                OrderedDict([
+                    ('bag_of_words', bag_of_words.build),
+                    ('pos_distribution_spacy', pos_distribution_spacy.build),
+                    ('dependency_distribution', dependency_distribution.build),
+                    ('embedding_centroid', embedding_centroid.build),
+                ]),
+            'param_grid': {
+                'union__bag_of_words__transformer__ngram_range': [(1, 1)],
+                'union__bag_of_words__transformer__lowercase': [True, False],
+                'union__bag_of_words__transformer__token_form': ['text'],
+                'union__bag_of_words__normalizer__use_normalize': [True, False],
+                'union__pos_distribution_spacy__transformer__coarse_grained': [True, False],
+                'union__embedding_centroid__transformer__embedding_length': [200],
+            }
+        },
+    'unigram+grammatical+embeddings_centroid_300':
+        {
+            'features':
+                OrderedDict([
+                    ('bag_of_words', bag_of_words.build),
+                    ('pos_distribution_spacy', pos_distribution_spacy.build),
+                    ('dependency_distribution', dependency_distribution.build),
+                    ('embedding_centroid', embedding_centroid.build),
+                ]),
+            'param_grid': {
+                'union__bag_of_words__transformer__ngram_range': [(1, 1)],
+                'union__bag_of_words__transformer__lowercase': [True, False],
+                'union__bag_of_words__transformer__token_form': ['text'],
+                'union__bag_of_words__normalizer__use_normalize': [True, False],
+                'union__pos_distribution_spacy__transformer__coarse_grained': [True, False],
+                'union__embedding_centroid__transformer__embedding_length': [300],
+            }
+        },
+    'unigram+grammatical+character_embeddings_thesis':
+        {
+            'features':
+                OrderedDict([
+                    ('bag_of_words', bag_of_words.build),
+                    ('character_embedding_centroid', character_embeddings.build),
+                    ('dependency_distribution', dependency_distribution.build),
+                    ('character_embedding_centroid', character_embeddings.build)
+                ]),
+            'param_grid': {
+                'union__bag_of_words__transformer__ngram_range': [(1, 1)],
+                'union__bag_of_words__transformer__lowercase': [True],
+                'union__bag_of_words__transformer__token_form': ['text'],
+                'union__bag_of_words__normalizer__use_normalize': [True, False],
+                'union__pos_distribution_spacy__transformer__coarse_grained': [True, False],
+                'union__character_embedding_centroid__transformer__embedding_length': [100],
+            }
+        },
+    'unigram+grammatical+character_embeddings+embeddings_centroid_100_thesis':
+        {
+            'features':
+                OrderedDict([
+                    ('bag_of_words', bag_of_words.build),
+                    ('character_embedding_centroid', character_embeddings.build),
+                    ('dependency_distribution', dependency_distribution.build),
+                    ('embedding_centroid', embedding_centroid.build),
+                    ('character_embedding_centroid', character_embeddings.build)
+                ]),
+            'param_grid': {
+                'union__bag_of_words__transformer__ngram_range': [(1, 1)],
+                'union__bag_of_words__transformer__lowercase': [True],
+                'union__bag_of_words__transformer__token_form': ['text'],
+                'union__bag_of_words__normalizer__use_normalize': [True, False],
+                'union__pos_distribution_spacy__transformer__coarse_grained': [True, False],
+                'union__embedding_centroid__transformer__embedding_length': [100],
+                'union__character_embedding_centroid__transformer__embedding_length': [100],
+            }
+        },
+    'unigram+grammatical+character_embeddings+embeddings_centroid_200_thesis':
+        {
+            'features':
+                OrderedDict([
+                    ('bag_of_words', bag_of_words.build),
+                    ('character_embedding_centroid', character_embeddings.build),
+                    ('dependency_distribution', dependency_distribution.build),
+                    ('embedding_centroid', embedding_centroid.build),
+                    ('character_embedding_centroid', character_embeddings.build)
+                ]),
+            'param_grid': {
+                'union__bag_of_words__transformer__ngram_range': [(1, 1)],
+                'union__bag_of_words__transformer__lowercase': [True],
+                'union__bag_of_words__transformer__token_form': ['text'],
+                'union__bag_of_words__normalizer__use_normalize': [True, False],
+                'union__pos_distribution_spacy__transformer__coarse_grained': [True, False],
+                'union__embedding_centroid__transformer__embedding_length': [200],
+                'union__character_embedding_centroid__transformer__embedding_length': [100],
+            }
+        },
+    'unigram+grammatical+character_embeddings+embeddings_centroid_300_thesis':
+        {
+            'features':
+                OrderedDict([
+                    ('bag_of_words', bag_of_words.build),
+                    ('character_embedding_centroid', character_embeddings.build),
+                    ('dependency_distribution', dependency_distribution.build),
+                    ('embedding_centroid', embedding_centroid.build),
+                    ('character_embedding_centroid', character_embeddings.build)
+                ]),
+            'param_grid': {
+                'union__bag_of_words__transformer__ngram_range': [(1, 1)],
+                'union__bag_of_words__transformer__lowercase': [True],
+                'union__bag_of_words__transformer__token_form': ['text'],
+                'union__bag_of_words__normalizer__use_normalize': [True, False],
+                'union__pos_distribution_spacy__transformer__coarse_grained': [True, False],
+                'union__embedding_centroid__transformer__embedding_length': [300],
+                'union__character_embedding_centroid__transformer__embedding_length': [100],
             }
         },
 }
