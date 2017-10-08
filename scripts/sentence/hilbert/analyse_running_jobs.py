@@ -9,7 +9,7 @@ def read_jobarray():
     Reads all job definitions from the job array
     '''
     parameters_all_jobs = {}
-    with open('/scratch_gs/malie102/jobs/ArgMining/scripts/sentence/hilbert/hilbert_data_v3_jobarray.job') as file:
+    with open('/scratch_gs/malie102/jobs/ArgMining/scripts/sentence/hilbert/hilbert_data_v3_jobarray_batch2.job') as file:
         for line in file:
             if line.startswith('job_parameter['):
                 job_id = int(line[len('job_parameter['):line.find("]")])
