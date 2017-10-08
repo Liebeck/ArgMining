@@ -7,8 +7,8 @@ def param_grid(cross_validation=False):
         return {'classifier__C': [1e3],
                 'classifier__gamma': [0.005, 0.01]}
     else:
-        return {'classifier__C': [1e-1, 1e0, 1e1, 1e2, 1e3, 1e4, 5e4],
-                'classifier__gamma': [1e-4, 1e-5, 1e-3, 5e-3, 1e-2, 1e-1, 1e0, 1e1]}
+        return {'classifier__C': [1e-1, 1e0, 1e1, 1e2, 1e3, 1e4],
+                'classifier__gamma': [1e-5, 1e-4, 1e-3, 1e-2, 1e-1, 1e0, 1e1]}
 
 
 def param_grid_linear(cross_validation=False):
