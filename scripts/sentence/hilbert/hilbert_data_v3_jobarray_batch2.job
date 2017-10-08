@@ -4,7 +4,7 @@
 #PBS -l walltime=167:00:00
 #PBS -m abe
 #PBS -M liebeck@cs.uni-duesseldorf.de
-#PBS -l select=1:mem=10gb:ncpus=1
+#PBS -l select=1:mem=15gb:ncpus=1
 #PBS -A OP-NLP
 #PBS -r y
 #PBS -J 1-384
