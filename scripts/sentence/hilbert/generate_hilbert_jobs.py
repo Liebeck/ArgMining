@@ -59,11 +59,15 @@ def get_basic_features(featurez=features):
     return parameters
 
 
-def get_word_embedding_features(featurez=word_embeeding_features):
+def get_word_embedding_features(featurez=word_embeeding_features, batch_v2 = True):
     parameters = []
     for feature in featurez:
         dimension = feature[-3:]
-        parameters.append('-gridsearchstrategy {} {}'.format(feature, word_embeddings[dimension]))
+        if batch_v2:
+            word_embeddings_parameter = ' '.join(word_embeddings[dimension].split(' ')[1:])
+            parameters.append('-gridsearchstrategy {} {}'.format(feature, word_embeddings_parameter))
+        else:
+            parameters.append('-gridsearchstrategy {} {}'.format(feature, word_embeddings[dimension]))
     return parameters
 
 
