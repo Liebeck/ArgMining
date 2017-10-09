@@ -20,10 +20,10 @@ class FastText:
         for token in sentence.tokens:
             self.total_tokens = self.total_tokens + 1
             key = token.get_key(self.text_type)
-            if key in self.model.wv.vocab:
+            if key in self.model:
                 self.coverage = self.coverage + 1
                 token.character_embedding = self.model[key]
 
     def annotate_sentences(self, sentences):
         list(map(lambda sentence: self.annotate_sentence(sentence), sentences))
-        self.logger.info("Annotated Tokens {}/{}".format(self.coverage, self.total_tokens))
+        self.logger.info("Annotated Tokens fastText {}/{}".format(self.coverage, self.total_tokens))
