@@ -188,7 +188,15 @@ def print_tables(subtask_A, subtask_B, subtask_C):
                 'character_embeddings_centroid_100', 'unigram+grammatical_spacy', 'unigram+lda_distribution_thf',
                 'unigram+lda_distribution_wikipedia', 'unigram+embedding_centroid_100',
                 'unigram+embedding_centroid_200', 'unigram+embedding_centroid_300',
-                'unigram+character_embeddings_centroid_100']
+                'unigram+character_embeddings_centroid_100',
+                'unigram+embedding_centroid_thesis_100',
+                'unigram+embedding_centroid_thesis_200',
+                'unigram+embedding_centroid_thesis_300', 'unigram+grammatical+embeddings_centroid_100',
+                'unigram+grammatical+embeddings_centroid_200', 'unigram+grammatical+embeddings_centroid_300',
+                'unigram+character_embeddings_thesis', 'unigram+grammatical+character_embeddings_thesis',
+                'unigram+grammatical+character_embeddings+embeddings_centroid_thesis_100',
+                'unigram+grammatical+character_embeddings+embeddings_centroid_thesis_200',
+                'unigram+grammatical+character_embeddings+embeddings_centroid_thesis_300']
     print('*****\nSubtask A+B')
     print_table_subtask(all_rows, best_subtask_A, best_subtask_B)
     print('*****\nSubtask C')
