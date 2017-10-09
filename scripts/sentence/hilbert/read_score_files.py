@@ -114,7 +114,15 @@ def group_by_feature_and_classifier(subtask_results):
                 'embedding_centroid_100', 'embedding_centroid_200', 'embedding_centroid_300',
                 'character_embeddings_centroid_100', 'unigram+embedding_centroid_100',
                 'unigram+embedding_centroid_200', 'unigram+embedding_centroid_300',
-                'unigram+character_embeddings_centroid_100']
+                'unigram+character_embeddings_centroid_100', 'unigram+embedding_centroid_thesis_100',
+                'unigram+embedding_centroid_thesis_200',
+                'unigram+embedding_centroid_thesis_300', 'unigram+grammatical+embeddings_centroid_100',
+                'unigram+grammatical+embeddings_centroid_200', 'unigram+grammatical+embeddings_centroid_300',
+                'unigram+character_embeddings_thesis', 'unigram+grammatical+character_embeddings_thesis',
+                'unigram+grammatical+character_embeddings+embeddings_centroid_thesis_100',
+                'unigram+grammatical+character_embeddings+embeddings_centroid_thesis_200',
+                'unigram+grammatical+character_embeddings+embeddings_centroid_thesis_300']
+
     for classifier in classifiers:
         for feature in features:
             key = '{}_{}'.format(classifier, feature)
