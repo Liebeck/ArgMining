@@ -1,0 +1,35 @@
+{
+  "classifier": "rf",
+  "gridsearchstrategy": "unigram+lda_distribution",
+  "subtask": "A",
+  "nfold": 10,
+  "shuffle": null,
+  "training_size": 100,
+  "embeddings_path": null,
+  "fasttext_path": null,
+  "lda_path": "/scratch_gs/malie102/data/lda/thf/lda_20",
+  "lda_vocab_path": "/scratch_gs/malie102/data/lda/thf/lda_20_wordids.txt.bz2",
+  "lda_all_words": false,
+  "data_version": "v3",
+  "gridsearch_best_mean": 0.6587811957515708,
+  "gridsearch_best_std": 0.02585878675208457,
+  "gridsearch_parameters": {
+    "union__bag_of_words__normalizer__use_normalize": false,
+    "classifier__max_depth": 25,
+    "union__bag_of_words__transformer__lowercase": true,
+    "union__bag_of_words__transformer__ngram_range": [
+      1,
+      1
+    ],
+    "classifier__min_samples_split": 2,
+    "classifier__bootstrap": true,
+    "classifier__criterion": "gini",
+    "classifier__random_state": 0,
+    "classifier__min_samples_leaf": 5,
+    "union__bag_of_words__transformer__token_form": "text",
+    "classifier__n_estimators": 40,
+    "classifier__max_features": 0.5
+  },
+  "gridsearch__stratifiedkfold__random_state": 123,
+  "jobid": "616"
+}

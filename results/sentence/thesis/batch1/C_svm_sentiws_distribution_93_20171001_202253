@@ -1,0 +1,25 @@
+{
+  "classifier": "svm",
+  "gridsearchstrategy": "sentiws_distribution",
+  "subtask": "C",
+  "nfold": 10,
+  "shuffle": null,
+  "training_size": 100,
+  "embeddings_path": null,
+  "fasttext_path": null,
+  "lda_path": null,
+  "lda_vocab_path": null,
+  "lda_all_words": false,
+  "data_version": "v3",
+  "gridsearch_best_mean": 0.4332288604360767,
+  "gridsearch_best_std": 0.0038609806075220036,
+  "gridsearch_parameters": {
+    "union__polarity_sentiws_distribution__transformer__bins": 5,
+    "classifier__gamma": 0.0001,
+    "classifier__C": 10.0,
+    "classifier__random_state": 0,
+    "union__polarity_sentiws_distribution__transformer__density": null
+  },
+  "gridsearch__stratifiedkfold__random_state": 123,
+  "jobid": "93"
+}

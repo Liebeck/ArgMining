@@ -1,0 +1,29 @@
+{
+  "classifier": "rf",
+  "gridsearchstrategy": "character_embeddings_centroid_100",
+  "subtask": "A",
+  "nfold": 10,
+  "shuffle": null,
+  "training_size": 100,
+  "embeddings_path": null,
+  "fasttext_path": "/scratch_gs/malie102/data/fasttext/dewiki-20170501-3_3-10",
+  "lda_path": null,
+  "lda_vocab_path": null,
+  "lda_all_words": false,
+  "data_version": "v3",
+  "gridsearch_best_mean": 0.6105447103814846,
+  "gridsearch_best_std": 0.04993776817073979,
+  "gridsearch_parameters": {
+    "classifier__n_estimators": 100,
+    "classifier__max_features": "auto",
+    "classifier__max_depth": 5,
+    "union__character_embedding_centroid__transformer__embedding_length": 100,
+    "classifier__min_samples_leaf": 1,
+    "classifier__bootstrap": true,
+    "classifier__random_state": 0,
+    "classifier__criterion": "gini",
+    "classifier__min_samples_split": 5
+  },
+  "gridsearch__stratifiedkfold__random_state": 123,
+  "jobid": "196"
+}

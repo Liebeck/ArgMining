@@ -1,0 +1,23 @@
+{
+  "classifier": "knn",
+  "gridsearchstrategy": "lda_distribution",
+  "subtask": "B",
+  "nfold": 10,
+  "shuffle": null,
+  "training_size": 100,
+  "embeddings_path": null,
+  "fasttext_path": null,
+  "lda_path": "/scratch_gs/malie102/data/lda/thf/lda_10",
+  "lda_vocab_path": "/scratch_gs/malie102/data/lda/thf/lda_10_wordids.txt.bz2",
+  "lda_all_words": false,
+  "data_version": "v3",
+  "gridsearch_best_mean": 0.4467642912677044,
+  "gridsearch_best_std": 0.041981460316725144,
+  "gridsearch_parameters": {
+    "classifier__leaf_size": 20,
+    "classifier__n_neighbors": 7,
+    "classifier__weights": "uniform"
+  },
+  "gridsearch__stratifiedkfold__random_state": 123,
+  "jobid": "487"
+}

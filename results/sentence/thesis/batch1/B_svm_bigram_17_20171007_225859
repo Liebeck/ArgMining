@@ -1,0 +1,30 @@
+{
+  "classifier": "svm",
+  "gridsearchstrategy": "bigram",
+  "subtask": "B",
+  "nfold": 10,
+  "shuffle": null,
+  "training_size": 100,
+  "embeddings_path": null,
+  "fasttext_path": null,
+  "lda_path": null,
+  "lda_vocab_path": null,
+  "lda_all_words": false,
+  "data_version": "v3",
+  "gridsearch_best_mean": 0.5750437422695582,
+  "gridsearch_best_std": 0.03568744275778273,
+  "gridsearch_parameters": {
+    "union__bag_of_words__transformer__lowercase": false,
+    "union__bag_of_words__normalizer__use_normalize": true,
+    "union__bag_of_words__transformer__ngram_range": [
+      2,
+      2
+    ],
+    "classifier__C": 50000.0,
+    "classifier__random_state": 0,
+    "classifier__gamma": 1e-05,
+    "union__bag_of_words__transformer__token_form": "text"
+  },
+  "gridsearch__stratifiedkfold__random_state": 123,
+  "jobid": "17"
+}

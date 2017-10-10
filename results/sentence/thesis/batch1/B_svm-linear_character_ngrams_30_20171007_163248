@@ -1,0 +1,27 @@
+{
+  "classifier": "svm-linear",
+  "gridsearchstrategy": "character_ngrams",
+  "subtask": "B",
+  "nfold": 10,
+  "shuffle": null,
+  "training_size": 100,
+  "embeddings_path": null,
+  "fasttext_path": null,
+  "lda_path": null,
+  "lda_vocab_path": null,
+  "lda_all_words": false,
+  "data_version": "v3",
+  "gridsearch_best_mean": 0.6106049717553463,
+  "gridsearch_best_std": 0.029546844616809485,
+  "gridsearch_parameters": {
+    "union__character_ngram__transformer__min_df": 1,
+    "classifier__C": 0.1,
+    "classifier__random_state": 0,
+    "union__character_ngram__transformer__ngram_range": [
+      1,
+      6
+    ]
+  },
+  "gridsearch__stratifiedkfold__random_state": 123,
+  "jobid": "30"
+}

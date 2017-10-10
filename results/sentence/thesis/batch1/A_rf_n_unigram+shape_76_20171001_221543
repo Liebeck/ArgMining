@@ -1,0 +1,34 @@
+{
+  "classifier": "rf",
+  "gridsearchstrategy": "n_unigram+shape",
+  "subtask": "A",
+  "nfold": 10,
+  "shuffle": null,
+  "training_size": 100,
+  "embeddings_path": null,
+  "fasttext_path": null,
+  "lda_path": null,
+  "lda_vocab_path": null,
+  "lda_all_words": false,
+  "data_version": "v3",
+  "gridsearch_best_mean": 0.6703312177415526,
+  "gridsearch_best_std": 0.02413870313510302,
+  "gridsearch_parameters": {
+    "classifier__max_features": 0.2,
+    "classifier__min_samples_split": 2,
+    "classifier__bootstrap": true,
+    "classifier__max_depth": 25,
+    "classifier__criterion": "gini",
+    "union__bag_of_words__transformer__token_form": "shape",
+    "classifier__n_estimators": 100,
+    "union__bag_of_words__normalizer__use_normalize": true,
+    "classifier__min_samples_leaf": 5,
+    "union__bag_of_words__transformer__ngram_range": [
+      1,
+      1
+    ],
+    "classifier__random_state": 0
+  },
+  "gridsearch__stratifiedkfold__random_state": 123,
+  "jobid": "76"
+}

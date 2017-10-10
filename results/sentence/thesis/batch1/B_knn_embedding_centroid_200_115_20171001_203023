@@ -1,0 +1,24 @@
+{
+  "classifier": "knn",
+  "gridsearchstrategy": "embedding_centroid_200",
+  "subtask": "B",
+  "nfold": 10,
+  "shuffle": null,
+  "training_size": 100,
+  "embeddings_path": "/scratch_gs/malie102/data/wikipedia-de/word2vec_wiki-de_20170501_200_binary",
+  "fasttext_path": null,
+  "lda_path": null,
+  "lda_vocab_path": null,
+  "lda_all_words": false,
+  "data_version": "v3",
+  "gridsearch_best_mean": 0.5571867198246955,
+  "gridsearch_best_std": 0.04147438561694289,
+  "gridsearch_parameters": {
+    "classifier__n_neighbors": 8,
+    "union__embedding_centroid__transformer__embedding_length": 200,
+    "classifier__weights": "uniform",
+    "classifier__leaf_size": 20
+  },
+  "gridsearch__stratifiedkfold__random_state": 123,
+  "jobid": "115"
+}

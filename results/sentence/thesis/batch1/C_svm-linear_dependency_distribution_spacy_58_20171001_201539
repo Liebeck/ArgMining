@@ -1,0 +1,22 @@
+{
+  "classifier": "svm-linear",
+  "gridsearchstrategy": "dependency_distribution_spacy",
+  "subtask": "C",
+  "nfold": 10,
+  "shuffle": null,
+  "training_size": 100,
+  "embeddings_path": null,
+  "fasttext_path": null,
+  "lda_path": null,
+  "lda_vocab_path": null,
+  "lda_all_words": false,
+  "data_version": "v3",
+  "gridsearch_best_mean": 0.5218390212834755,
+  "gridsearch_best_std": 0.07945594516784085,
+  "gridsearch_parameters": {
+    "classifier__random_state": 0,
+    "classifier__C": 5000.0
+  },
+  "gridsearch__stratifiedkfold__random_state": 123,
+  "jobid": "58"
+}

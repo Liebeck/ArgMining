@@ -1,0 +1,23 @@
+{
+  "classifier": "svm-linear",
+  "gridsearchstrategy": "pos_distribution_spacy",
+  "subtask": "C",
+  "nfold": 10,
+  "shuffle": null,
+  "training_size": 100,
+  "embeddings_path": null,
+  "fasttext_path": null,
+  "lda_path": null,
+  "lda_vocab_path": null,
+  "lda_all_words": false,
+  "data_version": "v3",
+  "gridsearch_best_mean": 0.6001967522406866,
+  "gridsearch_best_std": 0.06803526829404423,
+  "gridsearch_parameters": {
+    "classifier__C": 1.0,
+    "classifier__random_state": 0,
+    "union__pos_distribution_spacy__transformer__coarse_grained": true
+  },
+  "gridsearch__stratifiedkfold__random_state": 123,
+  "jobid": "46"
+}

@@ -1,0 +1,28 @@
+{
+  "classifier": "rf",
+  "gridsearchstrategy": "lda_distribution",
+  "subtask": "A",
+  "nfold": 10,
+  "shuffle": null,
+  "training_size": 100,
+  "embeddings_path": null,
+  "fasttext_path": null,
+  "lda_path": "/scratch_gs/malie102/data/lda/wikipedia/lda_200.lda",
+  "lda_vocab_path": "/scratch_gs/malie102/data/lda/wikipedia/_wordids.txt.bz2",
+  "lda_all_words": false,
+  "data_version": "v3",
+  "gridsearch_best_mean": 0.5281799718515016,
+  "gridsearch_best_std": 0.032534050322236704,
+  "gridsearch_parameters": {
+    "classifier__n_estimators": 100,
+    "classifier__bootstrap": true,
+    "classifier__criterion": "gini",
+    "classifier__random_state": 0,
+    "classifier__max_features": "auto",
+    "classifier__max_depth": 25,
+    "classifier__min_samples_leaf": 1,
+    "classifier__min_samples_split": 2
+  },
+  "gridsearch__stratifiedkfold__random_state": 123,
+  "jobid": "448"
+}
