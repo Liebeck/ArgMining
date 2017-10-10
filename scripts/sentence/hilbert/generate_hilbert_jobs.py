@@ -59,7 +59,7 @@ def get_basic_features(featurez=features):
     return parameters
 
 
-def get_word_embedding_features(featurez=word_embeeding_features, batch_v2 = True):
+def get_word_embedding_features(featurez=word_embeeding_features, batch_v2=True):
     parameters = []
     for feature in featurez:
         dimension = feature[-3:]
@@ -71,10 +71,9 @@ def get_word_embedding_features(featurez=word_embeeding_features, batch_v2 = Tru
     return parameters
 
 
-def get_character_embedding_features(featurez=['character_embeddings_centroid_100']):
+def get_character_embedding_features(featurez=['character_embeddings_centroid_100'], iterations=[5, 10, 20, 50, 100]):
     parameters = []
-    # iterations = [5, 10, 20, 50, 100]
-    iterations = [5]
+    # iterations = [5]
     for iteration in iterations:
         for key, fasttextpath in fasttext[str(iteration)].items():
             for feature in featurez:
@@ -91,7 +90,8 @@ def get_both_embedding_features_combination():
         iterations = [5]
         for iteration in iterations:
             for key, fasttextpath in fasttext[str(iteration)].items():
-                parameters.append('-gridsearchstrategy {}{} {}'.format(feature, fasttextpath, word_embeddings_parameter))
+                parameters.append(
+                    '-gridsearchstrategy {}{} {}'.format(feature, fasttextpath, word_embeddings_parameter))
     return parameters
 
 
@@ -121,19 +121,20 @@ def append_header(handler, job_array_length):
 
 
 if __name__ == '__main__':
-    with open('hilbert_data_v3_jobarray_batch2.job', 'w') as handler:
+    with open('hilbert_data_v3_jobarray_batch3.job', 'w') as handler:
         job_parameters = []
         # job_parameters.extend(get_basic_features())
+        job_parameters.extend(get_basic_features(featurez=['grammatical_spacy']))
         # job_parameters.extend(get_word_embedding_features())
-        # job_parameters.extend(get_character_embedding_features())
+        job_parameters.extend(get_character_embedding_features())
         # job_parameters.extend(get_lda_features())
-        job_parameters.extend(get_basic_features(['character_ngrams']))
-        job_parameters.extend(get_word_embedding_features(
-            ['unigram+embedding_centroid_thesis_100', 'unigram+embedding_centroid_thesis_200',
-             'unigram+embedding_centroid_thesis_300', 'unigram+grammatical+embeddings_centroid_100',
-             'unigram+grammatical+embeddings_centroid_200', 'unigram+grammatical+embeddings_centroid_300']))
+        # job_parameters.extend(get_basic_features(['character_ngrams']))
+        # job_parameters.extend(get_word_embedding_features(
+        # ['unigram+embedding_centroid_thesis_100', 'unigram+embedding_centroid_thesis_200',
+        # 'unigram+embedding_centroid_thesis_300', 'unigram+grammatical+embeddings_centroid_100',
+        # 'unigram+grammatical+embeddings_centroid_200', 'unigram+grammatical+embeddings_centroid_300']))
         job_parameters.extend(get_character_embedding_features(
-            ['unigram+character_embeddings_thesis', 'unigram+grammatical+character_embeddings_thesis']))
+            ['unigram+character_embeddings_thesis', 'unigram+grammatical+character_embeddings_thesis'], iterations=[5]))
         job_parameters.extend(get_both_embedding_features_combination())
         append_header(handler, len(job_parameters) * len(subtasks) * len(classifiers))
         counter = 1
