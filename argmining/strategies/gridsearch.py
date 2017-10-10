@@ -145,6 +145,17 @@ GRIDSEARCH_STRATEGIES = {
                 'union__pos_distribution_spacy__transformer__coarse_grained': [True, False],
             }
         },
+    'grammatical_spacy':
+        {
+            'features':
+                OrderedDict([
+                    ('pos_distribution_spacy', pos_distribution_spacy.build),
+                    ('dependency_distribution_spacy', dependency_distribution_spacy.build),
+                ]),
+            'param_grid': {
+                'union__pos_distribution_spacy__transformer__coarse_grained': [True, False],
+            }
+        },
     'sentiws_distribution':
         {
             'features':
