@@ -181,13 +181,16 @@ def print_tables(subtask_A, subtask_B, subtask_C):
     best_subtask_A = group_by_feature_and_classifier(subtask_A)
     best_subtask_B = group_by_feature_and_classifier(subtask_B)
     best_subtask_C = group_by_feature_and_classifier(subtask_C)
-    all_rows = ['unigram', 'bigram', 'pos_distribution_spacy', 'dependency_distribution_spacy',
+    all_rows = [#'unigram', 'bigram', 'pos_distribution_spacy', 'dependency_distribution_spacy',
                 'grammatical_spacy',
-                'n_unigram+shape', 'lda_distribution_wikipedia', 'lda_distribution_thf', 'character_ngrams',
-                'embedding_centroid_100', 'embedding_centroid_200', 'embedding_centroid_300', 'sentiws_distribution',
+                # 'n_unigram+shape', 'lda_distribution_wikipedia', 'lda_distribution_thf',
+                'character_ngrams',
+                # 'embedding_centroid_100', 'embedding_centroid_200', 'embedding_centroid_300',
+                'sentiws_distribution',
                 'character_embeddings_centroid_100', 'unigram+grammatical_spacy', 'unigram+lda_distribution_thf',
-                'unigram+lda_distribution_wikipedia', 'unigram+embedding_centroid_100',
-                'unigram+embedding_centroid_200', 'unigram+embedding_centroid_300',
+                'unigram+lda_distribution_wikipedia',
+                # 'unigram+embedding_centroid_100',
+                # 'unigram+embedding_centroid_200', 'unigram+embedding_centroid_300',
                 'unigram+character_embeddings_centroid_100',
                 'unigram+embedding_centroid_thesis_100',
                 'unigram+embedding_centroid_thesis_200',
