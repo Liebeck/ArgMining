@@ -35,4 +35,4 @@ export PYTHONPATH=$PYTHONPATH:/scratch_gs/malie102/jobs/ArgMining
 
 PRINTFILE=$PBS_O_WORKDIR/$PBS_JOBID".print"
 
-python -u /scratch_gs/malie102/jobs/ArgMining/scripts/sentence/gridsearch.py -c knn -subtask A -gridsearchstrategy grammatical_spacy -jobid 999 --data_version v3 -nfold 10 -hilbert >> $PRINTFILE
+python -u /scratch_gs/malie102/jobs/ArgMining/scripts/sentence/gridsearch.py -c knn -subtask A -gridsearchstrategy character_ngrams -jobid 999 --data_version v3 -nfold 10 -hilbert >> $PRINTFILE
