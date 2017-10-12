@@ -1,7 +1,7 @@
 #!/bin/bash
 
 #PBS -N ArgMining-MultiJob
-#PBS -l walltime=167:00:00
+#PBS -l walltime=110:00:00
 #PBS -m abe
 #PBS -M liebeck@cs.uni-duesseldorf.de
 #PBS -l select=1:mem=15gb:ncpus=1
