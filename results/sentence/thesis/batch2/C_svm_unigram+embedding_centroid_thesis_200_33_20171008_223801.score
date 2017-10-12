@@ -1,0 +1,8 @@
+Micro-averaged F1: 0.7296238244514106
+Individual scores: [ 0.54545455  0.9137931 ]
+Confusion matrix:
+Predicted    ClaimContra  ClaimPro  __all__
+Actual                                     
+ClaimContra            6         7       13
+ClaimPro               3        53       56
+__all__                9        60       69

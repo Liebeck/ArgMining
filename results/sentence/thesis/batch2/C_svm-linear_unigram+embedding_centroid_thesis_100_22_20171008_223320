@@ -1,0 +1,30 @@
+{
+  "classifier": "svm-linear",
+  "gridsearchstrategy": "unigram+embedding_centroid_thesis_100",
+  "subtask": "C",
+  "nfold": 10,
+  "shuffle": null,
+  "training_size": 100,
+  "embeddings_path": "/scratch_gs/malie102/data/wikipedia-de/word2vec_wiki-de_20170501_100_binary",
+  "fasttext_path": null,
+  "lda_path": null,
+  "lda_vocab_path": null,
+  "lda_all_words": false,
+  "data_version": "v3",
+  "gridsearch_best_mean": 0.7624232014075424,
+  "gridsearch_best_std": 0.11586436086866438,
+  "gridsearch_parameters": {
+    "union__bag_of_words__transformer__token_form": "text",
+    "classifier__C": 0.1,
+    "classifier__random_state": 0,
+    "union__bag_of_words__normalizer__use_normalize": false,
+    "union__bag_of_words__transformer__lowercase": true,
+    "union__embedding_centroid__transformer__embedding_length": 100,
+    "union__bag_of_words__transformer__ngram_range": [
+      1,
+      1
+    ]
+  },
+  "gridsearch__stratifiedkfold__random_state": 123,
+  "jobid": "22"
+}

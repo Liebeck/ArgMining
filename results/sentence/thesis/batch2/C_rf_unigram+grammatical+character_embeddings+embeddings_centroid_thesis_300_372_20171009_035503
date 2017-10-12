@@ -1,0 +1,38 @@
+{
+  "classifier": "rf",
+  "gridsearchstrategy": "unigram+grammatical+character_embeddings+embeddings_centroid_thesis_300",
+  "subtask": "C",
+  "nfold": 10,
+  "shuffle": null,
+  "training_size": 100,
+  "embeddings_path": "/scratch_gs/malie102/data/wikipedia-de/word2vec_wiki-de_20170501_300_binary",
+  "fasttext_path": "/scratch_gs/malie102/data/fasttext/dewiki-20170501-4_4-5",
+  "lda_path": null,
+  "lda_vocab_path": null,
+  "lda_all_words": false,
+  "data_version": "v3",
+  "gridsearch_best_mean": 0.6921220289043255,
+  "gridsearch_best_std": 0.11459064554870182,
+  "gridsearch_parameters": {
+    "classifier__bootstrap": true,
+    "classifier__max_depth": 5,
+    "union__character_embedding_centroid__transformer__embedding_length": 100,
+    "classifier__n_estimators": 40,
+    "union__pos_distribution_spacy__transformer__coarse_grained": false,
+    "union__bag_of_words__transformer__lowercase": true,
+    "union__embedding_centroid__transformer__embedding_length": 300,
+    "union__bag_of_words__transformer__token_form": "text",
+    "classifier__min_samples_split": 5,
+    "union__bag_of_words__transformer__ngram_range": [
+      1,
+      1
+    ],
+    "classifier__max_features": 1,
+    "union__bag_of_words__normalizer__use_normalize": false,
+    "classifier__criterion": "gini",
+    "classifier__random_state": 0,
+    "classifier__min_samples_leaf": 1
+  },
+  "gridsearch__stratifiedkfold__random_state": 123,
+  "jobid": "372"
+}
