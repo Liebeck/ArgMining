@@ -8,8 +8,3 @@ JobIDs still running from batch v2 when v3 started:
 8: job_parameter[8]="python -u /scratch_gs/malie102/jobs/ArgMining/scripts/sentence/gridsearch.py -c rf -subtask B -gridsearchstrategy character_ngrams -jobid 8 --data_version v3 -nfold 10 -hilbert >> $PRINTFILE"
 
 
-
-Finished jobs from v2 which still have to the evaluated:
-A_rf_unigram+grammatical+character_embeddings+embeddings_centroid_thesis_300_376_20171010_163649
-A_rf_unigram+grammatical+character_embeddings+embeddings_centroid_thesis_300_364_20171010_192932
-B_svm_character_ngrams_5_20171012_133409
