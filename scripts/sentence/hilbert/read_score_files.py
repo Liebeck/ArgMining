@@ -209,7 +209,7 @@ def print_tables(subtask_A, subtask_B, subtask_C):
                 'unigram+lda_distribution_wikipedia',
                 # 'unigram+embedding_centroid_100',
                 # 'unigram+embedding_centroid_200', 'unigram+embedding_centroid_300',
-                'unigram+character_embeddings_centroid_100',
+                # 'unigram+character_embeddings_centroid_100',
                 'unigram+embedding_centroid_thesis_100',
                 'unigram+embedding_centroid_thesis_200',
                 'unigram+embedding_centroid_thesis_300', 'unigram+grammatical+embeddings_centroid_100',
