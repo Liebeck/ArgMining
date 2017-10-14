@@ -3,39 +3,46 @@ import os
 
 def read_all_score_files(jobarray):
     finished_evaluations = []
-    basepath = '/scratch_gs/malie102/jobs/ArgMining/results/sentence/temp'
-    completed_evaluation_files = [f for f in os.listdir(basepath) if f.endswith('.score')]
-    for file in completed_evaluation_files:
-        stripped_file_name = file[0:-22]
-        split = stripped_file_name.split('_')
-        subtask = split[0]
-        classifier = split[1]
-        strategy = '_'.join(split[2:-1])
-        jobid = split[-1]
-        complete_path = os.path.join(basepath, file)
-        with open(complete_path) as file_handler:
-            f1_mean = 0
-            f1_scores = []
-            for line in file_handler:
-                if line.startswith('Micro-averaged F1: '):
-                    f1_mean = float(line[len('Micro-averaged F1: '):-1])
-                if line.startswith('Individual scores: [ '):
-                    f1_scores_raw = line[len('Individual scores: [ '):-2]
-                    # print(f1_scores_raw)
-                    split = f1_scores_raw.split('  ')
-                    for score in split:
-                        if score and score != ' ':
-                            f1_scores.append(float(score))
-                    # print(f1_scores)
-                    finished_evaluations.append({'subtask': subtask,
-                                                 'classifier': classifier,
-                                                 'strategy': strategy,
-                                                 'f1_mean': f1_mean,
-                                                 'f1_scores': f1_scores,
-                                                 'jobid': jobid,
-                                                 'other_params': jobarray[int(jobid)]['other_params']})
-                else:
-                    continue
+    basepath = '/scratch_gs/malie102/jobs/ArgMining/results/sentence/thesis'
+    batches = ['batch1', 'batch2', 'batch3']
+    for batch in batches:
+        batch_path = os.path.join(basepath, batch)
+        completed_evaluation_files = [f for f in os.listdir(batch_path) if f.endswith('.score')]
+        for file in completed_evaluation_files:
+            stripped_file_name = file[0:-22]
+            split = stripped_file_name.split('_')
+            subtask = split[0]
+            classifier = split[1]
+            strategy = '_'.join(split[2:-1])
+            jobid = split[-1]
+            complete_path = os.path.join(batch_path, file)
+            if batch == 'batch2' and 'character_embeddings' in strategy:
+                continue  # skip character_embedding feature for batch2
+            with open(complete_path) as file_handler:
+                f1_mean = 0
+                f1_scores = []
+                for line in file_handler:
+                    if line.startswith('Micro-averaged F1: '):
+                        f1_mean = float(line[len('Micro-averaged F1: '):-1])
+                    if line.startswith('Individual scores: [ '):
+                        f1_scores_raw = line[len('Individual scores: [ '):-2]
+                        # print(f1_scores_raw)
+                        split = f1_scores_raw.split('  ')
+                        for score in split:
+                            if score and score != ' ':
+                                f1_scores.append(float(score))
+                        # print(f1_scores)
+                        key = '{}_{}'.format(batch, jobid)
+                        finished_evaluations.append({'subtask': subtask,
+                                                     'classifier': classifier,
+                                                     'strategy': strategy,
+                                                     'f1_mean': f1_mean,
+                                                     'f1_scores': f1_scores,
+                                                     'jobid': jobid,
+                                                     'batch': batch,
+                                                     'other_params': jobarray[key]['other_params']})
+                    else:
+                        continue
     return finished_evaluations
 
 
@@ -44,19 +51,30 @@ def read_jobarray():
     Reads all job definitions from the job array
     '''
     parameters_all_jobs = {}
-    with open('/scratch_gs/malie102/jobs/ArgMining/scripts/sentence/hilbert/hilbert_data_v3_jobarray_batch2.job') as file:
-        for line in file:
-            if line.startswith('job_parameter['):
-                job_id = int(line[len('job_parameter['):line.find("]")])
-                parameters_raw = line[
-                                 line.find('gridsearch.py ') + len('gridsearch.py '):line.find(" --data_version")]
-                parameters_split = parameters_raw.split(' ')
-                params = {'classifier': parameters_split[1],
-                          'subtask': parameters_split[3],
-                          'jobID': job_id,
-                          'gridsearchstrategy': parameters_split[5],
-                          'other_params': parameters_split[6:-2]}
-                parameters_all_jobs[job_id] = params
+
+    basepath = '/scratch_gs/malie102/jobs/ArgMining/scripts/sentence/hilbert/'
+    batches = [('batch1', 'hilbert_data_v3_jobarray.job'), ('batch2', 'hilbert_data_v3_jobarray_batch2.job'),
+               ('batch3', 'hilbert_data_v3_jobarray_batch3.job')]
+    for batch in batches:
+        path = os.path.join(basepath, batch[1])
+        with open(path) as file:
+            for line in file:
+                if line.startswith('job_parameter['):
+                    if batch == 'batch2' and 'character_embeddings' in line:
+                        continue  # skip character_embedding feature for batch2
+                    job_id = int(line[len('job_parameter['):line.find("]")])
+                    parameters_raw = line[
+                                     line.find('gridsearch.py ') + len('gridsearch.py '):line.find(" --data_version")]
+                    parameters_split = parameters_raw.split(' ')
+                    params = {'classifier': parameters_split[1],
+                              'subtask': parameters_split[3],
+                              'jobID': job_id,
+                              'gridsearchstrategy': parameters_split[5],
+                              'batch': batch[0],
+                              'other_params': parameters_split[6:-2]}
+                    key = '{}_{}'.format(batch[0], job_id)
+                    parameters_all_jobs[key] = params
+    print('Read_jobarray: {}'.format(len(parameters_all_jobs)))
     return parameters_all_jobs
 
 
@@ -181,11 +199,11 @@ def print_tables(subtask_A, subtask_B, subtask_C):
     best_subtask_A = group_by_feature_and_classifier(subtask_A)
     best_subtask_B = group_by_feature_and_classifier(subtask_B)
     best_subtask_C = group_by_feature_and_classifier(subtask_C)
-    all_rows = [#'unigram', 'bigram', 'pos_distribution_spacy', 'dependency_distribution_spacy',
+    all_rows = ['unigram', 'bigram', 'pos_distribution_spacy', 'dependency_distribution_spacy',
                 'grammatical_spacy',
-                # 'n_unigram+shape', 'lda_distribution_wikipedia', 'lda_distribution_thf',
+                'n_unigram+shape', 'lda_distribution_wikipedia', 'lda_distribution_thf',
                 'character_ngrams',
-                # 'embedding_centroid_100', 'embedding_centroid_200', 'embedding_centroid_300',
+                'embedding_centroid_100', 'embedding_centroid_200', 'embedding_centroid_300',
                 'sentiws_distribution',
                 'character_embeddings_centroid_100', 'unigram+grammatical_spacy', 'unigram+lda_distribution_thf',
                 'unigram+lda_distribution_wikipedia',
@@ -268,6 +286,7 @@ def filter_fasttext_results(finished_evaluations, subtask, classifier, ngram_siz
 if __name__ == '__main__':
     jobarray = read_jobarray()
     finished_evaluations = read_all_score_files(jobarray)
+    # print(finished_evaluations)
     subtask_A, subtask_B, subtask_C = group_results_by_subtask(finished_evaluations)
     print_tables(subtask_A, subtask_B, subtask_C)
     # print('\n\n\n\n')
