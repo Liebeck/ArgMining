@@ -16,8 +16,8 @@ def read_all_score_files(jobarray):
             strategy = '_'.join(split[2:-1])
             jobid = split[-1]
             complete_path = os.path.join(batch_path, file)
-            if batch == 'batch2' and 'character_embeddings' in strategy:
-                continue  # skip character_embedding feature for batch2
+            if (batch == 'batch2' or batch == 'batch1') and 'character_embeddings' in strategy:
+                continue  # skip character_embedding feature for batch1 and batch2
             with open(complete_path) as file_handler:
                 f1_mean = 0
                 f1_scores = []
@@ -60,7 +60,7 @@ def read_jobarray():
         with open(path) as file:
             for line in file:
                 if line.startswith('job_parameter['):
-                    if batch == 'batch2' and 'character_embeddings' in line:
+                    if (batch[0] == 'batch2' or batch[0] == 'batch1') and 'character_embeddings' in line:
                         continue  # skip character_embedding feature for batch2
                     job_id = int(line[len('job_parameter['):line.find("]")])
                     parameters_raw = line[
@@ -74,7 +74,6 @@ def read_jobarray():
                               'other_params': parameters_split[6:-2]}
                     key = '{}_{}'.format(batch[0], job_id)
                     parameters_all_jobs[key] = params
-    print('Read_jobarray: {}'.format(len(parameters_all_jobs)))
     return parameters_all_jobs
 
 
@@ -225,7 +224,7 @@ def print_tables(subtask_A, subtask_B, subtask_C):
 
 
 def print_fasttext_results(finished_evaluations):
-    print('Fasttext results')
+    print('\n\n\nFasttext results')
     subtasks = ['A', 'B', 'C']
     classifiers = ['svm', 'svm-linear', 'knn', 'rf']
     ngram_sizes = ['3_3', '4_4', '5_5', '6_6', '3_6']
@@ -239,7 +238,8 @@ def print_fasttext_results(finished_evaluations):
                     worst_f1 = results[-1]['f1_mean']
                     scores = []
                     for result in results:
-                        scores.append((int(result['other_params'][2].split('-')[-1]), result['f1_mean']))
+                        index = tuple(result['other_params']).index('-fasttext_path') + 1
+                        scores.append((int(result['other_params'][index].split('-')[-1]), result['f1_mean']))
                     scores = sorted(scores, key=lambda k: k[0])
                     print(
                         'Subtask {}, Classifier {}, Ngram {} : {}, {}, {}'.format(subtask, classifier, ngram_size,
@@ -250,6 +250,7 @@ def print_fasttext_results(finished_evaluations):
                         'Subtask {}, Classifier {}, Ngram {} : Only {} evaluations yet'.format(subtask, classifier,
                                                                                                ngram_size,
                                                                                                len(results)))
+                    print(results)
 
 
 def print_fasttext_results_latex(finished_evaluations):
@@ -265,7 +266,8 @@ def print_fasttext_results_latex(finished_evaluations):
                 worst_f1 = results[-1]['f1_mean']
                 scores = []
                 for result in results:
-                    scores.append((int(result['other_params'][2].split('-')[-1]), result['f1_mean']))
+                    index = tuple(result['other_params']).index('-fasttext_path') + 1
+                    scores.append((int(result['other_params'][index].split('-')[-1]), result['f1_mean']))
                 scores = sorted(scores, key=lambda k: k[0])
                 print(
                     'Subtask {}, Classifier {}, Ngram {} : {:.2f}, {}, {}'.format(subtask, classifier, ngram_size,
@@ -276,9 +278,14 @@ def print_fasttext_results_latex(finished_evaluations):
 def filter_fasttext_results(finished_evaluations, subtask, classifier, ngram_size):
     filtered = []
     for result in finished_evaluations:
+        # print(ngram_size)
         if result['subtask'] == subtask and result['classifier'] == classifier and result[
-            'strategy'] == 'character_embeddings_centroid_100' and ngram_size in result['other_params'][2]:
-            filtered.append(result)
+            'strategy'] == 'character_embeddings_centroid_100' and '-fasttext_path' in result['other_params']:
+            index = tuple(result['other_params']).index('-fasttext_path') + 1
+            # print(result['other_params'])
+            if ngram_size in result['other_params'][index]:
+                # print(result['other_params'][index])
+                filtered.append(result)
     filtered = sorted(filtered, key=lambda k: k['f1_mean'], reverse=True)
     return filtered
 
@@ -290,6 +297,6 @@ if __name__ == '__main__':
     subtask_A, subtask_B, subtask_C = group_results_by_subtask(finished_evaluations)
     print_tables(subtask_A, subtask_B, subtask_C)
     # print('\n\n\n\n')
-    # print_fasttext_results(finished_evaluations)
+    print_fasttext_results(finished_evaluations)
     # print_results_all_subtasks(subtask_A, subtask_B, subtask_C)
-    # print_fasttext_results_latex(finished_evaluations)
+    print_fasttext_results_latex(finished_evaluations)
