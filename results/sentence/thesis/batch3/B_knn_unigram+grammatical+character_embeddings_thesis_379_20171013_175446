@@ -1,0 +1,32 @@
+{
+  "classifier": "knn",
+  "gridsearchstrategy": "unigram+grammatical+character_embeddings_thesis",
+  "subtask": "B",
+  "nfold": 10,
+  "shuffle": null,
+  "training_size": 100,
+  "embeddings_path": null,
+  "fasttext_path": "/scratch_gs/malie102/data/fasttext/dewiki-20170501-5_5-5",
+  "lda_path": null,
+  "lda_vocab_path": null,
+  "lda_all_words": false,
+  "data_version": "v3",
+  "gridsearch_best_mean": 0.5144148144163332,
+  "gridsearch_best_std": 0.035646363708972416,
+  "gridsearch_parameters": {
+    "classifier__n_neighbors": 6,
+    "union__bag_of_words__normalizer__use_normalize": false,
+    "union__character_embedding_centroid__transformer__embedding_length": 100,
+    "union__bag_of_words__transformer__token_form": "text",
+    "union__pos_distribution_spacy__transformer__coarse_grained": false,
+    "classifier__leaf_size": 20,
+    "union__bag_of_words__transformer__ngram_range": [
+      1,
+      1
+    ],
+    "classifier__weights": "uniform",
+    "union__bag_of_words__transformer__lowercase": true
+  },
+  "gridsearch__stratifiedkfold__random_state": 123,
+  "jobid": "379"
+}
