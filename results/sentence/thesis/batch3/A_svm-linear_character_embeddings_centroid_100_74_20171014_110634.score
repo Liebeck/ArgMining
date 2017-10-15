@@ -1,0 +1,8 @@
+Micro-averaged F1: 0.5754077519566672
+Individual scores: [ 0.8069241  0.3438914]
+Confusion matrix:
+Predicted          argumentative  non-argumentative  __all__
+Actual                                                      
+argumentative                303                108      411
+non-argumentative             37                 38       75
+__all__                      340                146      486

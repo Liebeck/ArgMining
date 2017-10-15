@@ -1,0 +1,9 @@
+Micro-averaged F1: 0.5693663016684146
+Individual scores: [ 0.52459016  0.51082251  0.67268623]
+Confusion matrix:
+Predicted      Claim  MajorPosition  Premise  __all__
+Actual                                               
+Claim             32              9       28       69
+MajorPosition      4             59       47      110
+Premise           17             53      149      219
+__all__           53            121      224      398
