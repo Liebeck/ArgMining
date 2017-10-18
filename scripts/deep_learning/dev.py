@@ -33,10 +33,13 @@ if __name__ == '__main__':
     X_train, Y_train, train_unique_ids, Y_train_indices = load_dataset(train_path, word_to_index_mapping,
                                                                        arguments.subtask,
                                                                        arguments.padding_length)
+
     X_test, Y_test, test_unique_ids, Y_test_indices = load_dataset(test_path, word_to_index_mapping, arguments.subtask,
                                                                    arguments.padding_length)
     print(X_train)
     print(X_train.shape)
+    print(Y_train)
+    print(Y_train.shape)
 
     model = lstm.lstm_embedding_empty(number_of_classes)
 
