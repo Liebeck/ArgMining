@@ -31,12 +31,8 @@ def load_dataset(file_path, word_to_index_mapping, subtask, max_length=20):
     # print(type(sentences[0]))
     X = sequence.pad_sequences([item.tokens for item in sentences], maxlen=max_length)
     map_class_numeric = map_class_numeric_A if subtask == 'A' else map_class_numeric_B
-    print(map_class_numeric)
-    Y = [map_class_numeric[item.label] for item in sentences]
-    print(set(Y))
-    print(len(set(Y)))
-    # Y = to_categorical(np.array(Y), len(set(Y))) # Keras needs one hot encoded input vectors instead of strings
-    print(Y)
+    Y = [map_class_numeric[item.label] for item in sentences] # replace string label with index
+    Y = to_categorical(np.array(Y), len(set(Y))) # one hot encoded label vector for cross entropy
     unique_ids = [item.uniqueID for item in sentences]
     logger.info('Parsed {} sentences'.format(len(sentences)))
     return X, Y, unique_ids

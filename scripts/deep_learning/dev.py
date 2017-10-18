@@ -31,30 +31,37 @@ if __name__ == '__main__':
     print(X_train.shape)
 
     from keras.models import Sequential
-    from keras.layers import Dense, Embedding
+    from keras.layers import Dense, Embedding, Activation
     from keras.layers import LSTM
+    # from keras.layers.core import Activation
 
     max_features = 20000
+    number_of_classes = 2 if arguments.subtask == 'A' else 3
     batch_size = 32
     model = Sequential()
     model.add(Embedding(max_features, 128))
     model.add(LSTM(128, dropout=0.2, recurrent_dropout=0.2))
     model.add(Dense(1, activation='sigmoid'))
-    model.compile(loss='binary_crossentropy',
+    model.add(Dense(number_of_classes))
+    model.add(Activation('softmax'))
+    model.compile(loss='categorical_crossentropy',
+                # loss='binary_crossentropy',
                   optimizer='adam',
                   metrics=['accuracy'])
 
     print('Train...')
     model.fit(X_train, Y_train,
               batch_size=batch_size,
-              epochs=15,
+              epochs=5,
               verbose=1,
               validation_data=(X_test, Y_test))
     score, acc = model.evaluate(X_test, Y_test, batch_size=batch_size)
+
+    y_prediction = model.predict(X_test, batch_size=batch_size)
+    predicted_classes = np.argmax(y_prediction, axis=1)
+    print(predicted_classes)
+    print()
     print('Test score:', score)
     print('Test accuracy:', acc)
-
-    # print(y)
-    # get list of list of indizes, apply padding
     logger.info("Total execution time in %0.3fs" % (time.time() - t0))
     logger.info("*****************************************")
