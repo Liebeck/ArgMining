@@ -1,11 +1,42 @@
 #!/usr/bin/env python
 # -*- coding: UTF-8 -*-
-from argmining.models.thf_sentence_deep_learning import THFSentenceDeepLearning
+from argminingdeeplearning.models.thf_sentence_deep_learning import THFSentenceDeepLearning
 import logging
 import json
 from keras.preprocessing import sequence
 
 logger = logging.getLogger()
+
+def load_dataset(file_path, word_to_index_mapping, max_length=20):
+
+    logger.debug(u'Parsing JSON File: {}'.format(file_path))
+    sentences = []
+    with open(file_path, encoding='utf-8') as data_file:
+         data = json.load(data_file)
+         for sentence in data:
+             sentence_tokens = sentence["NLP"]["tokens"]
+             label = sentence["Label"]
+             if label == 'ClaimContra' or label == 'ClaimPro':
+                 label = 'Claim'
+             tokens = load_tokens(sentence_tokens, word_to_index_mapping)
+             sentence_model = THFSentenceDeepLearning(sentence["UniqueID"], label, sentence["Text"], tokens)
+             sentences.append(sentence_model)
+    print(type(sentences))
+    print(type(sentences[0]))
+    X = sequence.pad_sequences([item.tokens for item in sentences], maxlen=max_length)
+    Y = [item.label for item in sentences]
+    unique_ids = [item.uniqueID for item in sentences]
+    logger.info('Parsed {} sentences'.format(len(sentences)))
+    return X, Y, unique_ids
+
+
+def load_tokens(sentence_tokens, word_to_index_mapping):
+    token_indizes = []
+    for token in sentence_tokens:
+        word = token['text'].lower()
+        token_indizes.append(word_to_index_mapping.get(word, 1))
+    return token_indizes
+
 
 # def load_dataset(file_path, max_length=20, word_to_index_mapping=None, index_to_embedding_mapping=None):
     #if not word_to_index_mapping and not index_to_embedding_mapping:
