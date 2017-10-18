@@ -4,10 +4,16 @@ from argminingdeeplearning.models.thf_sentence_deep_learning import THFSentenceD
 import logging
 import json
 from keras.preprocessing import sequence
+from keras.utils.np_utils import to_categorical
+import numpy as np
+
+# Map string labels to integers for Keras
+map_class_numeric_A = {'argumentative': 0, 'non-argumentative': 1}
+map_class_numeric_B = {'MajorPosition': 0, 'Claim': 1, 'Premise': 2}
 
 logger = logging.getLogger()
 
-def load_dataset(file_path, word_to_index_mapping, max_length=20):
+def load_dataset(file_path, word_to_index_mapping, subtask, max_length=20):
 
     logger.debug(u'Parsing JSON File: {}'.format(file_path))
     sentences = []
@@ -21,10 +27,16 @@ def load_dataset(file_path, word_to_index_mapping, max_length=20):
              tokens = load_tokens(sentence_tokens, word_to_index_mapping)
              sentence_model = THFSentenceDeepLearning(sentence["UniqueID"], label, sentence["Text"], tokens)
              sentences.append(sentence_model)
-    print(type(sentences))
-    print(type(sentences[0]))
+    # print(type(sentences))
+    # print(type(sentences[0]))
     X = sequence.pad_sequences([item.tokens for item in sentences], maxlen=max_length)
-    Y = [item.label for item in sentences]
+    map_class_numeric = map_class_numeric_A if subtask == 'A' else map_class_numeric_B
+    print(map_class_numeric)
+    Y = [map_class_numeric[item.label] for item in sentences]
+    print(set(Y))
+    print(len(set(Y)))
+    # Y = to_categorical(np.array(Y), len(set(Y))) # Keras needs one hot encoded input vectors instead of strings
+    print(Y)
     unique_ids = [item.uniqueID for item in sentences]
     logger.info('Parsed {} sentences'.format(len(sentences)))
     return X, Y, unique_ids

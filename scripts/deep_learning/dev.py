@@ -23,15 +23,17 @@ if __name__ == '__main__':
     train_path = 'data/THF/sentence/subtask{}_v3_train.json'.format(arguments.subtask)
     test_path = 'data/THF/sentence/subtask{}_v3_test.json'.format(arguments.subtask)
     word_to_index_mapping, index_to_embedding_maping = vocabulary_builder.create_mappings(train_path)
-    X_train, Y_train, train_unique_ids = load_dataset(train_path, word_to_index_mapping, arguments.padding_length)
-    X_test, Y_test, test_unique_ids = load_dataset(test_path, word_to_index_mapping, arguments.padding_length)
+    X_train, Y_train, train_unique_ids = load_dataset(train_path, word_to_index_mapping, arguments.subtask,
+                                                      arguments.padding_length)
+    X_test, Y_test, test_unique_ids = load_dataset(test_path, word_to_index_mapping, arguments.subtask,
+                                                   arguments.padding_length)
     print(X_train)
     print(X_train.shape)
-
 
     from keras.models import Sequential
     from keras.layers import Dense, Embedding
     from keras.layers import LSTM
+
     max_features = 20000
     batch_size = 32
     model = Sequential()
@@ -56,4 +58,3 @@ if __name__ == '__main__':
     # get list of list of indizes, apply padding
     logger.info("Total execution time in %0.3fs" % (time.time() - t0))
     logger.info("*****************************************")
-
