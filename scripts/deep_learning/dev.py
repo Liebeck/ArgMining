@@ -4,6 +4,7 @@ import argparse
 import logging
 import time
 import numpy as np
+from argminingdeeplearning.keras_models import lstm
 
 
 def config_argparser():
@@ -24,6 +25,7 @@ if __name__ == '__main__':
     arguments = config_argparser()
     train_path = 'data/THF/sentence/subtask{}_v3_train.json'.format(arguments.subtask)
     test_path = 'data/THF/sentence/subtask{}_v3_test.json'.format(arguments.subtask)
+    number_of_classes = 2 if arguments.subtask == 'A' else 3
     word_to_index_mapping, index_to_embedding_maping = vocabulary_builder.create_mappings(train_path)
     X_train, Y_train, train_unique_ids = load_dataset(train_path, word_to_index_mapping, arguments.subtask,
                                                       arguments.padding_length)
@@ -32,23 +34,7 @@ if __name__ == '__main__':
     print(X_train)
     print(X_train.shape)
 
-    from keras.models import Sequential
-    from keras.layers import Dense, Embedding, Activation
-    from keras.layers import LSTM
-    # from keras.layers.core import Activation
-
-    max_features = 20000
-    number_of_classes = 2 if arguments.subtask == 'A' else 3
-    model = Sequential()
-    model.add(Embedding(max_features, 128))
-    model.add(LSTM(128, dropout=0.2, recurrent_dropout=0.2))
-    model.add(Dense(1, activation='sigmoid'))
-    model.add(Dense(number_of_classes))
-    model.add(Activation('softmax'))
-    model.compile(loss='categorical_crossentropy',
-                # loss='binary_crossentropy',
-                  optimizer='adam',
-                  metrics=['accuracy'])
+    model = lstm.lstm_embedding_empty(number_of_classes)
 
     print('Train...')
     model.fit(X_train, Y_train,
