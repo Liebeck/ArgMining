@@ -5,8 +5,8 @@ import logging
 import time
 import numpy as np
 from argminingdeeplearning.keras_models import lstm
-from sklearn.metrics import confusion_matrix
 from sklearn.metrics import f1_score
+from pandas_confusion import ConfusionMatrix
 
 
 def config_argparser():
@@ -64,8 +64,7 @@ if __name__ == '__main__':
     print("Micro-averaged F1: {}".format(f1_mean))
     print("Individual scores: {}".format(f1))
     print("Confusion matrix:")
-    print(confusion_matrix(Y_test_indices, y_prediction_classes))
-
+    print(ConfusionMatrix(Y_test_indices, y_prediction_classes))
 
 
     output_path_base = 'results/sentence_deeplearning/temp/{}_{}_{}'.format(arguments.subtask,
