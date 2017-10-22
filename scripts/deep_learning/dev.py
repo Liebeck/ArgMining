@@ -9,7 +9,6 @@ from sklearn.metrics import f1_score
 from pandas_confusion import ConfusionMatrix
 
 
-
 def config_argparser():
     argparser = argparse.ArgumentParser(description='ArgMining Deep Learning')
     argparser.add_argument('-subtask', type=str, required=True, help='Name of the subtask')
@@ -30,7 +29,7 @@ if __name__ == '__main__':
     train_path = 'data/THF/sentence/subtask{}_v3_train.json'.format(arguments.subtask)
     test_path = 'data/THF/sentence/subtask{}_v3_test.json'.format(arguments.subtask)
     number_of_classes = 2 if arguments.subtask == 'A' else 3
-    word_to_index_mapping, index_to_embedding_maping = vocabulary_builder.create_mappings(train_path)
+    word_to_index_mapping, index_to_embedding_mapping = vocabulary_builder.create_mappings(train_path)
     X_train, Y_train, train_unique_ids, Y_train_indices = load_dataset(train_path, word_to_index_mapping,
                                                                        arguments.subtask,
                                                                        arguments.padding_length)
@@ -66,7 +65,6 @@ if __name__ == '__main__':
     print("Individual scores: {}".format(f1))
     print("Confusion matrix:")
     print(ConfusionMatrix(Y_test_indices, y_prediction_classes))
-
 
     output_path_base = 'results/sentence_deeplearning/temp/{}_{}_{}'.format(arguments.subtask,
                                                                             arguments.kerasmodel,
