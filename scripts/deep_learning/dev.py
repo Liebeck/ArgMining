@@ -84,7 +84,7 @@ if __name__ == '__main__':
 
     f1 = f1_score(Y_test_indices, y_prediction_classes, average=None)
     f1_mean = np.mean(f1)
-    logger.info("Micro-averaged F1: {}".format(f1_mean))
+    logger.info("Macro-averaged F1: {}".format(f1_mean))
     logger.info("Individual scores: {}".format(f1))
     logger.info("Confusion matrix:")
     logger.info(ConfusionMatrix(Y_test_indices, y_prediction_classes))

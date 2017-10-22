@@ -112,7 +112,7 @@ if __name__ == '__main__':
     # 10) Print score and the confusion matrix
     f1 = f1_score(y_test, y_prediction, average=None)
     f1_mean = np.mean(f1)
-    logger.info("Micro-averaged F1: {}".format(f1_mean))
+    logger.info("Macro-averaged F1: {}".format(f1_mean))
     logger.info("Individual scores: {}".format(f1))
     logger.info("Confusion matrix:")
     logger.info(ConfusionMatrix(y_test, y_prediction))
