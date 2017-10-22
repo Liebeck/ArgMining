@@ -32,20 +32,23 @@ def create_word_to_index_mapping(word_frequencies):
 
 
 def create_index_to_embedding_mapping(word_to_index_mapping, word_to_embedding_cache):
-    index_to_embedding = {}
-    embedding_length = len(next(iter(word_to_embedding_cache.values())))  # length of first key in the embedding cache
-    index_to_embedding[0] = [0.0] * embedding_length  # create empty vector as the padding vector, set to [0]
+    index_to_embedding_mapping = {}
+    embedding_length = len(word_to_embedding_cache[next(iter(word_to_index_mapping))])
+    index_to_embedding_mapping[0] = [0.0] * embedding_length  # create empty vector as the padding vector, set to [0]
     oov_vector = np.random.rand(embedding_length)  # create oov vector random, set to [1]
-    print(oov_vector)
-    index_to_embedding[1] = oov_vector
-    for index, word in word_to_index_mapping.items():
+    # print(oov_vector)
+    index_to_embedding_mapping[1] = oov_vector
+    # print('sport' in word_to_embedding_cache)
+    # print(word_to_embedding_cache['sport'])
+    for word, index in word_to_index_mapping.items():
         if index == 0 or index == 1:
             continue
-            if word_to_embedding_cache[word]:
-                index_to_embedding[index] = word_to_embedding_cache[word]
-            else:
-                index_to_embedding[index] = oov_vector
-    return index_to_embedding
+        # if word in word_to_embedding_cache:
+        if word_to_embedding_cache[word] is None:
+            index_to_embedding_mapping[index] = oov_vector
+        else:
+            index_to_embedding_mapping[index] = word_to_embedding_cache[word]
+    return index_to_embedding_mapping
 
 
 def create_mappings(file_path, word_to_embedding_cache):

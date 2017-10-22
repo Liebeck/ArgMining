@@ -35,7 +35,7 @@ def config_argparser():
 if __name__ == '__main__':
     t0 = time.time()
     time_string = time.strftime('%Y%m%d_%H%M%S')
-    config_logger(log_level=logging.DEBUG)
+    config_logger(log_level=logging.INFO)
     logger = logging.getLogger()
     np.random.seed(14021993)
     arguments = config_argparser()
@@ -47,22 +47,25 @@ if __name__ == '__main__':
         embedding_cache_path = 'data/embedding_cache/{}'.format(arguments.embedding_cache_name)
         logger.info('Loading embedding cache: {}'.format(embedding_cache_path))
         embedding_cache = pickle.load(open(embedding_cache_path, "rb"))
+        # print(embedding_cache)
         logger.info('Embedding cache loaded')
-    logger.info('Create mapping')
+    logger.debug('Create mapping')
     word_to_index_mapping, index_to_embedding_mapping = vocabulary_builder.create_mappings(train_path, embedding_cache)
-    logger.info('Loading train and test set')
+    logger.debug('Loading train and test set')
     X_train, Y_train, train_unique_ids, Y_train_indices = load_dataset(train_path, word_to_index_mapping,
                                                                        arguments.subtask,
                                                                        arguments.padding_length)
 
     X_test, Y_test, test_unique_ids, Y_test_indices = load_dataset(test_path, word_to_index_mapping, arguments.subtask,
                                                                    arguments.padding_length)
-    logger.info(X_train)
-    logger.info(X_train.shape)
-    logger.info(Y_train)
-    logger.info(Y_train.shape)
+    # logger.info(X_train)
+    # logger.info(X_train.shape)
+    # logger.info(Y_train)
+    # logger.info(Y_train.shape)
 
-    model = lstm.lstm_embedding_empty(number_of_classes)
+    # model = lstm.lstm_embedding_empty(number_of_classes)
+    model = lstm.lstm_embedding_pretrained(number_of_classes, index_to_embedding_mapping,
+                                           input_length=arguments.padding_length)
 
     logger.info('Train...')
     model.fit(X_train, Y_train,
@@ -76,9 +79,8 @@ if __name__ == '__main__':
 
     y_prediction_classes = np.argmax(y_prediction, axis=1)
     logger.info(y_prediction_classes)
-    logger.info()
-    logger.info('Test score:', score)
-    logger.info('Test accuracy:', acc)
+    logger.info('Test score: {}'.format(score))
+    logger.info('Test accuracy: {}'.format(acc))
 
     f1 = f1_score(Y_test_indices, y_prediction_classes, average=None)
     f1_mean = np.mean(f1)

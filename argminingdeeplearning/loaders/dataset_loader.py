@@ -34,7 +34,7 @@ def load_dataset(file_path, word_to_index_mapping, subtask, max_length=20):
     Y_indices = [map_class_numeric[item.label] for item in sentences]  # replace string label with index
     Y = to_categorical(np.array(Y_indices), len(set(Y_indices)))  # one hot encoded label vector for cross entropy
     unique_ids = [item.uniqueID for item in sentences]
-    logger.info('Parsed {} sentences'.format(len(sentences)))
+    logger.debug('Parsed {} sentences'.format(len(sentences)))
     return X, Y, unique_ids, Y_indices
 
 
