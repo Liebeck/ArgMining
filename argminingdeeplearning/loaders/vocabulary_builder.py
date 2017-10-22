@@ -3,8 +3,8 @@ import json
 import operator
 from collections import OrderedDict
 
-
 logger = logging.getLogger()
+
 
 def get_word_frequencies(file_path):
     logger.debug(u'Parsing JSON File: {}'.format(file_path))
@@ -30,6 +30,7 @@ def create_word_to_index_mapping(word_frequencies):
         index += 1
     return word_to_index_mapping
 
+
 def create_index_to_embedding_mapping(word_to_index_mapping, embedding_type='word2vec', dimensionality=100):
     index_to_embedding = {}
     # create empty vector, set to [0]
@@ -42,10 +43,8 @@ def create_index_to_embedding_mapping(word_to_index_mapping, embedding_type='wor
     return index_to_embedding
 
 
-
 def create_mappings(file_path):
     word_frequencies = get_word_frequencies(file_path)
     word_to_index_mapping = create_word_to_index_mapping(word_frequencies)
     index_to_embedding_maping = None
     return word_to_index_mapping, index_to_embedding_maping
-

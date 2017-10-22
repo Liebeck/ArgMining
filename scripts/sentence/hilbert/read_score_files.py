@@ -279,8 +279,10 @@ def filter_fasttext_results(finished_evaluations, subtask, classifier, ngram_siz
     filtered = []
     for result in finished_evaluations:
         # print(ngram_size)
-        if result['subtask'] == subtask and result['classifier'] == classifier and result[
-            'strategy'] == 'character_embeddings_centroid_100' and '-fasttext_path' in result['other_params']:
+        if result['subtask'] == subtask \
+                and result['classifier'] == classifier \
+                and result['strategy'] == 'character_embeddings_centroid_100' \
+                and '-fasttext_path' in result['other_params']:
             index = tuple(result['other_params']).index('-fasttext_path') + 1
             # print(result['other_params'])
             if ngram_size in result['other_params'][index]:

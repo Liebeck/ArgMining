@@ -4,7 +4,7 @@ import gensim
 import logging
 import pickle
 from gensim.models.wrappers.fasttext import FastText as FT_wrapper
-# from gensim.models.fasttext import FastText as FT_gensim
+
 
 # The usage of an embedding cache is inspired by https://github.com/UKPLab/argument-reasoning-comprehension-task/
 
@@ -50,7 +50,6 @@ def reduce_fasttext_embedding(fasttext_path, words):
 if __name__ == '__main__':
     logger = logging.getLogger()
     arguments = config_argparser()
-
     subtask_A_train_path = 'data/THF/sentence/subtaskA_v3_train.json'
     subtask_B_train_path = 'data/THF/sentence/subtaskB_v3_train.json'
     words_A = list(vocabulary_builder.get_word_frequencies(subtask_A_train_path).keys())
