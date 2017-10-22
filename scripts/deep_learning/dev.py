@@ -7,6 +7,16 @@ import numpy as np
 from argminingdeeplearning.keras_models import lstm
 from sklearn.metrics import f1_score
 from pandas_confusion import ConfusionMatrix
+import pickle
+import sys
+
+
+def config_logger(log_level=logging.INFO):
+    logger = logging.getLogger('')
+    handler = logging.StreamHandler(sys.stdout)
+    handler.setFormatter(logging.Formatter('%(asctime)s  %(message)s', datefmt='%Y-%m-%d %H:%M:%S'))
+    logger.addHandler(handler)
+    logger.setLevel(log_level)
 
 
 def config_argparser():
@@ -16,6 +26,7 @@ def config_argparser():
     argparser.add_argument('-padding_length', type=int, help='Padding length of each input sequence', default=20)
     argparser.add_argument('-batch_size', type=int, default=32)
     argparser.add_argument('-epochs', type=int, default=5)
+    argparser.add_argument('-embedding_cache_name', type=str, default=None)
     # argparser.add_argument('-hilbert', dest='hilbert', action='store_true')
     # argparser.set_defaults(hilbert=False)
     return argparser.parse_args()
@@ -24,26 +35,35 @@ def config_argparser():
 if __name__ == '__main__':
     t0 = time.time()
     time_string = time.strftime('%Y%m%d_%H%M%S')
+    config_logger(log_level=logging.DEBUG)
     logger = logging.getLogger()
     arguments = config_argparser()
     train_path = 'data/THF/sentence/subtask{}_v3_train.json'.format(arguments.subtask)
     test_path = 'data/THF/sentence/subtask{}_v3_test.json'.format(arguments.subtask)
     number_of_classes = 2 if arguments.subtask == 'A' else 3
+    embedding_cache = None
+    if arguments.embedding_cache_name:
+        embedding_cache_path = 'data/embedding_cache/{}'.format(arguments.embedding_cache_name)
+        logger.info('Loading embedding cache: {}'.format(embedding_cache_path))
+        embedding_cache = pickle.load(open(embedding_cache_path, "rb"))
+        logger.info('Embedding cache loaded')
+    logger.info('Create mapping')
     word_to_index_mapping, index_to_embedding_mapping = vocabulary_builder.create_mappings(train_path)
+    logger.info('Loading train and test set')
     X_train, Y_train, train_unique_ids, Y_train_indices = load_dataset(train_path, word_to_index_mapping,
                                                                        arguments.subtask,
                                                                        arguments.padding_length)
 
     X_test, Y_test, test_unique_ids, Y_test_indices = load_dataset(test_path, word_to_index_mapping, arguments.subtask,
                                                                    arguments.padding_length)
-    print(X_train)
-    print(X_train.shape)
-    print(Y_train)
-    print(Y_train.shape)
+    logger.info(X_train)
+    logger.info(X_train.shape)
+    logger.info(Y_train)
+    logger.info(Y_train.shape)
 
     model = lstm.lstm_embedding_empty(number_of_classes)
 
-    print('Train...')
+    logger.info('Train...')
     model.fit(X_train, Y_train,
               batch_size=arguments.batch_size,
               epochs=arguments.epochs,
@@ -54,17 +74,17 @@ if __name__ == '__main__':
     y_prediction = model.predict(X_test, batch_size=arguments.batch_size)
 
     y_prediction_classes = np.argmax(y_prediction, axis=1)
-    print(y_prediction_classes)
-    print()
-    print('Test score:', score)
-    print('Test accuracy:', acc)
+    logger.info(y_prediction_classes)
+    logger.info()
+    logger.info('Test score:', score)
+    logger.info('Test accuracy:', acc)
 
     f1 = f1_score(Y_test_indices, y_prediction_classes, average=None)
     f1_mean = np.mean(f1)
-    print("Micro-averaged F1: {}".format(f1_mean))
-    print("Individual scores: {}".format(f1))
-    print("Confusion matrix:")
-    print(ConfusionMatrix(Y_test_indices, y_prediction_classes))
+    logger.info("Micro-averaged F1: {}".format(f1_mean))
+    logger.info("Individual scores: {}".format(f1))
+    logger.info("Confusion matrix:")
+    logger.info(ConfusionMatrix(Y_test_indices, y_prediction_classes))
 
     output_path_base = 'results/sentence_deeplearning/temp/{}_{}_{}'.format(arguments.subtask,
                                                                             arguments.kerasmodel,

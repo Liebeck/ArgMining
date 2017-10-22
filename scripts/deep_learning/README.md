@@ -3,6 +3,7 @@
 Local
 ``` bash
 python3 scripts/deep_learning/dev.py -subtask A -padding_length 20
+python3 scripts/deep_learning/dev.py -subtask A -padding_length 20 -embedding_cache_name word2vec_wiki_de_20170501_300-reduced
 ```
 
 # create_embedding_cache
