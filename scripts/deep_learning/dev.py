@@ -37,6 +37,7 @@ if __name__ == '__main__':
     time_string = time.strftime('%Y%m%d_%H%M%S')
     config_logger(log_level=logging.DEBUG)
     logger = logging.getLogger()
+    np.random.seed(14021993)
     arguments = config_argparser()
     train_path = 'data/THF/sentence/subtask{}_v3_train.json'.format(arguments.subtask)
     test_path = 'data/THF/sentence/subtask{}_v3_test.json'.format(arguments.subtask)
@@ -48,7 +49,7 @@ if __name__ == '__main__':
         embedding_cache = pickle.load(open(embedding_cache_path, "rb"))
         logger.info('Embedding cache loaded')
     logger.info('Create mapping')
-    word_to_index_mapping, index_to_embedding_mapping = vocabulary_builder.create_mappings(train_path)
+    word_to_index_mapping, index_to_embedding_mapping = vocabulary_builder.create_mappings(train_path, embedding_cache)
     logger.info('Loading train and test set')
     X_train, Y_train, train_unique_ids, Y_train_indices = load_dataset(train_path, word_to_index_mapping,
                                                                        arguments.subtask,

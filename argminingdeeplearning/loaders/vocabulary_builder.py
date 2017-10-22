@@ -1,7 +1,7 @@
 import logging
 import json
-import operator
 from collections import OrderedDict
+import numpy as np
 
 logger = logging.getLogger()
 
@@ -31,20 +31,25 @@ def create_word_to_index_mapping(word_frequencies):
     return word_to_index_mapping
 
 
-def create_index_to_embedding_mapping(word_to_index_mapping, embedding_type='word2vec', dimensionality=100):
+def create_index_to_embedding_mapping(word_to_index_mapping, word_to_embedding_cache):
     index_to_embedding = {}
-    # create empty vector, set to [0]
-    # create oov vector random, set to [1]
-
+    embedding_length = len(next(iter(word_to_embedding_cache.values())))  # length of first key in the embedding cache
+    index_to_embedding[0] = [0.0] * embedding_length  # create empty vector as the padding vector, set to [0]
+    oov_vector = np.random.rand(embedding_length)  # create oov vector random, set to [1]
+    print(oov_vector)
+    index_to_embedding[1] = oov_vector
     for index, word in word_to_index_mapping.items():
         if index == 0 or index == 1:
             continue
-        index_to_embedding[index] = None
+            if word_to_embedding_cache[word]:
+                index_to_embedding[index] = word_to_embedding_cache[word]
+            else:
+                index_to_embedding[index] = oov_vector
     return index_to_embedding
 
 
-def create_mappings(file_path):
+def create_mappings(file_path, word_to_embedding_cache):
     word_frequencies = get_word_frequencies(file_path)
     word_to_index_mapping = create_word_to_index_mapping(word_frequencies)
-    index_to_embedding_maping = None
+    index_to_embedding_maping = create_index_to_embedding_mapping(word_to_index_mapping, word_to_embedding_cache)
     return word_to_index_mapping, index_to_embedding_maping
