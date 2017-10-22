@@ -9,6 +9,7 @@ from sklearn.metrics import f1_score
 from pandas_confusion import ConfusionMatrix
 
 
+
 def config_argparser():
     argparser = argparse.ArgumentParser(description='ArgMining Deep Learning')
     argparser.add_argument('-subtask', type=str, required=True, help='Name of the subtask')
@@ -81,7 +82,7 @@ if __name__ == '__main__':
         score_handler.write("Micro-averaged F1: {}\n".format(f1_mean))
         score_handler.write("Individual scores: {}\n".format(f1))
         score_handler.write("Confusion matrix:\n")
-        score_handler.write(str(confusion_matrix(Y_test_indices, y_prediction_classes)))
+        score_handler.write(str(ConfusionMatrix(Y_test_indices, y_prediction_classes)))
 
     print("Total execution time in %0.3fs" % (time.time() - t0))
     print("*****************************************")
