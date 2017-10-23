@@ -64,8 +64,11 @@ if __name__ == '__main__':
     # logger.info(Y_train.shape)
 
     # model = lstm.lstm_embedding_empty(number_of_classes)
-    model = lstm.lstm_embedding_pretrained(number_of_classes, index_to_embedding_mapping,
-                                           input_length=arguments.padding_length)
+    # model = lstm.lstm_embedding_pretrained(number_of_classes, index_to_embedding_mapping,
+                                           # input_length=arguments.padding_length)
+    # model = lstm.lstm_embedding_pretrained_test(number_of_classes, index_to_embedding_mapping,
+                                                # input_length=arguments.padding_length)
+    model = lstm.blstm(number_of_classes, index_to_embedding_mapping,input_length=arguments.padding_length)
 
     logger.info('Train...')
     model.fit(X_train, Y_train,
