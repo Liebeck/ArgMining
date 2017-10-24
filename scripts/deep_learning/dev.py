@@ -36,7 +36,6 @@ def config_argparser():
 
 if __name__ == '__main__':
     t0 = time.time()
-    time_string = time.strftime('%Y%m%d_%H%M%S')
     config_logger(log_level=logging.INFO)
     logger = logging.getLogger()
     np.random.seed(14021993)
@@ -75,9 +74,10 @@ if __name__ == '__main__':
 
     # Step 3) Train the model
     logger.info('Train...')
+    current_time = time.strftime('%Y%m%d_%H%M%S')
     model_save_path = 'results/sentence_deeplearning/temp/{}_{}_{}'.format(arguments.subtask, arguments.kerasmodel,
-                                                                           time.strftime('%Y%m%d_%H%M%S'))
-    checkpoint_save_path = model_save_path + "{epoch:03d}-{val_acc:.4f}.hdf5"
+                                                                           current_time)
+    checkpoint_save_path = model_save_path + "_best.hdf5"
     checkpoint = ModelCheckpoint(checkpoint_save_path,
                                  monitor='val_acc', verbose=1,
                                  save_best_only=True, mode='auto')
@@ -107,7 +107,7 @@ if __name__ == '__main__':
 
     output_path_base = 'results/sentence_deeplearning/temp/{}_{}_{}'.format(arguments.subtask,
                                                                             arguments.kerasmodel,
-                                                                            time_string)
+                                                                            current_time)
 
     # Step 7) Print results to the file system
     utils.write_prediction_file(path=output_path_base + '.predictions', test_unique_ids=test_unique_ids,
