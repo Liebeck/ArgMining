@@ -13,14 +13,14 @@ from argminingdeeplearning.keras_models import model_selector
 from keras.models import load_model
 
 
-def benchmark(config_parameters):
+def benchmark(subtask, config_parameters):
     t0 = time.time()
     logger = logging.getLogger()
     np.random.seed(14021993)
     # Step 1) Load dataset
-    train_path = 'data/THF/sentence/subtask{}_v3_train.json'.format(config_parameters['subtask'])
-    test_path = 'data/THF/sentence/subtask{}_v3_test.json'.format(config_parameters['subtask'])
-    number_of_classes = 2 if config_parameters['subtask'] == 'A' else 3
+    train_path = 'data/THF/sentence/subtask{}_v3_train.json'.format(subtask)
+    test_path = 'data/THF/sentence/subtask{}_v3_test.json'.format(subtask)
+    number_of_classes = 2 if subtask == 'A' else 3
     # config_parameters['number_of_classes'] = number_of_classes
     embedding_cache = None
     if config_parameters['embeddings_cache_name']:
@@ -32,11 +32,11 @@ def benchmark(config_parameters):
     word_to_index_mapping, index_to_embedding_mapping = vocabulary_builder.create_mappings(train_path, embedding_cache)
     logger.debug('Loading train and test set')
     X_train, Y_train, train_unique_ids, Y_train_indices = load_dataset(train_path, word_to_index_mapping,
-                                                                       config_parameters['subtask'],
+                                                                       subtask,
                                                                        config_parameters['padding_length'])
 
     X_test, Y_test, test_unique_ids, Y_test_indices = load_dataset(test_path, word_to_index_mapping,
-                                                                   config_parameters['subtask'],
+                                                                   subtask,
                                                                    config_parameters['padding_length'])
     # Step 2) Create model with parameters
     model_parameters = config_parameters['keras_model_parameters']
@@ -48,7 +48,7 @@ def benchmark(config_parameters):
     # Step 3) Train the model
     logger.info('Train...')
     current_time = time.strftime('%Y%m%d_%H%M%S')
-    model_save_path = 'results/sentence_deeplearning/temp/{}_{}_{}_{}'.format(config_parameters['subtask'],
+    model_save_path = 'results/sentence_deeplearning/temp/{}_{}_{}_{}'.format(subtask,
                                                                               config_parameters['keras_model_name'],
                                                                               config_parameters['evaluation_ID'],
                                                                               current_time)
@@ -88,7 +88,7 @@ def benchmark(config_parameters):
         logger.info("Confusion matrix:")
         logger.info(ConfusionMatrix(Y_test_indices, y_prediction_classes))
 
-        output_path_base = 'results/sentence_deeplearning/temp/{}_{}_{}_{}_{}'.format(config_parameters['subtask'],
+        output_path_base = 'results/sentence_deeplearning/temp/{}_{}_{}_{}_{}'.format(subtask,
                                                                                       config_parameters['keras_model_name'],
                                                                                       config_parameters['evaluation_ID'],
                                                                                       current_time,
