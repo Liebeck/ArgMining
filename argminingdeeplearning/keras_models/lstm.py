@@ -5,10 +5,10 @@ from theano.scalar import float32
 import numpy as np
 
 
-def lstm_embedding_empty(number_of_classes, max_features=7000, lstm_size=128, dropout=0.2):
+def lstm_embedding_empty(number_of_classes, max_features=7000, embedding_size=300, lstm_size=128, dropout=0.2):
     print('lstm_embedding_empty called')
     model = Sequential()
-    model.add(Embedding(max_features, lstm_size))
+    model.add(Embedding(max_features, embedding_size))
     model.add(LSTM(lstm_size, dropout=dropout, recurrent_dropout=0.2))
     model.add(Dense(number_of_classes))
     model.add(Activation('softmax'))
