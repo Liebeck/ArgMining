@@ -6,6 +6,7 @@
   "batch_size": 32,
   "evaluation_ID": 1,
   "keras_model_parameters": {
+    "embedding_size": 128,
     "max_features": 7000,
     "lstm_size": 128,
     "dropout": 0.2
