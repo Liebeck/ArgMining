@@ -54,7 +54,7 @@ def benchmark(config_parameters):
                                                                               current_time)
     checkpoint_save_path = model_save_path + "_best.hdf5"
     checkpoint = ModelCheckpoint(checkpoint_save_path,
-                                 monitor='val_acc', verbose=1,
+                                 monitor='val_acc', verbose=0,
                                  save_best_only=True, mode='auto')
     model.fit(X_train, Y_train,
               batch_size=config_parameters['batch_size'],
