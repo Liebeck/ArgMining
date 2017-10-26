@@ -50,7 +50,7 @@ def benchmark(subtask, config_parameters):
     current_time = time.strftime('%Y%m%d_%H%M%S')
     model_save_path = 'results/sentence_deeplearning/temp/{}_{}_{}_{}'.format(subtask,
                                                                               config_parameters['keras_model_name'],
-                                                                              config_parameters['evaluation_ID'],
+                                                                              '{:03}'.format(config_parameters['evaluation_ID']),
                                                                               current_time)
     checkpoint_save_path = model_save_path + "_best.hdf5"
     checkpoint = ModelCheckpoint(checkpoint_save_path,
@@ -90,7 +90,7 @@ def benchmark(subtask, config_parameters):
 
         output_path_base = 'results/sentence_deeplearning/temp/{}_{}_{}_{}_{}'.format(subtask,
                                                                                       config_parameters['keras_model_name'],
-                                                                                      config_parameters['evaluation_ID'],
+                                                                                      '{:03}'.format(config_parameters['evaluation_ID']),
                                                                                       current_time,
                                                                                       saved_model['name'])
 
