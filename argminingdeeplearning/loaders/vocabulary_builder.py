@@ -32,6 +32,8 @@ def create_word_to_index_mapping(word_frequencies):
 
 
 def create_index_to_embedding_mapping(word_to_index_mapping, word_to_embedding_cache):
+    if word_to_embedding_cache is None:
+        return None
     index_to_embedding_mapping = {}
     embedding_length = len(word_to_embedding_cache[next(iter(word_to_index_mapping))])
     index_to_embedding_mapping[0] = [0.0] * embedding_length  # create empty vector as the padding vector, set to [0]

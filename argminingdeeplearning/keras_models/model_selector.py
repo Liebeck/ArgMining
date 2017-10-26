@@ -7,5 +7,5 @@ model_map = {'lstm_embedding_empty': lstm.lstm_embedding_empty,
              }
 
 
-def get_model(name, parameters):
-    return model_map[name](**parameters)
+def get_model(name, number_of_classes, parameters):
+    return model_map[name](number_of_classes, **parameters)
