@@ -1,8 +1,8 @@
 from argminingdeeplearning.keras_models import lstm
 
-model_map = {'lstm_embedding_empty': lstm.lstm_embedding_empty,
-             'lstm_embedding_pretrained': lstm.lstm_embedding_pretrained,
-             'lstm_stacked': lstm.lst_stacked,
+model_map = {'lstm-embedding-empty': lstm.lstm_embedding_empty,
+             'lstm-embedding-pretrained': lstm.lstm_embedding_pretrained,
+             'lstm-stacked': lstm.lst_stacked,
              'blstm': lstm.blstm
              }
 
