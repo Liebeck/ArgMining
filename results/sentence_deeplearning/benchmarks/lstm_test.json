@@ -1,0 +1,14 @@
+{
+  "subtask": "A",
+  "keras_model_name": "lstm_embedding_empty",
+  "keras_model_paramters": 10,
+  "epochs": 10,
+  "embeddings_cache_name": "word2vec_wiki_de_20170501_300-reduced",
+  "padding_length": 20,
+  "batch_size": 32,
+  "keras_model_parameters": {
+    "max_features": 7000,
+    "lstm_size": 128,
+    "dropout": 0.2
+  }
+}
