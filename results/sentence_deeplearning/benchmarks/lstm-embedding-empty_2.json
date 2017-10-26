@@ -4,10 +4,10 @@
   "embeddings_cache_name": null,
   "padding_length": 20,
   "batch_size": 32,
-  "evaluation_ID": 1,
+  "evaluation_ID": 2,
   "keras_model_parameters": {
     "max_features": 7000,
     "lstm_size": 128,
-    "dropout": 0.2
+    "dropout": 0.4
   }
 }
