@@ -24,7 +24,6 @@ def config_logger(log_level=logging.INFO):
 def config_argparser():
     argparser = argparse.ArgumentParser(description='ArgMining Deep Learning')
     argparser.add_argument('-subtask', type=str, required=True, help='Name of the subtask')
-    argparser.add_argument('-kerasmodel', type=str, default='lstm')
     argparser.add_argument('-padding_length', type=int, help='Padding length of each input sequence', default=20)
     argparser.add_argument('-batch_size', type=int, default=32)
     argparser.add_argument('-epochs', type=int, default=5)
@@ -67,16 +66,15 @@ if __name__ == '__main__':
     # Step 2) Create model
     # model = lstm.lstm_embedding_empty(number_of_classes)
     # model = lstm.lstm_embedding_pretrained(number_of_classes, index_to_embedding_mapping,
-                                           # input_length=arguments.padding_length)
+    # input_length=arguments.padding_length)
     # model = lstm.lstm_embedding_pretrained_test(number_of_classes, index_to_embedding_mapping,
-                                                # input_length=arguments.padding_length)
+    # input_length=arguments.padding_length)
     model = lstm.blstm(number_of_classes, index_to_embedding_mapping, input_length=arguments.padding_length)
 
     # Step 3) Train the model
     logger.info('Train...')
     current_time = time.strftime('%Y%m%d_%H%M%S')
-    model_save_path = 'results/sentence_deeplearning/temp/{}_{}_{}'.format(arguments.subtask, arguments.kerasmodel,
-                                                                           current_time)
+    model_save_path = 'results/sentence_deeplearning/temp/{}_{}'.format(arguments.subtask, current_time)
     checkpoint_save_path = model_save_path + "_best.hdf5"
     checkpoint = ModelCheckpoint(checkpoint_save_path,
                                  monitor='val_acc', verbose=1,
@@ -105,9 +103,8 @@ if __name__ == '__main__':
     logger.info("Confusion matrix:")
     logger.info(ConfusionMatrix(Y_test_indices, y_prediction_classes))
 
-    output_path_base = 'results/sentence_deeplearning/temp/{}_{}_{}'.format(arguments.subtask,
-                                                                            arguments.kerasmodel,
-                                                                            current_time)
+    output_path_base = 'results/sentence_deeplearning/temp/{}_{}'.format(arguments.subtask,
+                                                                         current_time)
 
     # Step 7) Print results to the file system
     utils.write_prediction_file(path=output_path_base + '.predictions', test_unique_ids=test_unique_ids,
