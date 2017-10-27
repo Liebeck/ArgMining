@@ -27,5 +27,4 @@ if __name__ == '__main__':
     logger.info("Subtask {} with benchmarkfile: {}".format(arguments.subtask, arguments.configpath))
     with open(arguments.configpath) as data_file:
         config_parameters = json.load(data_file)
-        logger.info(config_parameters)
         benchmark.benchmark(arguments.subtask, config_parameters)
