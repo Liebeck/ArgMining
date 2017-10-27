@@ -31,7 +31,7 @@ def combine_parameters(offset, meta_parameters, model_parameters):
             parameters_iteration['evaluation_ID'] = offset
             offset = offset + 1
             parameters_iteration['keras_model_parameters'] = model_parameters
-            parameters.append(parameters_iteration)
+            parameters.append(OrderedDict(parameters_iteration))
     return parameters
 
 
@@ -101,8 +101,35 @@ def get_lstm_stacked(offset, keras_model_name='lstm-stacked'):
     return parameters
 
 
-# 'lstm-stacked': lstm.lst_stacked,
-# 'blstm': lstm.blstm
+def get_embedding_cnn(offset):
+    meta_parameters = OrderedDict([('keras_model_name', ['embedding_cnn']),
+                                   ('batch_size', [32]),
+                                   ('padding_length', [20]),
+                                   ('embeddings_cache_name', ['word2vec_wiki_de_20170501_300-reduced-both']),
+                                   ('epochs', [10, 20])])
+    model_parameters = OrderedDict([('filters', [250, 175, 100]),
+                                    ('padding_length', [20]),
+                                    ('kernel_size', [3, 5]),
+                                    ('dropout', [0.2, 0.5, 0.7, 0.8, 0.9])])
+    parameters = combine_parameters(offset, meta_parameters, model_parameters)
+    return parameters
+
+
+def get_embedding_cnn_lstm(offset):
+    meta_parameters = OrderedDict([('keras_model_name', ['embedding_cnn_lstm']),
+                                   ('batch_size', [32]),
+                                   ('padding_length', [20]),
+                                   ('embeddings_cache_name', ['word2vec_wiki_de_20170501_300-reduced-both']),
+                                   ('epochs', [10, 20])])
+    model_parameters = OrderedDict([('filters', [250, 175, 100]),
+                                    ('padding_length', [20]),
+                                    ('kernel_size', [3, 5]),
+                                    ('pool_size', [4]),
+                                    ('lstm_size_layer', [70, 128]),
+                                    ('dropout', [0.2, 0.5, 0.7, 0.9])])
+    parameters = combine_parameters(offset, meta_parameters, model_parameters)
+    return parameters
+
 
 if __name__ == '__main__':
     configs = []
@@ -110,6 +137,8 @@ if __name__ == '__main__':
     configs.extend(get_lstm_embedding_pretrained(offset=100))
     configs.extend(get_lstm_stacked(offset=200))
     configs.extend(get_lstm_stacked(offset=300, keras_model_name='blstm'))
+    configs.extend(get_embedding_cnn(offset=400))
+    configs.extend(get_embedding_cnn_lstm(offset=500))
     base_export_path = 'results/sentence_deeplearning/benchmarks'
     for config in configs:
         export_path = '{}/{}_{:03}.json'.format(base_export_path, config['keras_model_name'], config['evaluation_ID'])
