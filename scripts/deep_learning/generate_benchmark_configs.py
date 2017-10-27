@@ -18,7 +18,7 @@ def get_parameter_combinations(dictionary):
     return combination_parameters
 
 
-def get_lstm_embedding_empty(offset=1):
+def get_lstm_embedding_empty(offset):
     meta_parameters = OrderedDict([('keras_model_name', ['lstm-embedding-empty']),
                                    ('batch_size', [8, 32]),
                                    ('padding_length', [20]),
@@ -27,6 +27,18 @@ def get_lstm_embedding_empty(offset=1):
     model_parameters = OrderedDict([('max_features', [7335]),
                                     ('embedding_size', [128, 300]),
                                     ('dropout', [0.2, 0.4])])
+    parameters = combine_parameters(offset, meta_parameters, model_parameters)
+    return parameters
+
+def get_lstm_embedding_pretrained(offset):
+    meta_parameters = OrderedDict([('keras_model_name', ['lstm-embedding-pretrained']),
+                                   ('batch_size', [16, 32]),
+                                   ('padding_length', [20]),
+                                   ('embeddings_cache_name', ['word2vec_wiki_de_20170501_300-reduced-both']),
+                                   ('epochs', [10, 20])])
+    model_parameters = OrderedDict([('lstm_size', [128, 64]),
+                                    ('padding_length', [20]),
+                                    ('dropout', [0.2, 0.4, 0.8, 0.9])])
     parameters = combine_parameters(offset, meta_parameters, model_parameters)
     return parameters
 
@@ -52,6 +64,7 @@ def combine_parameters(offset, meta_parameters, model_parameters):
 if __name__ == '__main__':
     configs = []
     configs.extend(get_lstm_embedding_empty(offset=1))
+    configs.extend(get_lstm_embedding_pretrained(offset=100))
     base_export_path = 'results/sentence_deeplearning/benchmarks'
     for config in configs:
         export_path = '{}/{}_{:03}.json'.format(base_export_path, config['keras_model_name'], config['evaluation_ID'])
