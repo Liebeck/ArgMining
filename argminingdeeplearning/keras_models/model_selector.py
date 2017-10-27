@@ -1,9 +1,11 @@
 from argminingdeeplearning.keras_models import lstm
+from argminingdeeplearning.keras_models import cnn
 
 model_map = {'lstm-embedding-empty': lstm.lstm_embedding_empty,
              'lstm-embedding-pretrained': lstm.lstm_embedding_pretrained,
              'lstm-stacked': lstm.lst_stacked,
-             'blstm': lstm.blstm
+             'blstm': lstm.blstm,
+             'embedding_cnn': cnn.embedding_cnn
              }
 
 
