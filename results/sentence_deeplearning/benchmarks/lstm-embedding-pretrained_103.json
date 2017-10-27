@@ -1,13 +1,13 @@
 {
-  "embeddings_cache_name": "word2vec_wiki_de_20170501_300-reduced-both",
-  "evaluation_ID": 103,
-  "batch_size": 16,
-  "keras_model_name": "lstm-embedding-pretrained",
   "padding_length": 20,
+  "evaluation_ID": 103,
+  "epochs": 10,
+  "keras_model_name": "lstm-embedding-pretrained",
   "keras_model_parameters": {
     "padding_length": 20,
-    "dropout": 0.9,
-    "lstm_size": 128
+    "lstm_size": 128,
+    "dropout": 0.9
   },
-  "epochs": 10
+  "batch_size": 32,
+  "embeddings_cache_name": "word2vec_wiki_de_20170501_300-reduced-both"
 }

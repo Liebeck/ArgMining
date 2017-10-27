@@ -1,0 +1,14 @@
+{
+  "padding_length": 20,
+  "evaluation_ID": 205,
+  "epochs": 10,
+  "keras_model_name": "lstm-stacked",
+  "keras_model_parameters": {
+    "padding_length": 20,
+    "lstm_size_layer1": 128,
+    "lstm_size_layer2": 128,
+    "dropout": 0.9
+  },
+  "batch_size": 32,
+  "embeddings_cache_name": "word2vec_wiki_de_20170501_300-reduced-both"
+}

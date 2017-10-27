@@ -1,13 +1,13 @@
 {
-  "embeddings_cache_name": null,
-  "evaluation_ID": 6,
-  "batch_size": 32,
-  "keras_model_name": "lstm-embedding-empty",
   "padding_length": 20,
+  "epochs": 10,
   "keras_model_parameters": {
-    "max_features": 7335,
+    "embedding_size": 128,
     "dropout": 0.4,
-    "embedding_size": 128
+    "max_features": 7335
   },
-  "epochs": 10
+  "batch_size": 32,
+  "evaluation_ID": 6,
+  "embeddings_cache_name": null,
+  "keras_model_name": "lstm-embedding-empty"
 }
