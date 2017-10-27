@@ -24,7 +24,8 @@ if __name__ == '__main__':
     config_logger(log_level=logging.INFO)
     logger = logging.getLogger()
     arguments = config_argparser()
-    subtasks = ['A', 'B']
+    # subtasks = ['A', 'B']
+    subtasks = ['B']
     logger.info("Running benchmarks for all files in: {}".format(arguments.directory))
     benchmark_configurations = [f for f in os.listdir(arguments.directory) if f.endswith('.json')]
     logger.info(benchmark_configurations)
