@@ -58,7 +58,6 @@ def create_mappings(train_path, test_path, word_to_embedding_cache):
     word_frequencies_train = Counter(get_word_frequencies(train_path))
     word_frequencies_test = Counter(get_word_frequencies(test_path))
     word_frequencies = word_frequencies_train + word_frequencies_test
-    # print(word_frequencies)
     word_to_index_mapping = create_word_to_index_mapping(word_frequencies)
     index_to_embedding_maping = create_index_to_embedding_mapping(word_to_index_mapping, word_to_embedding_cache)
     return word_to_index_mapping, index_to_embedding_maping
