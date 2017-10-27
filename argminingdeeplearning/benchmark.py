@@ -69,7 +69,7 @@ def benchmark(subtask, config_parameters):
 
     # Step 4) Save the last model
     model.save(model_save_path + "_last.hdf5")
-    logger.info(model.summary())
+    model.summary()
     # Calculate results for the best and the last model
     saved_models = [{'name': 'best', 'extension': '_best.hdf5'}, {'name': 'last', 'extension': '_last.hdf5'}]
     for saved_model in saved_models:
