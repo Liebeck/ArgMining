@@ -24,15 +24,7 @@ def embedding_cnn(number_of_classes, index_to_embedding_mapping, padding_length,
                                 input_length=padding_length)
     model.add(embedding_layer)
     model.add(Dropout(dropout))
-
-    # we add a Convolution1D, which will learn filters
-    # word group filters of size filter_length:
-    model.add(Conv1D(filters,
-                     kernel_size,
-                     padding='valid',
-                     activation='relu',
-                     strides=1))
-    # we use max pooling:
+    model.add(Conv1D(filters, kernel_size, padding='valid', activation='relu', strides=1))
     model.add(GlobalMaxPooling1D())
     model.add(Dense(number_of_classes))
     model.add(Activation('softmax'))
