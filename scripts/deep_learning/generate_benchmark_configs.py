@@ -2,27 +2,13 @@
 # -*- coding: UTF-8 -*-
 from collections import OrderedDict
 import itertools
-import copy
-
-
-def get_default_template(evaluationID, keras_model_name, embeddings_cache_name=None, batch_size=32, epochs=10):
-    return {"keras_model_name": keras_model_name,
-            "epochs": epochs,
-            "embeddings_cache_name": embeddings_cache_name,
-            "padding_length": 20,
-            "batch_size": batch_size,
-            "evaluation_ID": evaluationID,
-            "keras_model_parameters": {}
-            }
+import json
 
 
 def get_parameter_combinations(dictionary):
     parameter_names = list(dictionary.keys())
-    # print(parameter_names)
     parameter_values = list(dictionary.values())
-    # print(parameter_values)
     unnamed_combinations = list(itertools.product(*parameter_values))
-
     combination_parameters = []
     for combination in unnamed_combinations:
         combination_parameter = {}
@@ -38,20 +24,20 @@ def get_lstm_embedding_empty(offset=1):
                                    ('padding_length', [20]),
                                    ('embeddings_cache_name', [None]),
                                    ('epochs', [10])])
-    meta_parameter_combinations = get_parameter_combinations(meta_parameters)
-    model_parameters = OrderedDict([('max_features', [7000]),
+    model_parameters = OrderedDict([('max_features', [7335]),
                                     ('embedding_size', [128, 300]),
                                     ('dropout', [0.2, 0.4])])
-    model_parameter_combinations = get_parameter_combinations(model_parameters)
-    parameters = combine_parameters(offset, meta_parameter_combinations, model_parameter_combinations)
+    parameters = combine_parameters(offset, meta_parameters, model_parameters)
     return parameters
 
 
-def combine_parameters(offset, meta_parameters_combinations, model_parameter_combinations):
+def combine_parameters(offset, meta_parameters, model_parameters):
+    meta_parameter_combinations = get_parameter_combinations(meta_parameters)
+    model_parameter_combinations = get_parameter_combinations(model_parameters)
     parameters = []
-    print('Combining {} meta parameters with {} model parameters'.format(len(meta_parameters_combinations),
+    print('Combining {} meta parameters with {} model parameters'.format(len(meta_parameter_combinations),
                                                                          len(model_parameter_combinations)))
-    for meta_parameters in meta_parameters_combinations:
+    for meta_parameters in meta_parameter_combinations:
         for model_parameters in model_parameter_combinations:
             parameters_iteration = {}
             parameters_iteration.update(meta_parameters)
@@ -59,15 +45,16 @@ def combine_parameters(offset, meta_parameters_combinations, model_parameter_com
             offset = offset + 1
             parameters_iteration['keras_model_parameters'] = model_parameters
             parameters.append(parameters_iteration)
-    print('Returning {} combinations'.format(len(parameters)))
     return parameters
 
 
 
 if __name__ == '__main__':
     configs = []
-    configs.append(get_lstm_embedding_empty(offset=1))
-    print(len(configs))
+    configs.extend(get_lstm_embedding_empty(offset=1))
+    base_export_path = 'results/sentence_deeplearning/benchmarks'
     for config in configs:
-        print(config)
-    # todo write all files.
+        export_path = '{}/{}_{:03}.json'.format(base_export_path, config['keras_model_name'], config['evaluation_ID'])
+        with open(export_path, 'w') as outfile:
+            json.dump(config, outfile, indent=2)
+
