@@ -26,12 +26,12 @@ def combine_parameters(offset, meta_parameters, model_parameters):
                                                                          len(model_parameter_combinations)))
     for meta_parameters in meta_parameter_combinations:
         for model_parameters in model_parameter_combinations:
-            parameters_iteration = {}
+            parameters_iteration = OrderedDict()
             parameters_iteration.update(meta_parameters)
             parameters_iteration['evaluation_ID'] = offset
             offset = offset + 1
             parameters_iteration['keras_model_parameters'] = model_parameters
-            parameters.append(OrderedDict(parameters_iteration))
+            parameters.append(parameters_iteration)
     return parameters
 
 
