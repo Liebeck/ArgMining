@@ -75,9 +75,6 @@ def blstm(number_of_classes, index_to_embedding_mapping, padding_length, lstm_si
                                 weights=[embedding_matrix],
                                 input_length=padding_length)
     model.add(embedding_layer)
-    # model.add(Bidirectional(LSTM(128, dropout=0.5, return_sequences=True)))
-    # model.add(Bidirectional(LSTM(64, dropout=0.5)))
-    # model.add(Bidirectional(LSTM(128, dropout=0.8, return_sequences=True)))
     model.add(Bidirectional(LSTM(lstm_size_layer1, dropout=dropout, return_sequences=True)))
     model.add(Bidirectional(LSTM(lstm_size_layer2, dropout=dropout)))
     model.add(Dense(number_of_classes))
