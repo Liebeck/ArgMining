@@ -2,6 +2,7 @@ import logging
 import json
 from collections import OrderedDict
 import numpy as np
+from collections import Counter
 
 logger = logging.getLogger()
 
@@ -53,8 +54,11 @@ def create_index_to_embedding_mapping(word_to_index_mapping, word_to_embedding_c
     return index_to_embedding_mapping
 
 
-def create_mappings(file_path, word_to_embedding_cache):
-    word_frequencies = get_word_frequencies(file_path)
+def create_mappings(train_path, test_path, word_to_embedding_cache):
+    word_frequencies_train = Counter(get_word_frequencies(train_path))
+    word_frequencies_test = Counter(get_word_frequencies(test_path))
+    word_frequencies = word_frequencies_train + word_frequencies_test
+    # print(word_frequencies)
     word_to_index_mapping = create_word_to_index_mapping(word_frequencies)
     index_to_embedding_maping = create_index_to_embedding_mapping(word_to_index_mapping, word_to_embedding_cache)
     return word_to_index_mapping, index_to_embedding_maping

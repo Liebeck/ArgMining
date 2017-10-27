@@ -50,7 +50,10 @@ if __name__ == '__main__':
         embedding_cache = pickle.load(open(embedding_cache_path, "rb"))
         logger.info('Embedding cache loaded')
     logger.debug('Create mapping')
-    word_to_index_mapping, index_to_embedding_mapping = vocabulary_builder.create_mappings(train_path, embedding_cache)
+    word_to_index_mapping, index_to_embedding_mapping = vocabulary_builder.create_mappings(train_path=train_path,
+                                                                                           test_path=test_path,
+                                                                                           word_to_embedding_cache=embedding_cache)
+    logger.info('The embedding layer has {} entries'.format(len(word_to_index_mapping)))
     logger.debug('Loading train and test set')
     X_train, Y_train, train_unique_ids, Y_train_indices = load_dataset(train_path, word_to_index_mapping,
                                                                        arguments.subtask,

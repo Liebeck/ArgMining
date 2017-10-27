@@ -29,7 +29,10 @@ def benchmark(subtask, config_parameters):
         embedding_cache = pickle.load(open(embedding_cache_path, "rb"))
         logger.info('Embedding cache loaded')
     logger.debug('Create mapping')
-    word_to_index_mapping, index_to_embedding_mapping = vocabulary_builder.create_mappings(train_path, embedding_cache)
+    word_to_index_mapping, index_to_embedding_mapping = vocabulary_builder.create_mappings(train_path=train_path,
+                                                                                           test_path=test_path,
+                                                                                           word_to_embedding_cache=embedding_cache)
+    logger.info('The embedding layer has {} entries'.format(len(word_to_index_mapping)))
     logger.debug('Loading train and test set')
     X_train, Y_train, train_unique_ids, Y_train_indices = load_dataset(train_path, word_to_index_mapping,
                                                                        subtask,
@@ -50,7 +53,8 @@ def benchmark(subtask, config_parameters):
     current_time = time.strftime('%Y%m%d_%H%M%S')
     model_save_path = 'results/sentence_deeplearning/temp/{}_{}_{}_{}'.format(subtask,
                                                                               config_parameters['keras_model_name'],
-                                                                              '{:03}'.format(config_parameters['evaluation_ID']),
+                                                                              '{:03}'.format(
+                                                                                  config_parameters['evaluation_ID']),
                                                                               current_time)
     checkpoint_save_path = model_save_path + "_best.hdf5"
     checkpoint = ModelCheckpoint(checkpoint_save_path,
@@ -89,8 +93,10 @@ def benchmark(subtask, config_parameters):
         logger.info(ConfusionMatrix(Y_test_indices, y_prediction_classes))
 
         output_path_base = 'results/sentence_deeplearning/temp/{}_{}_{}_{}_{}'.format(subtask,
-                                                                                      config_parameters['keras_model_name'],
-                                                                                      '{:03}'.format(config_parameters['evaluation_ID']),
+                                                                                      config_parameters[
+                                                                                          'keras_model_name'],
+                                                                                      '{:03}'.format(config_parameters[
+                                                                                                         'evaluation_ID']),
                                                                                       current_time,
                                                                                       saved_model['name'])
 
