@@ -5,6 +5,7 @@ import logging
 import time
 import numpy as np
 from argminingdeeplearning.keras_models import lstm
+from argminingdeeplearning.keras_models import cnn
 from pandas_confusion import ConfusionMatrix
 from sklearn.metrics import f1_score
 from keras.callbacks import ModelCheckpoint
@@ -72,7 +73,9 @@ if __name__ == '__main__':
     # input_length=arguments.padding_length)
     # model = lstm.lstm_embedding_pretrained_test(number_of_classes, index_to_embedding_mapping,
     # input_length=arguments.padding_length)
-    model = lstm.blstm(number_of_classes, index_to_embedding_mapping, input_length=arguments.padding_length)
+    # model = lstm.blstm(number_of_classes, index_to_embedding_mapping, input_length=arguments.padding_length)
+    model = cnn.embedding_cnn(number_of_classes, index_to_embedding_mapping, padding_length=arguments.padding_length,
+                              dropout=0.4)
 
     # Step 3) Train the model
     logger.info('Train...')
