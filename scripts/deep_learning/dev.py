@@ -74,8 +74,11 @@ if __name__ == '__main__':
     # model = lstm.lstm_embedding_pretrained_test(number_of_classes, index_to_embedding_mapping,
     # input_length=arguments.padding_length)
     # model = lstm.blstm(number_of_classes, index_to_embedding_mapping, input_length=arguments.padding_length)
-    model = cnn.embedding_cnn(number_of_classes, index_to_embedding_mapping, padding_length=arguments.padding_length,
-                              dropout=0.4)
+    # model = cnn.embedding_cnn(number_of_classes, index_to_embedding_mapping, padding_length=arguments.padding_length,
+                              # dropout=0.4, filters=100, kernel_size=5)
+    model = cnn.embedding_cnn_lstm(number_of_classes, index_to_embedding_mapping, padding_length=arguments.padding_length,
+                                   dropout=0.4, filters=250)
+
 
     # Step 3) Train the model
     logger.info('Train...')
