@@ -28,8 +28,11 @@ if __name__ == '__main__':
     logger.info("Running benchmarks for all files in: {}".format(arguments.directory))
     benchmark_configurations = [f for f in os.listdir(arguments.directory) if f.endswith('.json')]
     logger.info(benchmark_configurations)
-    for benchmark_configuration in benchmark_configurations:
-        logger.info('Processing: {}'.format(benchmark_configuration))
+    current_iteration = 1
+    for current_iteration in range(len(benchmark_configurations)):
+        benchmark_configuration = benchmark_configurations[current_iteration]
+        logger.info('Processing {}/{}: {}'.format(current_iteration + 1, len(benchmark_configurations),
+                                                  benchmark_configuration))
         path = arguments.directory + benchmark_configuration
         with open(path) as data_file:
             config_parameters = json.load(data_file)
