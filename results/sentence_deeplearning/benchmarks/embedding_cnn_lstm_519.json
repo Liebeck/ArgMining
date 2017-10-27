@@ -1,16 +1,16 @@
 {
-  "epochs": 10,
-  "embeddings_cache_name": "word2vec_wiki_de_20170501_300-reduced-both",
-  "padding_length": 20,
-  "keras_model_name": "embedding_cnn_lstm",
   "batch_size": 32,
+  "embeddings_cache_name": "word2vec_wiki_de_20170501_300-reduced-both",
+  "keras_model_name": "embedding_cnn_lstm",
+  "epochs": 10,
+  "padding_length": 20,
+  "evaluation_ID": 519,
   "keras_model_parameters": {
+    "lstm_size_layer": 70,
+    "dropout": 0.9,
     "pool_size": 4,
     "padding_length": 20,
-    "dropout": 0.9,
-    "lstm_size_layer": 70,
     "kernel_size": 3,
     "filters": 175
-  },
-  "evaluation_ID": 519
+  }
 }

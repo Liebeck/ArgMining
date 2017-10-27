@@ -1,14 +1,14 @@
 {
-  "epochs": 20,
-  "embeddings_cache_name": "word2vec_wiki_de_20170501_300-reduced-both",
-  "padding_length": 20,
-  "keras_model_name": "embedding_cnn",
   "batch_size": 32,
+  "embeddings_cache_name": "word2vec_wiki_de_20170501_300-reduced-both",
+  "keras_model_name": "embedding_cnn",
+  "epochs": 20,
+  "padding_length": 20,
+  "evaluation_ID": 440,
   "keras_model_parameters": {
-    "dropout": 0.2,
     "padding_length": 20,
     "kernel_size": 3,
-    "filters": 175
-  },
-  "evaluation_ID": 440
+    "filters": 175,
+    "dropout": 0.2
+  }
 }
