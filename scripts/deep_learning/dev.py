@@ -109,7 +109,7 @@ if __name__ == '__main__':
     # Step 7) Print results to the file system
     utils.write_prediction_file(path=output_path_base + '.predictions', test_unique_ids=test_unique_ids,
                                 Y_test_indices=Y_test_indices, y_prediction_classes=y_prediction_classes)
-    utils.write_score_file(score_file=output_path_base + '.score', f1_mean=f1_mean, f1=f1,
+    utils.write_score_file(score_file=output_path_base + '.score', f1_mean=f1_mean, f1=f1, model=model,
                            Y_test_indices=Y_test_indices, y_prediction_classes=y_prediction_classes)
 
     print("Total execution time in %0.3fs" % (time.time() - t0))
