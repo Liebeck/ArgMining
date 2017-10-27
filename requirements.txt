@@ -2,4 +2,5 @@ pytest==2.9.0
 pytest-pep8
 gensim==2.3.0
 spacy==1.8.2
+h5py
 iwnlp
