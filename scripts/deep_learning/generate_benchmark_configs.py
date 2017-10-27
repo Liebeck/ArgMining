@@ -20,7 +20,7 @@ def get_parameter_combinations(dictionary):
 
 def get_lstm_embedding_empty(offset):
     meta_parameters = OrderedDict([('keras_model_name', ['lstm-embedding-empty']),
-                                   ('batch_size', [8, 32]),
+                                   ('batch_size', [32]),
                                    ('padding_length', [20]),
                                    ('embeddings_cache_name', [None]),
                                    ('epochs', [10])])
@@ -32,7 +32,7 @@ def get_lstm_embedding_empty(offset):
 
 def get_lstm_embedding_pretrained(offset):
     meta_parameters = OrderedDict([('keras_model_name', ['lstm-embedding-pretrained']),
-                                   ('batch_size', [16, 32]),
+                                   ('batch_size', [32]),
                                    ('padding_length', [20]),
                                    ('embeddings_cache_name', ['word2vec_wiki_de_20170501_300-reduced-both']),
                                    ('epochs', [10, 20])])
@@ -60,6 +60,21 @@ def combine_parameters(offset, meta_parameters, model_parameters):
     return parameters
 
 
+def generate_execution_script(configs):
+    with open('scripts/deep_learning/all_benchmarks.sh', 'w') as outfile:
+        outfile.write("# !/usr/bin/env bash\n")
+        outfile.write("export PYTHONPATH=$PYTHONPATH:/home/matthias/Documents/ArgMining\n\n")
+        for config in configs:
+            for subtask in ['A', 'B']:
+                configpath = 'results/sentence_deeplearning/benchmarks/{}_{:03}.json'.format(config['keras_model_name'],
+                                                                                             config['evaluation_ID'])
+                outfile.write('python3 scripts/deep_learning/run_single_benchmark.py -subtask {} -configpath {}\n'.format(subtask,
+                                                                                                                        configpath))
+
+
+
+
+
 
 if __name__ == '__main__':
     configs = []
@@ -70,4 +85,5 @@ if __name__ == '__main__':
         export_path = '{}/{}_{:03}.json'.format(base_export_path, config['keras_model_name'], config['evaluation_ID'])
         with open(export_path, 'w') as outfile:
             json.dump(config, outfile, indent=2)
+    generate_execution_script(configs)
 
