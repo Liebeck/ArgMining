@@ -1,0 +1,12 @@
+Subtask: A, Model: lstm-embedding-empty, Type: last=64.95
+Subtask: B, Model: lstm-embedding-empty, Type: last=64.68
+Subtask: A, Model: lstm-embedding-pretrained, Type: last=68.51
+Subtask: B, Model: lstm-embedding-pretrained, Type: last=63.77
+Subtask: A, Model: lstm-stacked, Type: last=67.73
+Subtask: B, Model: lstm-stacked, Type: last=64.20
+Subtask: A, Model: blstm, Type: last=67.61
+Subtask: B, Model: blstm, Type: last=66.18
+Subtask: A, Model: embedding_cnn, Type: last=67.54
+Subtask: B, Model: embedding_cnn, Type: last=68.59
+Subtask: A, Model: embedding_cnn_lstm, Type: last=66.03
+Subtask: B, Model: embedding_cnn_lstm, Type: last=65.91
