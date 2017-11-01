@@ -1,2 +1,3 @@
 data/* linguist-vendored
 results/* linguist-vendored
+*.job linguist-vendored
