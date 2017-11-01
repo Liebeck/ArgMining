@@ -56,7 +56,8 @@ if __name__ == '__main__':
     subtasks = ['A', 'B']
     keras_models = ['lstm-embedding-empty', 'lstm-embedding-pretrained', 'lstm-stacked', 'blstm', 'embedding_cnn',
                     'embedding_cnn_lstm']
-    types = ['last', 'best']
+    # types = ['last', 'best']
+    types = ['last']
     for keras_model in keras_models:
         for subtask in subtasks:
             for type in types:
