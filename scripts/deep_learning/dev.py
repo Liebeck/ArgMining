@@ -29,8 +29,6 @@ def config_argparser():
     argparser.add_argument('-batch_size', type=int, default=32)
     argparser.add_argument('-epochs', type=int, default=5)
     argparser.add_argument('-embedding_cache_name', type=str, default=None)
-    # argparser.add_argument('-hilbert', dest='hilbert', action='store_true')
-    # argparser.set_defaults(hilbert=False)
     return argparser.parse_args()
 
 
@@ -62,11 +60,6 @@ if __name__ == '__main__':
 
     X_test, Y_test, test_unique_ids, Y_test_indices = load_dataset(test_path, word_to_index_mapping, arguments.subtask,
                                                                    arguments.padding_length)
-    # logger.info(X_train)
-    # logger.info(X_train.shape)
-    # logger.info(Y_train)
-    # logger.info(Y_train.shape)
-
     # Step 2) Create model
     # model = lstm.lstm_embedding_empty(number_of_classes)
     # model = lstm.lstm_embedding_pretrained(number_of_classes, index_to_embedding_mapping,
@@ -74,11 +67,9 @@ if __name__ == '__main__':
     # model = lstm.lstm_embedding_pretrained_test(number_of_classes, index_to_embedding_mapping,
     # input_length=arguments.padding_length)
     # model = lstm.blstm(number_of_classes, index_to_embedding_mapping, input_length=arguments.padding_length)
-    # model = cnn.embedding_cnn(number_of_classes, index_to_embedding_mapping, padding_length=arguments.padding_length,
-                              # dropout=0.4, filters=100, kernel_size=5)
+    # model = cnn.embedding_cnn(number_of_classes, index_to_embedding_mapping, padding_length=arguments.padding_length, dropout=0.4, filters=100, kernel_size=5)
     model = cnn.embedding_cnn_lstm(number_of_classes, index_to_embedding_mapping, padding_length=arguments.padding_length,
                                    dropout=0.4, filters=250)
-
 
     # Step 3) Train the model
     logger.info('Train...')

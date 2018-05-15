@@ -35,7 +35,7 @@ def embedding_cnn(number_of_classes, index_to_embedding_mapping, padding_length,
 
 
 def embedding_cnn_lstm(number_of_classes, index_to_embedding_mapping, padding_length,
-                  kernel_size=3, dropout=0.2, filters=250, pool_size=4, lstm_size_layer=70):
+                       kernel_size=3, dropout=0.2, filters=250, pool_size=4, lstm_size_layer=70):
     embedding_dimension = len(index_to_embedding_mapping[0])
     number_of_words = len(index_to_embedding_mapping.keys())
     embedding_matrix = np.zeros((number_of_words, embedding_dimension))
@@ -57,4 +57,3 @@ def embedding_cnn_lstm(number_of_classes, index_to_embedding_mapping, padding_le
                   optimizer='adam',
                   metrics=['accuracy'])
     return model
-

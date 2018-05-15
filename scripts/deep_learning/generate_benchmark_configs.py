@@ -73,6 +73,7 @@ def get_lstm_embedding_pretrained(offset):
     parameters = combine_parameters(offset, meta_parameters, model_parameters)
     return parameters
 
+
 def get_lstm_stacked(offset, keras_model_name='lstm-stacked'):
     meta_parameters = OrderedDict([('keras_model_name', [keras_model_name]),
                                    ('batch_size', [32]),
