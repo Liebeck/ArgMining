@@ -2,10 +2,10 @@
 [![license](https://img.shields.io/github/license/mashape/apistatus.svg?maxAge=2592000)](https://github.com/Liebeck/ArgMining/blob/master/LICENSE.md)  
 This machine learning project contains the latest code version for the Argument Mining tasks researched by Matthias Liebeck as part of his PhD thesis.
 
-``` bash
-The code of this project is archived to reflect the state of the PhD submission.
-Further development and refactoring can be found [here](https://github.com/Liebeck/textclassification).
-```
+
+<div style="background-color: #f6f8fa; text-align:center; vertical-align: middle; padding:40px 0;">
+The code of this project is archived to reflect the state of the PhD submission. Further development and refactoring can be found <a href"https://github.com/Liebeck/textclassification">here</a>.
+</div>
 
 
 ## Requirements
